@@ -1,0 +1,6 @@
+click
+dacite
+jinja2
+pyyaml
+dataclasses-json
+dataclasses-jsonschema
