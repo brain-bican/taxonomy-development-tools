@@ -47,6 +47,9 @@ class TaxonomyProject(JsonSchemaMixin):
     license: str = "https://creativecommons.org/licenses/unspecified"
     """Which license is taxonomy supplied under - must be an IRI."""
 
+    export_project_yaml: bool = False
+    """Flag to set if you want a full project.yaml to be exported, including all the default options."""
+
     description: str = "None"
     """Provide a short description of the taxonomy"""
 
@@ -127,12 +130,19 @@ def save_project_yaml(project: TaxonomyProject, path: str):
         f.write(yaml.dump(json_obj, default_flow_style=False))
 
 
+## ========================================
+## Command Line Wrapper
+## ========================================
+## this could potentially be moved to a separate file
+## somewhat convenient to lump for now
+
+
 @click.group()
 def cli():
     pass
 
 
-@click.command()
+@cli.command()
 @click.option('-C', '--config',       type=click.Path(exists=True),
               help="""
               path to a YAML configuration.
@@ -169,7 +179,7 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     if project.id is None or project.id == "":
         project.id = repo
     if outdir is None:
-        outdir = "target/{}".format(project.id)
+        outdir = "target/{}".format(project.repo)
     if clean:
         if os.path.exists(outdir):
             shutil.rmtree(outdir)
@@ -179,13 +189,20 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     if project.export_project_yaml:
         save_project_yaml(project, tgt_project_file)
         tgts.append(tgt_project_file)
-    odk_config_file = "{}/src/ontology/{}-odk.yaml".format(outdir, project.id)
-    tgts.append(odk_config_file)
+    tdt_config_file = "{}/{}_project_config.yaml".format(outdir, project.id)
+    tgts.append(tdt_config_file)
     if config is not None:
-        copy(config, odk_config_file)
+        copy(config, tdt_config_file)
     else:
-        save_project_yaml(project, odk_config_file)
+        save_project_yaml(project, tdt_config_file)
     logging.info("Created files:")
+
+    # create folder structure
+    os.makedirs(outdir + "/input_data", exist_ok=True)
+    os.makedirs(outdir + "/curation_tables", exist_ok=True)
+    os.makedirs(outdir + "/purl", exist_ok=True)
+    with open("{}/{}.json".format(outdir, project.id), "w") as f:
+        f.write("{}")
     for tgt in tgts:
         logging.info("  File: {}".format(tgt))
     if not skipgit:
