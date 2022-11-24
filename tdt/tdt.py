@@ -197,12 +197,15 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
         save_project_yaml(project, tdt_config_file)
     logging.info("Created files:")
 
-    # create folder structure
-    os.makedirs(outdir + "/input_data", exist_ok=True)
-    os.makedirs(outdir + "/curation_tables", exist_ok=True)
-    os.makedirs(outdir + "/purl", exist_ok=True)
-    with open("{}/{}.json".format(outdir, project.id), "w") as f:
-        f.write("{}")
+    create_folder(outdir, "input_data", tgts, "Input Files", "Taxonomy data files.")
+    create_folder(outdir, "curation_tables", tgts, "Curation Tables", "CCN2 taxonomy curation tables.")
+    create_folder(outdir, "purl", tgts, "PURL Configuration", "BICAN Permanent URLs sample configuration file. "
+                                                              "Please make a pull request to place this file in [BICAN PURLs taxonomy configuration folder]"
+                                                              "(https://github.com/hkir-dev/purl.bican.org/tree/main/config/taxonomy).")
+    create_purl_config(outdir, project, tgts)
+    create_readme(outdir, project, tgts)
+    create_output_file(outdir, project, tgts)
+
     for tgt in tgts:
         logging.info("  File: {}".format(tgt))
     if not skipgit:
@@ -215,9 +218,8 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
         runcmd("cd {dir} && git init && git add {files}".
                format(dir=outdir,
                       files=" ".join([t.replace(outdir, ".", 1) for t in tgts])))
-        # runcmd(
-        #     "cd {dir}/src/ontology && make && git commit -m 'initial commit' -a && git branch -M {branch} && make prepare_initial_release && git commit -m 'first release'".format(
-        #         dir=outdir, branch=project.git_main_branch))
+        runcmd("cd {dir} && git branch -M {branch} && git commit -m 'first release'".format(
+            dir=outdir, branch=project.git_main_branch))
         print("\n\n####\nNEXT STEPS:")
         print(" 0. Examine {} and check it meets your expectations. If not blow it away and start again".format(outdir))
         print(" 1. Go to: https://github.com/new")
@@ -229,7 +231,7 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
         print("    E.g.:")
         print("cd {}".format(outdir))
         print(
-            "git remote add origin git\@github.com:{org}/{repo}.git".format(org=project.github_org, repo=project.repo))
+            "git remote add origin https://github.com/{org}/{repo}.git".format(org=project.github_org, repo=project.repo))
         print("git branch -M {branch}\n".format(branch=project.git_main_branch))
         print("git push -u origin {branch}\n".format(branch=project.git_main_branch))
         print("BE BOLD: you can always delete your repo and start again\n")
@@ -240,6 +242,56 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
         #     org=project.github_org, repo=project.repo))
     else:
         print("Repository files have been successfully copied, but no git commands have been run.")
+
+
+def create_output_file(outdir, project, tgts):
+    output_file = "{}/{}.json".format(outdir, project.id)
+    with open(output_file, "w") as f:
+        f.write("{}")
+    tgts.append(output_file)
+
+
+def create_readme(outdir, project, tgts):
+    readme_file = "{}/README.md".format(outdir)
+    with open(readme_file, "w") as f:
+        f.write("# {0}({1})\n\n{0}.".format(project.title, project.id))
+    tgts.append(readme_file)
+
+
+def create_purl_config(outdir, project, tgts):
+    purl_config = "{}/purl/{}.yml".format(outdir, project.id)
+    with open(purl_config, "w") as f:
+        lines = list()
+        lines.append("# PURL configuration for http://purl.bican.org/taxonomy/{}".format(project.id))
+        lines.append("")
+        lines.append("idspace: {}".format(project.id))
+        lines.append("base_url: /taxonomy/{}".format(project.id))
+        lines.append("")
+        lines.append("products:")
+        lines.append(
+            "- {id}.json: https://raw.githubusercontent.com/{org}/{repo}/main/{id}.json".format(org=project.github_org,
+                                                                                                repo=project.repo,
+                                                                                                id=project.id))
+        lines.append("")
+        lines.append("base_redirect: https://github.com/{org}/{repo}".format(org=project.github_org, repo=project.repo, ))
+        lines.append("")
+        lines.append("entries:")
+        lines.append("")
+        lines.append("# http://purl.bican.org/taxonomy/{id}/{id}.json".format(id=project.id))
+        lines.append("- exact: /{id}.json".format(id=project.id))
+        lines.append("  replacement: https://raw.githubusercontent.com/{org}/{repo}/main/{id}.json".format(
+            org=project.github_org, repo=project.repo, id=project.id))
+        f.writelines(i + '\n' for i in lines)
+    tgts.append(purl_config)
+
+
+def create_folder(outdir, folder_name,  tgts, title=None, description=None):
+    os.makedirs(outdir + "/" + folder_name, exist_ok=True)
+    if title and description:
+        readme = outdir + "/" + folder_name + "/README.md"
+        with open(readme, "w") as f:
+            f.write("# {}\n\n{}".format(title, description))
+        tgts.append(readme)
 
 
 def runcmd(cmd):
