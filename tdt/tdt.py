@@ -53,8 +53,16 @@ class TaxonomyProject(JsonSchemaMixin):
     description: str = "None"
     """Provide a short description of the taxonomy"""
 
-    contact: Optional[Person] = None
+    author: Optional[Person] = None
     """Single contact for taxonomy as required by BICAN"""
+
+    creators: Optional[List[Person]] = None
+    """List of ontology creators (currently setting this has no effect)"""
+
+    citation: str = None
+    """The citation or permanent data identifier corresponding to the taxonomy 
+    (or '' if there is no associated citation). Ideally the DOI for the publication will be used, or alternatively some 
+    other permanent link."""
 
 
 @dataclass
@@ -253,8 +261,12 @@ def create_output_file(outdir, project, tgts):
 
 def create_readme(outdir, project, tgts):
     readme_file = "{}/README.md".format(outdir)
+    if project.description:
+        desc = project.description
+    else:
+        desc = project.title
     with open(readme_file, "w") as f:
-        f.write("# {0}({1})\n\n{0}.".format(project.title, project.id))
+        f.write("# {0}({1})\n\n{2}.".format(project.title, project.id, desc))
     tgts.append(readme_file)
 
 
