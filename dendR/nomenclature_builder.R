@@ -30,7 +30,8 @@ generate_ccn2_curation_tables <- function(taxonomy_id, nomenclature, output_fold
                          "synonyms" = synonyms,
                          "synonym_provenance" = "",
                          "description" = "",
-                         "classifying ontology_term_name" = "",
+                         "classifying_ontology_term_id" = "",
+                         "classifying_ontology_term_name" = "",
                          "classification_provenance" = "",
                          "classification_comment" = "",
                          "rank" = ""
