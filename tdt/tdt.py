@@ -5,6 +5,8 @@ import click
 import yaml
 import json
 import subprocess
+
+from click._termui_impl import open_url
 from jinja2 import Template
 from dataclasses import dataclass, field
 from dataclasses_jsonschema import JsonSchemaMixin
@@ -215,6 +217,7 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_purl_config(outdir, project, tgts)
     create_readme(outdir, project, tgts)
     create_output_file(outdir, project, tgts)
+    create_run_script(outdir, tgts)
 
     for tgt in tgts:
         logging.info("  File: {}".format(tgt))
@@ -252,6 +255,13 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
         #     org=project.github_org, repo=project.repo))
     else:
         print("Repository files have been successfully copied, but no git commands have been run.")
+
+
+def create_run_script(outdir, tgts):
+    run_script_source = "scripts/run.sh"
+    run_script_target = "{}/run.sh".format(outdir)
+    tgts.append(run_script_target)
+    copy(run_script_source, run_script_target)
 
 
 def create_output_file(outdir, project, tgts):

@@ -17,10 +17,17 @@ generate_ccn2_curation_tables <- function(taxonomy_id, nomenclature, output_fold
                      )
     write.table(taxonomy_metadata_table, file=paste0(output_folder, taxonomy_id, "_taxonomy.tsv"), quote=FALSE, sep='\t', row.names=FALSE)
 
+    accession_ids = nomenclature[["cell_set_accession"]]
+    synonyms <- vector(length=length(accession_ids))
+    for (i in 1:length(accession_ids)) {
+        x <- c(nomenclature[["cell_set_preferred_alias"]][i], nomenclature[["cell_set_aligned_alias"]][i], nomenclature[["cell_set_additional_aliases"]][i])
+        x <- x[x != ""]
+        synonyms[i] <- paste(x[!duplicated(x)], collapse="|")
+    }
     taxonomy_table <- data.frame("cell_set_accession" = nomenclature[["cell_set_accession"]],
                          "cell_type_name" = nomenclature[["cell_set_preferred_alias"]],
                          "parent_cell_set_accession" = "", # TODO add logic
-                         "synonyms" = "", # |.join 'cell_set_preferred_alias', 'cell_set_aligned_alias', 'cell_set_additional_aliases'
+                         "synonyms" = synonyms,
                          "synonym_provenance" = "",
                          "description" = "",
                          "classifying ontology_term_name" = "",
@@ -65,8 +72,8 @@ get_input_file <- function(input_folder, file_extension, file_type){
 
 
 build_nomenclature_tables <- function() {
-    # work_folder <- getwd()
-    work_folder <- "/home/huseyin/Downloads/dendR_experiments/target/human_m1"
+    work_folder <- getwd()
+#     work_folder <- "/home/huseyin/Downloads/dendR_experiments/target/human_m1"
     print(paste0("R script work folder:", work_folder))
     if(!endsWith(work_folder, "/")){
         work_folder <- paste0(work_folder,"/")
