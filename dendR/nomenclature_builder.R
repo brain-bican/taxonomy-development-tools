@@ -73,6 +73,7 @@ get_input_file <- function(input_folder, file_extension, file_type){
 
 build_nomenclature_tables <- function() {
     work_folder <- getwd()
+    print(work_folder)
 #     work_folder <- "/home/huseyin/Downloads/dendR_experiments/target/human_m1"
     print(paste0("R script work folder:", work_folder))
     if(!endsWith(work_folder, "/")){
@@ -95,7 +96,7 @@ build_nomenclature_tables <- function() {
       library(jsonlite)
     })
 
-    source("dendR/required_scripts.R")  # Additional required files
+    source("/tools/dendR/required_scripts.R")  # Additional required files
     options(stringsAsFactors = FALSE)
 
     # TODO read from config file

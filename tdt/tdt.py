@@ -18,6 +18,8 @@ from shutil import copy, copymode
 import logging
 
 
+# see Dockerfile
+WORKSPACE = "/tools"
 # Primitive Types
 TaxonomyId = str ## CCNxxxx
 Person = str ## ORCID or github handle
@@ -218,6 +220,7 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_readme(outdir, project, tgts)
     create_output_file(outdir, project, tgts)
     create_run_script(outdir, tgts)
+    create_makefile(outdir, tgts)
 
     for tgt in tgts:
         logging.info("  File: {}".format(tgt))
@@ -257,8 +260,15 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
         print("Repository files have been successfully copied, but no git commands have been run.")
 
 
+def create_makefile(outdir, tgts):
+    mf_source = WORKSPACE + "/Makefile"
+    mf_target = "{}/Makefile".format(outdir)
+    tgts.append(mf_target)
+    copy(mf_source, mf_target)
+
+
 def create_run_script(outdir, tgts):
-    run_script_source = "scripts/run.sh"
+    run_script_source = WORKSPACE + "/scripts/run.sh"
     run_script_target = "{}/run.sh".format(outdir)
     tgts.append(run_script_target)
     copy(run_script_source, run_script_target)

@@ -21,4 +21,4 @@ if [ x$TDT_DEBUG = xyes ]; then
     TIMECMD="/usr/bin/time -f ### DEBUG STATS ###\nElapsed time: %E\nPeak memory: %M kb"
 fi
 
-docker run -v $PWD:/work -w /work --rm -ti brain-bican/$IMAGE:v1.2.32 $TIMECMD "$@"
+docker run --user "$(id -u):$(id -g)" -v $PWD:/work -w /work --rm -ti brain-bican/$IMAGE $TIMECMD "$@"
