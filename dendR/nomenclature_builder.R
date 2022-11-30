@@ -4,6 +4,8 @@
 # - https://github.com/AllenInstitute/nomenclature
 # - http://htmlpreview.github.io/?https://github.com/AllenInstitute/nomenclature/blob/master/scripts/build_annotation_tables_SEAAD.nb.html
 
+# see Dockerfile
+WORKSPACE <- "/tools"
 
 generate_ccn2_curation_tables <- function(taxonomy_id, nomenclature, output_folder){
     taxonomy_metadata_table <- data.frame("taxonomy_id" = c(taxonomy_id),
@@ -97,7 +99,7 @@ build_nomenclature_tables <- function() {
       library(jsonlite)
     })
 
-    source("/tools/dendR/required_scripts.R")  # Additional required files
+    source(paste0(WORKSPACE, "/dendR/required_scripts.R"))  # Additional required files
     options(stringsAsFactors = FALSE)
 
     # TODO read from config file

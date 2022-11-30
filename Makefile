@@ -6,3 +6,6 @@ build_nomenclature_tables:
 
 runR:
 	Rscript dendR/nomenclature_builder.R
+
+
+include ontodev.Makefile

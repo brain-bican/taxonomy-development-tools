@@ -221,6 +221,7 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_output_file(outdir, project, tgts)
     create_run_script(outdir, tgts)
     create_makefile(outdir, tgts)
+    create_ontodev_tables(outdir, project, tgts)
 
     for tgt in tgts:
         logging.info("  File: {}".format(tgt))
@@ -260,11 +261,64 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
         print("Repository files have been successfully copied, but no git commands have been run.")
 
 
+def create_ontodev_tables(outdir, project, tgts):
+    table_source = WORKSPACE + "/resources/table.tsv"
+    with open(table_source, "r") as f:
+        content = f.read()
+    content = content.replace("{taxonomy_id}", project.id)
+    table_target = "{}/curation_tables/table.tsv".format(outdir)
+    with open(table_target, "w") as f:
+        f.write(content)
+    tgts.append(table_target)
+
+    table_source = WORKSPACE + "/resources/column.tsv"
+    with open(table_source, "r") as f:
+        content = f.read()
+    content = content.replace("{taxonomy_id}", project.id)
+    table_target = "{}/curation_tables/column.tsv".format(outdir)
+    with open(table_target, "w") as f:
+        f.write(content)
+    tgts.append(table_target)
+
+    file_target = "{}/curation_tables/datatype.tsv".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/resources/datatype.tsv", file_target)
+
+    file_target = "{}/curation_tables/prefix.tsv".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/resources/prefix.tsv", file_target)
+
+    file_target = "{}/curation_tables/import.tsv".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/resources/import.tsv", file_target)
+
+    file_target = "{}/curation_tables/import_config.tsv".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/resources/import_config.tsv", file_target)
+
+    file_target = "{}/curation_tables/assay.tsv".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/resources/assay.tsv", file_target)
+
+    file_target = "{}/curation_tables/strain.tsv".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/resources/strain.tsv", file_target)
+
+    file_target = "{}/curation_tables/{}_config.tsv".format(outdir, project.id)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/resources/taxonomy_config.tsv", file_target)
+
+
 def create_makefile(outdir, tgts):
     mf_source = WORKSPACE + "/Makefile"
     mf_target = "{}/Makefile".format(outdir)
     tgts.append(mf_target)
     copy(mf_source, mf_target)
+
+    mf_ontodev_source = WORKSPACE + "/ontodev.Makefile"
+    mf_ontodev_target = "{}/ontodev.Makefile".format(outdir)
+    tgts.append(mf_ontodev_target)
+    copy(mf_ontodev_source, mf_ontodev_target)
 
 
 def create_run_script(outdir, tgts):

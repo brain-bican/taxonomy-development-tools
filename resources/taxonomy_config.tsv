@@ -1,0 +1,3 @@
+Source	IRI	Intermediates	Predicates
+pato	https://raw.githubusercontent.com/obophenotype/brain_data_standards_ontologies/master/src/ontology/imports/pato_import.owl	all	oio:hasExactSynonym rdfs:label
+cl	https://raw.githubusercontent.com/obophenotype/brain_data_standards_ontologies/master/src/ontology/imports/cl_import.owl	all	oio:hasExactSynonym rdfs:label

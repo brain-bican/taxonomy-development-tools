@@ -1,0 +1,5 @@
+Source	ID	Label	Parent ID	Parent Label	Related
+ncbitaxon	NCBITaxon:10090	Mus musculus	NCBITaxon:9989	Rodentia	
+ncbitaxon	NCBITaxon:10116	Rattus norvegicus	NCBITaxon:9989	Rodentia	
+ncbitaxon	NCBITaxon:40674	Mammalia			
+ncbitaxon	NCBITaxon:9989	Rodentia	NCBITaxon:40674	Mammalia	
