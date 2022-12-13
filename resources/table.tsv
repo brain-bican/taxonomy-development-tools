@@ -1,14 +1,14 @@
 table	path	description	type
-table	curation_tables/table.tsv	All of the user-editable tables in this project.	table
-column	curation_tables/column.tsv	Columns for all of the tables.	column
-datatype	curation_tables/datatype.tsv	Datatypes for all of the columns	datatype
-prefix	curation_tables/prefix.tsv		
-import	curation_tables/import.tsv		
-import_config	curation_tables/import_config.tsv		
-assay	curation_tables/assay.tsv		
-strain	curation_tables/strain.tsv		
-{taxonomy_id}	curation_tables/{taxonomy_id}.tsv		
-{taxonomy_id}_config	curation_tables/{taxonomy_id}_config.tsv		
-{taxonomy_id}_taxonomy	curation_tables/{taxonomy_id}_taxonomy.tsv		
-{taxonomy_id}_cross_taxonomy	curation_tables/{taxonomy_id}_cross_taxonomy.tsv		
-{taxonomy_id}_location_mapping	curation_tables/{taxonomy_id}_location_mapping.tsv		
+table	/work/curation_tables/table.tsv	All of the user-editable tables in this project.	table
+column	/work/curation_tables/column.tsv	Columns for all of the tables.	column
+datatype	/work/curation_tables/datatype.tsv	Datatypes for all of the columns	datatype
+prefix	/work/curation_tables/prefix.tsv		
+import	/work/curation_tables/import.tsv		
+import_config	/work/curation_tables/import_config.tsv		
+assay	/work/curation_tables/assay.tsv		
+strain	/work/curation_tables/strain.tsv		
+{taxonomy_id}	/work/curation_tables/{taxonomy_id}.tsv		
+{taxonomy_id}_config	/work/curation_tables/{taxonomy_id}_config.tsv		
+{taxonomy_id}_taxonomy	/work/curation_tables/{taxonomy_id}_taxonomy.tsv		
+{taxonomy_id}_cross_taxonomy	/work/curation_tables/{taxonomy_id}_cross_taxonomy.tsv		
+{taxonomy_id}_location_mapping	/work/curation_tables/{taxonomy_id}_location_mapping.tsv		

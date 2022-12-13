@@ -80,10 +80,10 @@ VALVE := build/valve
 
 ### Databases
 
-TABLES := $(shell cut -f 2 curation_tables/table.tsv | tail -n+2)
+TABLES := $(shell cut -f 2 /work/curation_tables/table.tsv | tail -n+2)
 
 # TODO: Fix the DROP TABLE hack
-build/demo.db: curation_tables/table.tsv $(TABLES) | build/valve
+build/demo.db: /work/curation_tables/table.tsv $(TABLES) | build/valve
 	sqlite3 $@ "DROP TABLE IF EXISTS import;"
 	$(VALVE) $< $@ > $(subst .db,.sql,$@)
 
@@ -95,7 +95,13 @@ load_tables: build/demo.db
 build/%.owl.gz: | build
 	curl -Lk "http://purl.obolibrary.org/obo/$*.owl" | gzip > $@
 
-build/imports/%.db: build/%.owl.gz curation_tables/prefix.tsv | build/ldtab.jar build/imports/
+build/uberon.owl.gz: | build
+	curl -Lk "https://raw.githubusercontent.com/obophenotype/brain_data_standards_ontologies/master/src/ontology/imports/uberon_import.owl" | gzip > $@
+
+build/ncbitaxon.owl.gz: | build
+	curl -Lk "https://raw.githubusercontent.com/obophenotype/brain_data_standards_ontologies/master/src/ontology/imports/ncbitaxon_import.owl" | gzip > $@
+
+build/imports/%.db: build/%.owl.gz /work/curation_tables/prefix.tsv | build/ldtab.jar build/imports/
 	rm -rf $@
 	$(LDTAB) init $@
 	sqlite3 $@ "ALTER TABLE statement RENAME TO $*;"
@@ -122,12 +128,12 @@ load_imports: load_cob_import load_obi_import load_uberon_import load_ncbitaxon_
 
 ### Import modules
 
-build/%_imports.ttl: build/demo.db curation_tables/import_config.tsv curation_tables/import.tsv
+build/%_imports.ttl: build/demo.db /work/curation_tables/import_config.tsv /work/curation_tables/import.tsv
 	python3 -m gadget.extract \
 	--database build/demo.db \
 	--statement $* \
-	--config curation_tables/import_config.tsv \
-	--imports curation_tables/import.tsv \
+	--config /work/curation_tables/import_config.tsv \
+	--imports /work/curation_tables/import.tsv \
 	--copy rdfs:label IAO:0000111 \
 	--source $*
 	rm -f $@ && $(LDTAB) export -t extract $< $@
@@ -139,18 +145,18 @@ build/%_imports.owl: build/%_imports.ttl | build/robot.jar
 	--output $@
 
 export_%:
-	python3 -m cmi_pb_script.export data build/demo.db curation_tables/ $(subst -,_,$*)
+	python3 -m cmi_pb_script.export data build/demo.db /work/curation_tables/ $(subst -,_,$*)
 
-build/messages.tsv: curation_tables/ | build
+build/messages.tsv: /work/curation_tables/ | build
 	python3 -m cmi_pb_script.export messages --a1 build/demo.db build assay strain
 
 .PHONY: update_import
 update_import:
-	python3 -m cmi_pb_script.export data build/demo.db curation_tables/ import
-	python3 -m cmi_pb_script.export data build/demo.db curation_tables/ import_config
+	python3 -m cmi_pb_script.export data build/demo.db /work/curation_tables/ import
+	python3 -m cmi_pb_script.export data build/demo.db /work/curation_tables/ import_config
 
 .PHONY: save
-#save: $(foreach t,$(wildcard curation_tables/*),export_$(basename $(notdir $t)))
+#save: $(foreach t,$(wildcard /work/curation_tables/*),export_$(basename $(notdir $t)))
 save: export_table export_column export_import export_assay export_strain
 
 
@@ -166,7 +172,7 @@ pull: | .cogs
 	make build/demo.db
 
 .PHONY: push
-push: curation_tables/ build/messages.tsv | .cogs
+push: /work/curation_tables/ build/messages.tsv | .cogs
 	cogs clear all
 	cogs apply build/messages.tsv
 	cogs push
@@ -186,7 +192,7 @@ demo.xlsx: build/messages.tsv | .axle
 
 ### Ontology
 
-build/strain.tsv: curation_tables/strain.tsv
+build/strain.tsv: /work/curation_tables/strain.tsv
 	echo "ID	Label	Species" > $@
 	echo "ID	LABEL	SC %" >> $@
 	tail -n+2 $< >> $@

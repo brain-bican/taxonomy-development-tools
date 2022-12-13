@@ -95,8 +95,9 @@ RUN pip install dist/wiring_rs-0.1.1-cp36-abi3-manylinux_2_34_x86_64.whl
 
 # install nanobot
 WORKDIR $WORKSPACE
-RUN git clone https://github.com/ontodev/nanobot.git
+RUN git clone https://github.com/hkir-dev/nanobot.git
 WORKDIR $WORKSPACE/nanobot
+RUN git checkout bican
 RUN pip install -e .
 
 # install project Python requirements
