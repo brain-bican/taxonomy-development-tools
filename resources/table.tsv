@@ -5,8 +5,6 @@ datatype	/work/curation_tables/datatype.tsv	Datatypes for all of the columns	dat
 prefix	/work/curation_tables/prefix.tsv		
 import	/work/curation_tables/import.tsv		
 import_config	/work/curation_tables/import_config.tsv		
-assay	/work/curation_tables/assay.tsv		
-strain	/work/curation_tables/strain.tsv		
 {taxonomy_id}	/work/curation_tables/{taxonomy_id}.tsv		
 {taxonomy_id}_config	/work/curation_tables/{taxonomy_id}_config.tsv		
 {taxonomy_id}_taxonomy	/work/curation_tables/{taxonomy_id}_taxonomy.tsv		

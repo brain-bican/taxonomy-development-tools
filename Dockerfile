@@ -61,13 +61,11 @@ ADD scripts/search_view_template.sql $WORKSPACE/scripts
 ADD scripts/upload.py $WORKSPACE/scripts
 
 RUN mkdir $WORKSPACE/resources
-ADD resources/assay.tsv $WORKSPACE/resources
 ADD resources/column.tsv $WORKSPACE/resources
 ADD resources/datatype.tsv $WORKSPACE/resources
 ADD resources/import.tsv $WORKSPACE/resources
 ADD resources/import_config.tsv $WORKSPACE/resources
 ADD resources/prefix.tsv $WORKSPACE/resources
-ADD resources/strain.tsv $WORKSPACE/resources
 ADD resources/table.tsv $WORKSPACE/resources
 ADD resources/taxonomy_config.tsv $WORKSPACE/resources
 

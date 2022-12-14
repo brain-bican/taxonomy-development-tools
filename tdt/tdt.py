@@ -296,14 +296,6 @@ def create_ontodev_tables(outdir, project, tgts):
     tgts.append(file_target)
     copy(WORKSPACE + "/resources/import_config.tsv", file_target)
 
-    file_target = "{}/curation_tables/assay.tsv".format(outdir)
-    tgts.append(file_target)
-    copy(WORKSPACE + "/resources/assay.tsv", file_target)
-
-    file_target = "{}/curation_tables/strain.tsv".format(outdir)
-    tgts.append(file_target)
-    copy(WORKSPACE + "/resources/strain.tsv", file_target)
-
     file_target = "{}/curation_tables/{}_config.tsv".format(outdir, project.id)
     tgts.append(file_target)
     copy(WORKSPACE + "/resources/taxonomy_config.tsv", file_target)

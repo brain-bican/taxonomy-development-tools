@@ -24,12 +24,6 @@ import_config	Source		word	primary
 import_config	IRI		IRI			
 import_config	Intermediates		intermediate_entities			
 import_config	Predicates		trimmed_line			
-assay	ontology ID		OBI_ID			
-assay	label		label	unique		
-assay	parent	empty	label	tree(label)		
-strain	ID		ontology_id	unique		
-strain	label		label			
-strain	species		ontology_label	from(import.Label)		
 {taxonomy_id}	cell_set_accession		word	primary		
 {taxonomy_id}	cell_type_name		ontology_label			
 {taxonomy_id}	parent_cell_set_accession	empty	text			

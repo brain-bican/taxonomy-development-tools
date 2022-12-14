@@ -124,7 +124,8 @@ load_%_import: build/demo.db build/%_search_view.sql | build/imports/%.db build/
 	sqlite3 $< "ANALYZE;"
 
 .PHONY: load_imports
-load_imports: load_cob_import load_obi_import load_uberon_import load_ncbitaxon_import
+load_imports: load_uberon_import
+# load_imports: load_cob_import load_obi_import load_uberon_import load_ncbitaxon_import
 
 ### Import modules
 
@@ -192,30 +193,35 @@ demo.xlsx: build/messages.tsv | .axle
 
 ### Ontology
 
-build/strain.tsv: /work/curation_tables/strain.tsv
-	echo "ID	Label	Species" > $@
-	echo "ID	LABEL	SC %" >> $@
-	tail -n+2 $< >> $@
+# build/strain.tsv: /work/curation_tables/strain.tsv
+# 	echo "ID	Label	Species" > $@
+# 	echo "ID	LABEL	SC %" >> $@
+# 	tail -n+2 $< >> $@
 
-build/demo.owl: build/strain.tsv build/ncbitaxon_imports.owl | build/robot.jar
-	$(ROBOT) merge \
-	--input $(filter %.owl,$^) \
-	template \
-	--prefix "ex: http://example.com/" \
-	--template $< \
-	--merge-before \
-	--output $@
+# build/demo.owl: build/strain.tsv build/ncbitaxon_imports.owl | build/robot.jar
+# 	$(ROBOT) merge \
+# 	--input $(filter %.owl,$^) \
+# 	template \
+# 	--prefix "ex: http://example.com/" \
+# 	--template $< \
+# 	--merge-before \
+# 	--output $@
 
 # Then add OBI using LDTab
-.PHONY: load_ontology
-load_ontology: build/demo.owl build/demo_search_view.sql build/demo.db | build/ldtab.jar
-	sqlite3 build/demo.db "DROP TABLE IF EXISTS demo;"
-	sqlite3 build/demo.db "CREATE TABLE demo (assertion INT NOT NULL, retraction INT NOT NULL DEFAULT 0, graph TEXT NOT NULL, subject TEXT NOT NULL, predicate TEXT NOT NULL, object TEXT NOT NULL, datatype TEXT NOT NULL, annotation TEXT);"
-	$(LDTAB) import --table demo build/demo.db $<
-	sqlite3 build/demo.db < $(word 2,$^)
+# .PHONY: load_ontology
+# load_ontology: build/demo.owl build/demo_search_view.sql build/demo.db | build/ldtab.jar
+# 	sqlite3 build/demo.db "DROP TABLE IF EXISTS demo;"
+# 	sqlite3 build/demo.db "CREATE TABLE demo (assertion INT NOT NULL, retraction INT NOT NULL DEFAULT 0, graph TEXT NOT NULL, subject TEXT NOT NULL, predicate TEXT NOT NULL, object TEXT NOT NULL, datatype TEXT NOT NULL, annotation TEXT);"
+# 	# $(LDTAB) import --table demo build/demo.db $<
+# 	sqlite3 build/demo.db < $(word 2,$^)
+
+.PHONY: load_data
+load_data: build/demo_search_view.sql build/demo.db | build/ldtab.jar
+	echo "Taxonomy data loaded."
 
 .PHONY: load
-load: load_imports load_ontology
+load: load_imports load_data
+# load: load_imports load_ontology
 
 .PHONY: reload
 reload: save load_ontology
