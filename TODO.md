@@ -4,7 +4,7 @@
 - [x] clean nanobot dependencies to speed it up
 - [ ] read variables from config
 - [x] run.sh and run.bat auto generate
-- [ ] mkdocs documentation
+- [x] mkdocs documentation
 - [ ] Config file schema and validation action
 - [ ] validation action auto generate
 - [x] nanobot integration
