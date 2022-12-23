@@ -4,5 +4,5 @@ markdown_extensions:
   - toc:
       permalink: true
 nav:
-  - Getting started: index.rst
+  - Getting started: index.md
 repo_url: https://github.com/INCATools/ontology-development-kit
