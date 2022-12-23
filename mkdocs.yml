@@ -1,8 +1,8 @@
 site_name: Taxonomy Development Tools (TDT)
 theme: readthedocs
-markdown_extensions:
-  - toc:
-      permalink: true
+#markdown_extensions:
+#  - toc:
+#      permalink: true
 nav:
   - Getting started: index.md
-repo_url: https://github.com/INCATools/ontology-development-kit
+repo_url: https://github.com/hkir-dev/taxonomy-development-tools
