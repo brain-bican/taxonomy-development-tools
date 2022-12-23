@@ -10,3 +10,4 @@ graphlib-backport
 openpyxl
 git+https://github.com/ontodev/axle.git
 urlp
+mkdocs
