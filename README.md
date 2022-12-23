@@ -7,7 +7,7 @@ Tools for building and curating [CCN2](https://github.com/obophenotype/CCN2) tax
 - Run interactive editors to curate tables with ontology search and data validation support.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/hkir-dev/taxonomy-development-tools/main/docs/images/nanobot.png" alt="CCN2 Taxonomy Editor" width="600"/>
+    <img src="https://raw.githubusercontent.com/hkir-dev/taxonomy-development-tools/main/docs/images/nanobot.png" alt="CCN2 Taxonomy Editor" width="700"/>
 </p>
 
 # Where to get help
