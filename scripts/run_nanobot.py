@@ -17,7 +17,7 @@ if __name__ == '__main__':
         hide_index=True,
         import_table="import",
         max_children=100,
-        title="OntoDev Demo",
+        title="CCN2 Taxonomy Editor",
         tree_predicates=[
             "rdfs:label",
             "IAO:0000111",
