@@ -5,4 +5,6 @@ theme: readthedocs
 #      permalink: true
 nav:
   - Getting started: index.md
+  - Create a New Repo: NewRepo.md
+  - Start Curating Taxonomies: Curation.md
 repo_url: https://github.com/hkir-dev/taxonomy-development-tools
