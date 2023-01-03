@@ -19,8 +19,8 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 ## 2. Download the wrapper script and pull latest ODK version
 
-- Linux/Mac: [seed-via-docker.sh](https://raw.githubusercontent.com/hkir-dev/taxonomy-development-tools/main/seed-via-docker.sh)
-- PC: [seed-via-docker.bat](https://raw.githubusercontent.com/hkir-dev/taxonomy-development-tools/main/seed-via-docker.bat)
+- Linux/Mac: [seed-via-docker.sh](https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/seed-via-docker.sh)
+- PC: [seed-via-docker.bat](https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/seed-via-docker.bat)
 - Make sure to save the wrapper script in your working directory and that the filetype is correct.
 - You should have git installed - for the repo command to work perfectly, it requires a `.gitconfig` file in your user directory!
 - First, make sure you have Docker running (you will see the Docker whale in your toolbar on a Mac)
@@ -38,13 +38,13 @@ You can pass in a configuration file in YAML format that specifies your taxonomy
 
 ### Unix (Max, Linux)
 
-Using the predefined [CCN202204130_project_config.yaml](https://raw.githubusercontent.com/hkir-dev/taxonomy-development-tools/main/examples/human_m1/CCN202204130_project_config.yaml) file:
+Using the predefined [CCN202204130_project_config.yaml](https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/examples/human_m1/CCN202204130_project_config.yaml) file:
 
     ./seed-via-docker.sh -C examples/human_m1/CCN202204130_project_config.yaml
 
 ### Windows
 
-Using the predefined [CCN202204130_project_config.yaml](https://raw.githubusercontent.com/hkir-dev/taxonomy-development-tools/main/examples/human_m1/CCN202204130_project_config.yaml) config file:
+Using the predefined [CCN202204130_project_config.yaml](https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/examples/human_m1/CCN202204130_project_config.yaml) config file:
 
     seed-via-docker.bat -C examples/human_m1/CCN202204130_project_config.yaml
 
