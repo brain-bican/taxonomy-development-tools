@@ -10,6 +10,7 @@
 - [x] nanobot integration
 - [ ] droid integration ???
 - [x] nanobot not saving autocomplete value (validation fail?)
+- [ ] *** save is only updating DB. Add save button to export data
 
 
 ### Docker Commands

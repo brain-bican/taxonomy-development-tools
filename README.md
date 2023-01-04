@@ -3,7 +3,7 @@
 Tools for building and curating [CCN2](https://github.com/obophenotype/CCN2) taxonomies. With TDT you can:
 
 - Create a repository to manage your taxonomies
-- Run [CCN R library](http://htmlpreview.github.io/?https://github.com/AllenInstitute/nomenclature/blob/master/scripts/build_annotation_tables_SEAAD.nb.html) to generate required tables.
+- Run [CCN R library](http://htmlpreview.github.io/?https://github.com/AllenInstitute/nomenclature/blob/master/scripts/build_annotation_tables_SEAAD.nb.html) to generate CCN2 taxonomy curation tables.
 - Run interactive editors to curate tables with ontology search and data validation support.
 
 <p align="center">
