@@ -157,8 +157,8 @@ update_import:
 	python3 -m cmi_pb_script.export data build/demo.db /work/curation_tables/ import_config
 
 .PHONY: save
-#save: $(foreach t,$(wildcard /work/curation_tables/*),export_$(basename $(notdir $t)))
-save: export_table export_column export_import export_assay export_strain
+save: $(foreach t,$(wildcard /work/curation_tables/*.tsv),export_$(basename $(notdir $t)))
+#save: export_table export_column export_import export_assay export_strain
 
 
 ### Google Sheets
