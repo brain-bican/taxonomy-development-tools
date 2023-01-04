@@ -8,8 +8,8 @@
 - [ ] Config file schema and validation action
 - [ ] validation action auto generate
 - [x] nanobot integration
-- [ ] droid integration ???
 - [x] nanobot not saving autocomplete value (validation fail?)
+- [ ] ** droid integration for release management
 - [ ] *** save is only updating DB. Add save button to export data
 
 
