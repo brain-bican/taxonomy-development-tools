@@ -55,10 +55,12 @@ WORKDIR $WORKSPACE
 ### OntoDev setup
 ADD scripts/run_nanobot.py $WORKSPACE
 ADD ontodev.Makefile $WORKSPACE
+ADD scripts/nanobot.toml $WORKSPACE
 ADD scripts/cogs.sh $WORKSPACE/scripts
 ADD scripts/generate.py $WORKSPACE/scripts
 ADD scripts/search_view_template.sql $WORKSPACE/scripts
 ADD scripts/upload.py $WORKSPACE/scripts
+ADD templates/mapping.html $WORKSPACE/templates
 
 RUN mkdir $WORKSPACE/resources
 ADD resources/column.tsv $WORKSPACE/resources
@@ -70,33 +72,35 @@ ADD resources/table.tsv $WORKSPACE/resources
 ADD resources/taxonomy_config.tsv $WORKSPACE/resources
 
 RUN apt-get install -y aha \
-    sqlite3
+    sqlite3 \
+    rustc \
+    cargo
 
-# install Rust
-WORKDIR $WORKSPACE
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rust.sh
-RUN sh rust.sh -y
-ENV PATH="/root/.cargo/bin:$PATH"
-
-# install wiring.py using wiring.rs bindings
-WORKDIR  $WORKSPACE
-RUN git clone https://github.com/ontodev/wiring.py.git
-WORKDIR  $WORKSPACE/wiring.py
-RUN git clone https://github.com/ontodev/wiring.rs.git
-RUN mv python_module.rs wiring.rs/src/
-RUN rm wiring.rs/Cargo.toml
-RUN mv Cargo.toml wiring.rs/
-RUN echo "mod python_module;" >> wiring.rs/src/lib.rs
-RUN pip install -U pip maturin
-RUN maturin build --release --out dist -m wiring.rs/Cargo.toml
-RUN pip install dist/wiring_rs-0.1.1-cp36-abi3-manylinux_2_34_x86_64.whl
-
-# install nanobot
-WORKDIR $WORKSPACE
-RUN git clone https://github.com/hkir-dev/nanobot.git
-WORKDIR $WORKSPACE/nanobot
-RUN git checkout bican
-RUN pip install -e .
+## install Rust
+#WORKDIR $WORKSPACE
+#RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rust.sh
+#RUN sh rust.sh -y
+#ENV PATH="/root/.cargo/bin:$PATH"
+#
+## install wiring.py using wiring.rs bindings
+#WORKDIR  $WORKSPACE
+#RUN git clone https://github.com/ontodev/wiring.py.git
+#WORKDIR  $WORKSPACE/wiring.py
+#RUN git clone https://github.com/ontodev/wiring.rs.git
+#RUN mv python_module.rs wiring.rs/src/
+#RUN rm wiring.rs/Cargo.toml
+#RUN mv Cargo.toml wiring.rs/
+#RUN echo "mod python_module;" >> wiring.rs/src/lib.rs
+#RUN pip install -U pip maturin
+#RUN maturin build --release --out dist -m wiring.rs/Cargo.toml
+#RUN pip install dist/wiring_rs-0.1.1-cp36-abi3-manylinux_2_34_x86_64.whl
+#
+## install nanobot
+#WORKDIR $WORKSPACE
+#RUN git clone https://github.com/hkir-dev/nanobot.git
+#WORKDIR $WORKSPACE/nanobot
+#RUN git checkout bican
+#RUN pip install -e .
 
 # install project Python requirements
 #WORKDIR $WORKSPACE
