@@ -1,0 +1,43 @@
+datatype	parent	transform	condition	structure	description	SQLite type	PostgreSQL type	HTML type
+CURIE	nonspace		match(/\w+:\w+/)		a Compact URI			
+IRI	nonspace		exclude(/\s/)		an Internationalized Resource Identifier			
+OBI_ID	CURIE		match(/OBI:\S+/)	concat(prefix, ":", suffix)	an OBI ID			
+boolean	word	lowercase	in('true', 'false')		a boolean: true or false			radio
+class_type	word		in('equivalent', 'subclass')		an OWL class type: equivalent or subclass			search
+column_name	trimmed_line				a column name			
+curation_status	ontology_label		in('example to be eventually removed', 'metadata complete', 'metadata incomplete', 'organizational term', 'pending final vetting', 'ready for release', 'requires discussion', 'to be replaced with external ontology term', 'uncurated')		the IAO curation status for a term			search
+datatype_condition	line		exclude(/\\\\\\\n/)		a datatype condition specification			
+datatype_name	word		exclude(/\W/)		a datatype name			
+description	trimmed_text				a brief description			textarea
+empty	text		equals('')		the empty string			
+sql_type	word		in('TEXT', 'INTEGER', 'REAL', 'NUMERIC')		an HTML form type			search
+html_type	word		in('text', 'textarea', 'search', 'radio', 'number', 'select')		an HTML form type			search
+intermediate_entities	word		in('all', 'none')					radio
+label	trimmed_line		match(/[^\s]+.+[^\s]/)		text that does not begin or end with whitespace			
+line	text		exclude(/\\\\\\\n/)		a line of text			text
+manchester	trimmed_line				a Manchester syntax expression			
+nonnegative_integer	nonspace		match(/\d+/)		a non-negative integer	INTEGER	INTEGER	number
+nonspace	trimmed_line		exclude(/\s/)		text without whitespace			
+obsolescence_reason	ontology_label		in('failed exploratory term', 'placeholder removed', 'term imported', 'term split', 'terms merged')		the IAO obsolescence reason for term deprecation			search
+obsolete_class	ontology_label		in('Obsolete Class')		the 'Obsolete Class' parent for all deprecated terms			search
+ontology_id	nonspace		match(/\w+:\w+/)		CURIE that does not begin or end with whitespace			
+ontology_label	trimmed_text		match(/[^\s]+.+[^\s]/)		label that does not begin or end with whitespace			text
+owl_type	word		in('owl:AnnotationProperty', 'owl:Class', 'owl:ObjectProperty')		an OWL entity type: owl:AnnotationProperty, owl:Class, or owl:ObjectProperty			search
+path	line		exclude(/\\\\\\\n/)		a path to a file			
+positive_integer	nonspace		match(/\d+/)		a positive integer	INTEGER	INTEGER	number
+prefix	word		exclude(/\W/)		a prefix for a CURIE			
+related_entities	word		in('ancestors', 'children', 'descendants', 'parents')					search
+source	nonspace		in('IPD', 'GenBank', 'UniProt', 'IMGT/HLA', 'PDB')		a sequence source: IPD, GenBank, or UniProt			search
+split_manchester	manchester				one or more Manchester syntax expressions separated by a pipe character			
+split_ontology_label	ontology_label				one or more labels of ontology terms separated by a pipe character			
+suffix	word		exclude(/\W/)		a suffix for a CURIE			
+table	word			from(table.table)				search
+table_name	word		exclude(/\W/)		a table name			
+table_type	word	lowercase	in('table', 'column', 'datatype', 'index')		a table type			search
+text					any text	TEXT	TEXT	textarea
+trimmed_line	line		exclude(/^\s+|\s+$/)		a line of text that does not begin or end with whitespace			
+trimmed_text	text		exclude(/^\s+|\s+$/)		text that does not begin or end with whitespace			
+word	nonspace		exclude(/\W/)		a single word: letters, numbers, underscore			
+cell_type	word		in('gross', 'family', 'leaf_node', 'None')		a cell type			search
+autocomplete_cl	line		exclude(/^\s+|\s+$/)		a cell type			
+autocomplete_uberon	line		exclude(/^\s+|\s+$/)		a cell type			

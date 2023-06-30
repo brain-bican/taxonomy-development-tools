@@ -216,12 +216,17 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_folder(outdir, "purl", tgts, "PURL Configuration", "BICAN Permanent URLs sample configuration file. "
                                                               "Please make a pull request to place this file in [BICAN PURLs taxonomy configuration folder]"
                                                               "(https://github.com/hkir-dev/purl.bican.org/tree/main/config/taxonomy).")
+    create_folder(outdir, "src/assets", tgts)
+    create_folder(outdir, "src/resources", tgts)
+    create_folder(outdir, "src/schema", tgts)
+
     create_purl_config(outdir, project, tgts)
     create_readme(outdir, project, tgts)
     create_output_file(outdir, project, tgts)
     create_run_script(outdir, tgts)
     create_makefile(outdir, tgts)
     create_ontodev_tables(outdir, project, tgts)
+    create_ontodev_static_files(outdir, tgts)
 
     for tgt in tgts:
         logging.info("  File: {}".format(tgt))
@@ -262,43 +267,61 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
 
 
 def create_ontodev_tables(outdir, project, tgts):
-    table_source = WORKSPACE + "/resources/table.tsv"
+    table_source = WORKSPACE + "/nanobot/src/schema/table.tsv"
     with open(table_source, "r") as f:
         content = f.read()
     content = content.replace("{taxonomy_id}", project.id)
-    table_target = "{}/curation_tables/table.tsv".format(outdir)
+    table_target = "{}/src/schema/table.tsv".format(outdir)
     with open(table_target, "w") as f:
         f.write(content)
     tgts.append(table_target)
 
-    table_source = WORKSPACE + "/resources/column.tsv"
+    table_source = WORKSPACE + "/nanobot/src/schema/column.tsv"
     with open(table_source, "r") as f:
         content = f.read()
     content = content.replace("{taxonomy_id}", project.id)
-    table_target = "{}/curation_tables/column.tsv".format(outdir)
+    table_target = "{}/src/schema/column.tsv".format(outdir)
     with open(table_target, "w") as f:
         f.write(content)
     tgts.append(table_target)
 
-    file_target = "{}/curation_tables/datatype.tsv".format(outdir)
+    file_target = "{}/src/schema/datatype.tsv".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/resources/datatype.tsv", file_target)
+    copy(WORKSPACE + "/nanobot/src/schema/datatype.tsv", file_target)
 
-    file_target = "{}/curation_tables/prefix.tsv".format(outdir)
-    tgts.append(file_target)
-    copy(WORKSPACE + "/resources/prefix.tsv", file_target)
 
-    file_target = "{}/curation_tables/import.tsv".format(outdir)
+def create_ontodev_static_files(outdir, tgts):
+    file_target = "{}/nanobot.toml".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/resources/import.tsv", file_target)
+    copy(WORKSPACE + "/nanobot/nanobot.toml", file_target)
 
-    file_target = "{}/curation_tables/import_config.tsv".format(outdir)
+    file_target = "{}/src/assets/bstreeview.css".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/resources/import_config.tsv", file_target)
+    copy(WORKSPACE + "/nanobot/src/assets/bstreeview.css", file_target)
 
-    file_target = "{}/curation_tables/{}_config.tsv".format(outdir, project.id)
+    file_target = "{}/src/assets/bstreeview.js".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/resources/taxonomy_config.tsv", file_target)
+    copy(WORKSPACE + "/nanobot/src/assets/bstreeview.js", file_target)
+
+    file_target = "{}/src/assets/ols-autocomplete.css".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/nanobot/src/assets/ols-autocomplete.css", file_target)
+
+    file_target = "{}/src/assets/ols-autocomplete.js".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/nanobot/src/assets/ols-autocomplete.js", file_target)
+
+    file_target = "{}/src/assets/styles.css".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/nanobot/src/assets/styles.css", file_target)
+
+    file_target = "{}/src/resources/cross_taxonomy.html".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/nanobot/src/resources/cross_taxonomy.html", file_target)
+
+    file_target = "{}/src/resources/ols_form.html".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/nanobot/src/resources/ols_form.html", file_target)
 
 
 def create_makefile(outdir, tgts):
@@ -306,11 +329,6 @@ def create_makefile(outdir, tgts):
     mf_target = "{}/Makefile".format(outdir)
     tgts.append(mf_target)
     copy(mf_source, mf_target)
-
-    mf_ontodev_source = WORKSPACE + "/ontodev.Makefile"
-    mf_ontodev_target = "{}/ontodev.Makefile".format(outdir)
-    tgts.append(mf_ontodev_target)
-    copy(mf_ontodev_source, mf_ontodev_target)
 
 
 def create_run_script(outdir, tgts):

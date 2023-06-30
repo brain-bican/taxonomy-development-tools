@@ -1,0 +1,101 @@
+{% extends "page.html" %}
+
+{% block head_end %}
+<link rel="stylesheet" href="{{ page.root }}assets/styles.css" />
+<link rel="stylesheet" href="{{ page.root }}assets/bstreeview.css" />
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+{% if "success" in messages %}
+{% for msg in messages["success"] %}
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <div><i class="bi-emoji-smile-fill" style="padding-right:5px;"></i> {{ msg }}</div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if "error" in messages %}
+{% for msg in messages["error"] %}
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <div><i class="bi-x-octagon-fill" style="padding-right:5px;"></i> {{ msg }}</div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if "warn" in messages %}
+{% for msg in messages["warn"] %}
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div><i class="bi-exclamation-triangle-fill" style="padding-right:5px;"></i> {{ msg }}</div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if "info" in messages %}
+{% for msg in messages["info"] %}
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <div><i class="bi-info-circle-fill" style="padding-right:5px;"></i> {{ msg }}</div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endif %}
+
+<div class="row" style="padding-bottom:5px; padding-top:20px;">
+  <form method="post">
+    <div class="row pt-4">
+      <div class="col">
+        LEFT TREE
+      </div>
+      <div class="col">
+        RIGHT TREE
+      </div>
+    </div>
+    <div class="row pt-4">
+      <div class="col">
+        {{ form_map["cell_set_accession"]|safe }}
+        {{ form_map["cell_type_name"]|safe }}
+      </div>
+      <div class="col">
+        {{ form_map["mapped_cell_set_accession"]|safe }}
+        {{ form_map["mapped_cell_type_name"]|safe }}
+      </div>
+    </div>
+    {{ form_map["evidence_comment"]|safe }}
+    {{ form_map["similarity_score"]|safe }}
+    {{ form_map["provenance"]|safe }}
+    <div class="row pt-4">
+      <div class="col-auto">
+        <button class="btn btn-large btn-outline-primary" type="submit" name="action" value="validate">Validate</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-large btn-outline-{{ 'success' if validated else 'danger' }}" type="submit" name="action"
+          value="submit">Submit</button>
+      </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block body_end %}
+<script src="{{ page.root }}assets/bstreeview.js"></script>
+{% endblock %}
