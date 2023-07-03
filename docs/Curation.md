@@ -3,6 +3,6 @@
 
 ```
 bash ./run.sh make build_nomenclature_tables
-bash ./run.sh make load
-bash ./run.sh /tools/run_nanobot.py
+bash ./run.sh make serve
 ```
+Web editor url: http://localhost:3000/table

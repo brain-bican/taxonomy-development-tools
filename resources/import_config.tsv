@@ -1,2 +1,0 @@
-Source	IRI	Intermediates	Predicates
-ncbitaxon	http://purl.obolibrary.org/obo/ncbitaxon.owl	all	IAO:0000115 oio:hasExactSynonym rdfs:label
