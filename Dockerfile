@@ -46,6 +46,7 @@ ADD dendR/nomenclature_builder.R $WORKSPACE/dendR
 ADD dendR/install_packages.R $WORKSPACE/dendR
 ADD dendR/required_scripts.R $WORKSPACE/dendR
 ADD scripts/run.sh $WORKSPACE/scripts
+ADD scripts/import.py $WORKSPACE/scripts
 
 RUN python3 -m pip install  -r $WORKSPACE/requirements.txt
 RUN Rscript $WORKSPACE/dendR/install_packages.R

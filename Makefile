@@ -2,12 +2,13 @@ WORKSPACE=/tools
 NANOBOT := build/nanobot
 NANOBOTDB := build/nanobot.db
 EXPORT := build/export.py
+IMPORT := $(WORKSPACE)/scripts/import.py
 
 build/:
 	mkdir -p $@
 
 build/nanobot: | build/
-	curl -L -o $@ "https://github.com/ontodev/nanobot.rs/releases/download/v2023-06-29/nanobot-x86_64-unknown-linux-musl"
+	curl -L -o $@ "https://github.com/ontodev/nanobot.rs/releases/download/v2023-06-30/nanobot-x86_64-unknown-linux-musl"
 	chmod +x $@
 
 build/export.py: | build/
@@ -16,6 +17,10 @@ build/export.py: | build/
 .PHONY: build_nomenclature_tables
 build_nomenclature_tables:
 	Rscript $(WORKSPACE)/dendR/nomenclature_builder.R
+
+.PHONY: load_data
+load_data:
+	python3 $(IMPORT) import-data --input input_data/ --schema src/schema/ --curation_tables curation_tables/
 
 .PHONY: runR
 runR:
