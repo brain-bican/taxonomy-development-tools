@@ -211,7 +211,7 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
         save_project_yaml(project, tdt_config_file)
     logging.info("Created files:")
 
-    create_folder(outdir, "input_data", tgts, "Input Files", "Taxonomy data files.")
+    create_folder(outdir, "input_data", tgts, "Input Files", "Place your taxonomy data files and configuration files into this folder.")
     create_folder(outdir, "curation_tables", tgts, "Curation Tables", "CCN2 taxonomy curation tables.")
     create_folder(outdir, "purl", tgts, "PURL Configuration", "BICAN Permanent URLs sample configuration file. "
                                                               "Please make a pull request to place this file in [BICAN PURLs taxonomy configuration folder]"

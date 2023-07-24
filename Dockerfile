@@ -24,20 +24,20 @@ RUN apt-get update &&  \
     leiningen
 
 # to speedup R package installations (try apt-cache search r-cran-remotes) https://datawookie.dev/blog/2019/01/docker-images-for-r-r-base-versus-r-apt/
-RUN apt-get update && \
-    apt-get install -y -qq \
-    r-cran-remotes \
-    r-cran-jsonlite \
-    r-cran-data.table \
-    r-cran-ggplot2 \
-    r-cran-dendextend \
-    r-cran-biocmanager \
-    r-cran-knitr \
-    r-cran-httr
+#RUN apt-get update && \
+#    apt-get install -y -qq \
+#    r-cran-remotes \
+#    r-cran-jsonlite \
+#    r-cran-data.table \
+#    r-cran-ggplot2 \
+#    r-cran-dendextend \
+#    r-cran-biocmanager \
+#    r-cran-knitr \
+#    r-cran-httr
 
 # install pandoc (required by AllenInstitute/CCN)
-RUN wget https://github.com/jgm/pandoc/releases/download/2.19.2/pandoc-2.19.2-1-amd64.deb
-RUN dpkg -i ./pandoc-2.19.2-1-amd64.deb
+#RUN wget https://github.com/jgm/pandoc/releases/download/2.19.2/pandoc-2.19.2-1-amd64.deb
+#RUN dpkg -i ./pandoc-2.19.2-1-amd64.deb
 
 ADD Makefile $WORKSPACE
 ADD requirements.txt $WORKSPACE
@@ -49,19 +49,9 @@ ADD scripts/run.sh $WORKSPACE/scripts
 ADD scripts/import.py $WORKSPACE/scripts
 
 RUN python3 -m pip install  -r $WORKSPACE/requirements.txt
-RUN Rscript $WORKSPACE/dendR/install_packages.R
+#RUN Rscript $WORKSPACE/dendR/install_packages.R
 
 WORKDIR $WORKSPACE
-
-### OntoDev setup
-#ADD scripts/run_nanobot.py $WORKSPACE
-#ADD ontodev.Makefile $WORKSPACE
-#ADD scripts/nanobot.toml $WORKSPACE
-#ADD scripts/cogs.sh $WORKSPACE/scripts
-#ADD scripts/generate.py $WORKSPACE/scripts
-#ADD scripts/search_view_template.sql $WORKSPACE/scripts
-#ADD scripts/upload.py $WORKSPACE/scripts
-#ADD templates/mapping.html $WORKSPACE/templates
 
 ### NANOBOT reources
 RUN mkdir $WORKSPACE/nanobot
@@ -82,12 +72,8 @@ ADD nanobot/src/resources/cross_taxonomy.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/ols_form.html $WORKSPACE/nanobot/src/resources
 
 RUN apt-get install -y aha \
-    sqlite3
-
-### install DROID
-#ADD droid/example-config.edn /tools/droid/example-config.edn
-#ADD droid/droid-standalone.jar /tools/droid/droid-standalone.jar
-#ADD droid/project.clj /tools/droid/project.clj
+    sqlite3 \
+    python3-psycopg2
 
 # restore WORKDIR
 WORKDIR /tools

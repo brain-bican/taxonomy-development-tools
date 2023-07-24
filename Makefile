@@ -36,7 +36,8 @@ load: clean | $(NANOBOT)
 .PHONY:
 save: $(EXPORT) $(NANOBOTDB)
 	python3 $(EXPORT) data $(NANOBOTDB) src/schema/ table column datatype
-	python3 $(EXPORT) data $(NANOBOTDB) curation_tables/ $$(cut -f1 src/schema/table.tsv | grep CCN2 | tr '\n' ' ')
+	python3 $(EXPORT) data $(NANOBOTDB) curation_tables/ $(foreach t,$(wildcard curation_tables/*.tsv), $(basename $(notdir $t)))
+	#python3 $(EXPORT) data $(NANOBOTDB) curation_tables/ $$(cut -f1 src/schema/table.tsv | grep CCN2 | tr '\n' ' ')
 
 .PHONY: serve
 serve: $(NANOBOTDB)
