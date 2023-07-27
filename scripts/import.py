@@ -157,20 +157,19 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
         for index, header in enumerate(user_headers):
             if header == "cell_set_accession":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         normalize_column_name(header) + "\t\tword\tprimary\t")
+                         header.replace("_", " ").strip() + "\t\tword\tprimary\t")
             elif index == 0 and "cell_set_accession" not in user_headers:
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         normalize_column_name(header) + "\t\tword\tprimary\t")
+                         header.strip() + "\t\tword\tprimary\t")
             elif header == "classifying_ontology_term_id":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         normalize_column_name(header) + "\tempty\tautocomplete_cl\t\t")
+                         header.replace("_", " ").strip() + "\tempty\tautocomplete_cl\t\t")
             elif header == "classifying_ontology_term_name":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         normalize_column_name(header) + "\tempty\tontology_label\t\t")
+                         header.replace("_", " ").strip() + "\tempty\tontology_label\t\t")
             else:
-                # TODO fix assumption, all data types are text for now
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         normalize_column_name(header) + "\tempty\ttext\t\t")
+                         header.replace("_", " ").strip() + "\tempty\ttext\t\t")
 
 
 def copy_file(source_file, target_folder):
