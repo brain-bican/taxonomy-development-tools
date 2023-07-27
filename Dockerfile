@@ -70,6 +70,7 @@ ADD nanobot/src/assets/styles.css $WORKSPACE/nanobot/src/assets
 RUN mkdir $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/cross_taxonomy.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/ols_form.html $WORKSPACE/nanobot/src/resources
+ADD nanobot/src/resources/taxonomy_view.html $WORKSPACE/nanobot/src/resources
 
 RUN apt-get install -y aha \
     sqlite3 \
