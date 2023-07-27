@@ -319,6 +319,10 @@ def create_ontodev_static_files(outdir, tgts):
     tgts.append(file_target)
     copy(WORKSPACE + "/nanobot/src/resources/cross_taxonomy.html", file_target)
 
+    file_target = "{}/src/resources/taxonomy_view.html".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/nanobot/src/resources/taxonomy_view.html", file_target)
+
     file_target = "{}/src/resources/ols_form.html".format(outdir)
     tgts.append(file_target)
     copy(WORKSPACE + "/nanobot/src/resources/ols_form.html", file_target)
