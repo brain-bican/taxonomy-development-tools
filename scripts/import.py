@@ -119,6 +119,7 @@ def assign_parent_accession_ids(accession_prefix, std_parent_records, std_parent
         std_parent_records: list of all parents to assign accession ids
         std_parent_records_dict: parent cluster - child clusters dictionary
     """
+    std_parent_records.sort(key=lambda x: int(x["rank"]))
     for std_parent_record in std_parent_records:
         accession_id = generate_accession_id(accession_prefix)
         std_parent_record["cell_set_accession"] = accession_id
