@@ -1,6 +1,10 @@
 # Get Taxonomy Development Tools
 
-You can download TDT Docker image through following the steps defined in project [GitHub Container Registry](https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/tdt).
+You can download TDT Docker image through following the steps defined in project [GitHub Container Registry](https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/taxonomy-development-tools).
+
+```
+docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
+```
 
 ## Build Taxonomy Development Tools
 

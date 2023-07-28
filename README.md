@@ -3,8 +3,8 @@
 Tools for building and curating [CCN2](https://github.com/obophenotype/CCN2) taxonomies. With TDT you can:
 
 - Create a repository to manage your taxonomies
-- Run [CCN R library](http://htmlpreview.github.io/?https://github.com/AllenInstitute/nomenclature/blob/master/scripts/build_annotation_tables_SEAAD.nb.html) to generate CCN2 taxonomy curation tables.
-- Run interactive editors to curate tables with ontology search and data validation support.
+- Convert your data to Cell Type Annotation Standard representation.
+- Run interactive web editors to curate your data with ontology search and data validation support.
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/nanobot.png" alt="CCN2 Taxonomy Editor" width="700"/>
@@ -14,5 +14,5 @@ Tools for building and curating [CCN2](https://github.com/obophenotype/CCN2) tax
 
 - _How-to guides_:
   - How to [create your first repository](https://brain-bican.github.io/taxonomy-development-tools/NewRepo/) with the TDT
-  - [Get TDT Docker image](docs/Build.md)
-  - Start [curating taxonomies](https://brain-bican.github.io/taxonomy-development-tools/Curation/)
+  - [Get TDT Docker image](https://brain-bican.github.io/taxonomy-development-tools/Build/)
+  - Start [curating taxonomies](https://brain-bican.github.io/taxonomy-development-tools/Curation/) 
