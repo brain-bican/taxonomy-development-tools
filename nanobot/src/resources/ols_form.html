@@ -1,16 +1,13 @@
 {% extends "form.html" %}
 
 {% block head_end %}
-<!--<link rel="stylesheet" href="{{ page.root }}assets/styles.css" />-->
-<!--<link rel="stylesheet" href="{{ page.root }}assets/ols-autocomplete.css" />-->
-<link rel="stylesheet" href="../../assets/styles.css" />
-<link rel="stylesheet" href="../../assets/ols-autocomplete.css" />
+<link rel="stylesheet" href="{{ page.root }}assets/styles.css" />
+<link rel="stylesheet" href="{{ page.root }}assets/ols-autocomplete.css" />
 {% endblock %}
 
 {% block body_end %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-<!--<script src="{{ page.root }}assets/ols-autocomplete.js"></script>-->
-<script src="../../assets/ols-autocomplete.js"></script>
+<script src="{{ page.root }}assets/ols-autocomplete.js"></script>
 <script>
   $("*[name='classifying_ontology_term_id']").first().attr("readonly", true);
   $("*[name='classifying_ontology_term_name']").first().attr({

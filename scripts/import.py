@@ -71,14 +71,14 @@ def convert_standard_json_to_table(std_data: dict, source_file_name: str, input_
     std_parent_records = list()
     std_parent_records_dict = dict()
     for annotation_object in std_data["annotation_objects"]:
+        record = dict()
         if "cell_set_accession" in annotation_object:
-            record = dict()
             record["annotation_set"] = str(annotation_object["annotation_set"]).replace("_name", "")
             record["rank"] = annotation_object["rank"]
             record["cell_set_accession"] = generate_accession_id(accession_prefix, annotation_object["cell_set_accession"])
             record["cell_label"] = annotation_object["cell_label"]
             record["parent_cell_set_accession"] = ""
-            record["parent_cell_set_name"] = annotation_object["parent_cell_set_name"]
+            record["parent_cell_set_name"] = ""
             record["classifying_ontology_term_id"] = annotation_object.get("classifying_ontology_term_id", "")
             record["classifying_ontology_term_name"] = annotation_object.get("classifying_ontology_term_name", "")
             record["marker_genes"] = annotation_object["marker_genes"]
@@ -86,22 +86,25 @@ def convert_standard_json_to_table(std_data: dict, source_file_name: str, input_
                 for user_annot in annotation_object["user_annotations"]:
                     record[normalize_column_name(user_annot["annotation_set"])] = user_annot["cell_label"]
             std_records.append(record)
+        else:
+            # parent nodes
+            parent_label = annotation_object["cell_label"]
+            if parent_label not in [parent["cell_label"] for parent in std_parent_records]:
+                record["annotation_set"] = str(annotation_object["annotation_set"]).replace("_name", "")
+                record["rank"] = annotation_object["rank"]
+                record["cell_set_accession"] = ""
+                record["cell_label"] = parent_label
+                record["parent_cell_set_accession"] = ""
+                record["parent_cell_set_name"] = ""
+                std_parent_records.append(record)
+        if "parent_cell_set_name" in annotation_object:
+            record["parent_cell_set_name"] = annotation_object["parent_cell_set_name"]
             if annotation_object["parent_cell_set_name"] in std_parent_records_dict:
                 std_parent_records_dict.get(annotation_object["parent_cell_set_name"]).append(record)
             else:
                 children = list()
                 children.append(record)
                 std_parent_records_dict[annotation_object["parent_cell_set_name"]] = children
-        else:
-            # parent nodes
-            parent_label = annotation_object["cell_label"]
-            if parent_label not in [parent["cell_label"] for parent in std_parent_records]:
-                record = dict()
-                record["annotation_set"] = str(annotation_object["annotation_set"]).replace("_name", "")
-                record["rank"] = annotation_object["rank"]
-                record["cell_set_accession"] = ""
-                record["cell_label"] = parent_label
-                std_parent_records.append(record)
 
     assign_parent_accession_ids(accession_prefix, std_parent_records, std_parent_records_dict)
     std_records.extend(std_parent_records)
