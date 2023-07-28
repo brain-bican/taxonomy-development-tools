@@ -1,0 +1,25 @@
+.form-group.required .col-form-label:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 8px;
+}
+#sourceAccessionIdDiv .tt-menu {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#targetAccessionIdDiv .tt-menu {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#sourceNameDiv .tt-menu {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#targetNameDiv .tt-menu {
+  max-height: 200px;
+  overflow-y: auto;
+}

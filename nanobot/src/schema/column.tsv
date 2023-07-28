@@ -1,0 +1,20 @@
+table	column	label	nulltype	datatype	structure	description
+table	table			table_name	unique	name of this table
+table	path			path		path to the TSV file for this table, relative to the table.tsv file
+table	type		empty	table_type		type of this table, used for tables with special meanings
+table	edit_view		empty	word		the name of a custom view for editing this table
+table	description		empty	description		a description of this table
+column	table			table_name	from(table.table)	the table that this column belongs to
+column	column			column_name		the name of this column
+column	label		empty	label		the name of this column
+column	nulltype		empty	datatype_name	from(datatype.datatype)	the datatype for NULL values in this column
+column	datatype			datatype_name	from(datatype.datatype)	the datatype for this column
+column	structure		empty	label		schema information for this column
+column	description		empty	description		a description of this column
+datatype	datatype			datatype_name	primary	the name of this datatype
+datatype	parent		empty	datatype_name	tree(datatype)	the parent datatype
+datatype	condition		empty	datatype_condition		
+datatype	description		empty	text		a description of this datatype
+datatype	SQLite type		empty	sql_type		the SQL type for representing this data in SQLite
+datatype	PostgreSQL type		empty	sql_type		the SQL type for representing this data in PostgreSQL
+datatype	HTML type		empty	html_type		the HTML type for viewing and editing this data

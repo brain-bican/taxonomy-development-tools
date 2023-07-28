@@ -1,0 +1,147 @@
+{% extends "page.html" %}
+
+{% block head_end %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ page.root }}assets/styles.css" />
+<link rel="stylesheet" href="{{ page.root }}assets/bstreeview.css" />
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+{% if "success" in messages %}
+{% for msg in messages["success"] %}
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <div><i class="bi-emoji-smile-fill" style="padding-right:5px;"></i> {{ msg }}</div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if "error" in messages %}
+{% for msg in messages["error"] %}
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <div><i class="bi-x-octagon-fill" style="padding-right:5px;"></i> {{ msg }}</div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if "warn" in messages %}
+{% for msg in messages["warn"] %}
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <div><i class="bi-exclamation-triangle-fill" style="padding-right:5px;"></i> {{ msg }}</div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if "info" in messages %}
+{% for msg in messages["info"] %}
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <div><i class="bi-info-circle-fill" style="padding-right:5px;"></i> {{ msg }}</div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endif %}
+
+<div class="row" style="padding-bottom:5px; padding-top:20px;">
+  <form method="post">
+    <div class="row pt-4">
+      <div id="source-treeview" class="col" style="overflow-y:auto; height: 300px; border: 1px solid #ccc ;"></div>
+      <div id="target-treeview" class="col" style="overflow-y:auto; height: 300px; border: 1px solid #ccc ;"></div>
+    </div>
+    <div class="row pt-4">
+      <div class="col">
+        {{ form_map["cell_set_accession"]|safe }}
+        {{ form_map["cell_type_name"]|safe }}
+      </div>
+      <div class="col">
+        {{ form_map["mapped_cell_set_accession"]|safe }}
+        {{ form_map["mapped_cell_type_name"]|safe }}
+      </div>
+    </div>
+    {{ form_map["evidence_comment"]|safe }}
+    {{ form_map["similarity_score"]|safe }}
+    {{ form_map["provenance"]|safe }}
+    <div class="col-auto">
+      <button class="btn btn-primary" type="submit" name="action" value="validate">Validate</button>
+      <button class="btn btn-success" type="submit" name="action" value="submit">Submit</button>
+      <a class="btn btn-secondary" href="{{ page.root }}{{ table_name }}?offset={{ offset }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block body_end %}
+<script src="{{ page.root }}assets/bstreeview.js"></script>
+<script>
+  $.getJSON("{{ page.root|safe }}assets/data_1.json", function (data) {
+    console.log("Setting up source-treeview", data);
+    var $sourceTree = $('#source-treeview').bstreeview({
+      data: [data],
+      color: "#428bca",
+      levels: 5,
+      showBorder: false
+    });
+
+    $('#source-treeview').bind('mousewheel', function (e) {
+      $(this).scrollTop($(this).scrollTop() - e.originalEvent.wheelDeltaY);
+      return false;
+    });
+
+    $('#source-treeview').find('div').click(function (event) {
+      event.stopPropagation();
+      if (event.target.id) {
+        selected_id = event.target.id;
+        $('*[name="cell_set_accession"]')[0].value = selected_id;
+        div_text = $(event.target).text();
+        $('*[name="cell_type_name"]')[0].value = div_text.substring(0, div_text.indexOf("[" + selected_id)).trim();
+      }
+    });
+  });
+
+  $.getJSON("{{ page.root|safe }}assets/data_2.json", function (data) {
+    console.log("Setting up target-treeview", data);
+    var $targetTree = $('#target-treeview').bstreeview({
+      data: [data],
+      color: "#428bca",
+      levels: 5,
+      showBorder: false
+    });
+
+    $('#target-treeview').bind('mousewheel', function (e) {
+      $(this).scrollTop($(this).scrollTop() - e.originalEvent.wheelDeltaY);
+      return false;
+    });
+
+    $('#target-treeview').find('div').click(function (event) {
+      event.stopPropagation();
+      if (event.target.id) {
+        selected_id = event.target.id;
+        $('*[name="mapped_cell_set_accession"]')[0].value = selected_id;
+        div_text = $(event.target).text();
+        $('*[name="mapped_cell_type_name"]')[0].value = div_text.substring(0, div_text.indexOf("[" + selected_id)).trim();
+      }
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "page.html" %}
+
+{% block head_end %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ page.root }}assets/styles.css" />
+<link rel="stylesheet" href="{{ page.root }}assets/bstreeview.css" />
+{% endblock %}
+
+{% block content %}
+<h2>Taxonomy View</h2>
+
+<div id="source-treeview" class="col" style="overflow-y:auto; height: 800px; border: 1px solid #ccc ;"></div>
+
+{% endblock %}
+
+{% block body_end %}
+<script src="{{ page.root }}assets/bstreeview.js"></script>
+<script>
+  table_json_url = String(window.location.href).split("?")[0] + ".json?limit=100000&shape=value_rows";
+  $.getJSON(table_json_url, function (data) {
+    // sort highest rank first but ordered by accession_id if same rank
+    data.sort((a, b) => (a.rank > b.rank) ? -1 : (a.rank === b.rank) ? ((a.cell_set_accession > b.cell_set_accession) ? 1 : -1) : 1 );
+
+    var root_node = {"expanded":true, "id":"All Cells", "text": "All Cells","nodes": []};
+    parents = {"All Cells": root_node};
+    for(let i = 0; i < data.length; i++){
+      record = data[i]
+      record_node = {};
+      if (record["rank"] == "0") {
+        record_node = {"id":record["cell_set_accession"], "text": record["cell_label"] + " [" + record["cell_set_accession"] +"]"};
+      } else {
+        record_node = {"id":record["cell_set_accession"], "text": record["cell_label"] + " [" + record["cell_set_accession"] +"]", "nodes": []};
+        parents[record["cell_set_accession"]] = record_node;
+      }
+      parent_cell_set_accession = record["parent_cell_set_accession"];
+      if (parent_cell_set_accession == null) {
+        parent_cell_set_accession = "All Cells";
+      }
+      parents[parent_cell_set_accession]["nodes"].push(record_node);
+    }
+
+    console.log("Setting up source-treeview", root_node);
+    var $sourceTree = $('#source-treeview').bstreeview({
+      data: [root_node],
+      color: "#428bca",
+      levels: 5,
+      showBorder: false
+    });
+
+    $('#source-treeview').bind('mousewheel', function (e) {
+      $(this).scrollTop($(this).scrollTop() - e.originalEvent.wheelDeltaY);
+      return false;
+    });
+
+    $('#source-treeview').find('div').click(function (event) {
+      event.stopPropagation();
+      if (event.target.id) {
+        selected_id = event.target.id;
+        $('*[name="cell_set_accession"]')[0].value = selected_id;
+        div_text = $(event.target).text();
+        $('*[name="cell_type_name"]')[0].value = div_text.substring(0, div_text.indexOf("[" + selected_id)).trim();
+      }
+    });
+  });
+</script>
+{% endblock %}

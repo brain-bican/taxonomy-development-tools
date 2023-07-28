@@ -38,15 +38,15 @@ You can pass in a configuration file in YAML format that specifies your taxonomy
 
 ### Unix (Max, Linux)
 
-Using the predefined [CCN202204130_project_config.yaml](https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/examples/human_m1/CCN202204130_project_config.yaml) file:
+Using the predefined [CCN20230601_project_config.yaml](examples/nhp_basal_ganglia/CCN20230601_project_config.yaml) file:
 
-    ./seed-via-docker.sh -C examples/human_m1/CCN202204130_project_config.yaml
+    ./seed-via-docker.sh -C CCN20230601_project_config.yaml
 
 ### Windows
 
-Using the predefined [CCN202204130_project_config.yaml](https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/examples/human_m1/CCN202204130_project_config.yaml) config file:
+Using the predefined [CCN20230601_project_config.yaml](examples/nhp_basal_ganglia/CCN20230601_project_config.yaml) config file:
 
-    seed-via-docker.bat -C examples/human_m1/CCN202204130_project_config.yaml
+    seed-via-docker.bat -C CCN20230601_project_config.yaml
 
 This will create your starter files in
 `target/human_m1`. It will also prepare an initial

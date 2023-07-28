@@ -1,0 +1,98 @@
+[nanobot]
+config_version = 1
+
+[logging]
+level = "DEBUG"
+
+[database]
+connection = "build/nanobot.db"
+
+[valve]
+path = "src/schema/table.tsv"
+
+[assets]
+path = "src/assets/"
+
+[templates]
+path = "src/resources/"
+
+[actions.save]
+label = "Save"
+commands = [
+  ["make", "save"],
+]
+
+[actions.status]
+label = "Status"
+commands = [
+  ["git", "-c", "color.ui=always", "status"],
+]
+
+[actions.diff]
+label = "Diff"
+commands = [
+  ["git", "-c", "color.ui=always", "diff"],
+]
+
+[actions.fetch]
+label = "Fetch"
+commands = [
+  ["git", "fetch"],
+]
+
+[actions.pull]
+label = "Pull"
+commands = [
+  ["git", "pull"],
+]
+
+[actions.branch]
+label = "Branch"
+inputs = [
+  { name = "branch_name", label = "Branch Name", default = "{username}-{today}", validate = "\\w+" }
+]
+commands = [
+  ["git", "checkout", "main"],
+  ["git", "pull"],
+  ["git", "checkout", "-b", "{branch_name}"],
+  ["git", "push", "--set-upstream", "origin", "{branch_name}"],
+]
+
+[actions.commit]
+label = "Commit"
+inputs = [
+    { name = "message", label = "Commit Message" }
+]
+commands = [
+  ["git", "add", "--update"],
+  ["git", "-c", "color.ui=always", "status"],
+  ["git", "commit", "--message", "'{message}'"],
+]
+
+[actions.push]
+label = "Push"
+commands = [
+  ["git", "push"],
+]
+
+[actions.pr]
+label = "Pull Request"
+inputs = [
+  { name = "title", label = "Title" },
+  { name = "body", label = "Body" },
+]
+commands = [
+  ["gh", "pr", "create", "--title", "'{title}'", "--body", "'{body}'"],
+]
+
+[actions.release]
+label = "Release"
+inputs = [
+  { name = "tag", label = "Release Tag", default = "v{today}" },
+]
+commands = [
+  ["git", "checkout", "main"],
+  ["git", "pull"],
+  ["git", "-c", "color.ui=always", "status"],
+  ["gh", "release", "create", "--tag", "'{tag}'"],
+]
