@@ -26,7 +26,7 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 - First, make sure you have Docker running (you will see the Docker whale in your toolbar on a Mac)
 - To make sure you have the latest version of the TDT installed, run in the command line
 
-  `docker pull brain-bican/tdt`
+  `docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest`
 
 **NOTE** The very first time you run this it may be slow, while docker downloads necessary images. Don't worry, subsequent runs should be much faster!
 

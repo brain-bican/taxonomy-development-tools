@@ -7,5 +7,5 @@ You can download TDT Docker image through following the steps defined in project
 Alternatively, you can build TDT docker image in your local. Checkout the project and run given command in the project root folder:
 
 ```sh
-docker build -t "ghcr.io/brain-bican/tdt" .
+docker build -t "ghcr.io/brain-bican/taxonomy-development-tools" .
 ```

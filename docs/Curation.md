@@ -1,6 +1,9 @@
 # CCN2 Taxonomy Curation with the Taxonomy Development Tools
 
 1. Pull the latest TDT docker image via following the steps defined in the project [GitHub Container Registry](https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/tdt). 
+```
+docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
+```
 
 2. Place your data (ex. [AIT115_annotation_sheet_std.tsv](examples/nhp_basal_ganglia/AIT115_annotation_sheet_std.tsv)) and configuration file (ex. [test_config.yaml](examples/nhp_basal_ganglia/test_config.yaml)) into your project's `input_data` folder.  
 
