@@ -2,7 +2,7 @@
 
 1. Pull the latest TDT docker image via following the steps defined in the project [GitHub Container Registry](https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/tdt). 
 
-2. Place your data (ex. [AIT115_annotation_sheet_std.tsv](https://github.com/brain-bican/taxonomy-development-tools/blob/nanobot_rs/examples/human_m1/AIT115_annotation_sheet_std.tsv)) and configuration file (ex. [test_config.yaml](https://github.com/brain-bican/taxonomy-development-tools/blob/nanobot_rs/examples/human_m1/test_config.yaml)) into your project's `input_data` folder.  
+2. Place your data (ex. [AIT115_annotation_sheet_std.tsv](examples/nhp_basal_ganglia/AIT115_annotation_sheet_std.tsv)) and configuration file (ex. [test_config.yaml](examples/nhp_basal_ganglia/test_config.yaml)) into your project's `input_data` folder.  
 
 3. Run following command to ingest your data files:
 ```
