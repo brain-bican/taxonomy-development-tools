@@ -17,9 +17,7 @@
 {% block body_end %}
 <script src="{{ page.root }}assets/bstreeview.js"></script>
 <script>
-  console.log(window.location.href);
   table_json_url = String(window.location.href).split("?")[0] + ".json?limit=100000&shape=value_rows";
-  console.log(table_json_url)
   $.getJSON(table_json_url, function (data) {
     // sort highest rank first but ordered by accession_id if same rank
     data.sort((a, b) => (a.rank > b.rank) ? -1 : (a.rank === b.rank) ? ((a.cell_set_accession > b.cell_set_accession) ? 1 : -1) : 1 );
@@ -35,12 +33,10 @@
         record_node = {"id":record["cell_set_accession"], "text": record["cell_label"] + " [" + record["cell_set_accession"] +"]", "nodes": []};
         parents[record["cell_set_accession"]] = record_node;
       }
-      console.log("first record:", record_node);
       parent_cell_set_accession = record["parent_cell_set_accession"];
       if (parent_cell_set_accession == null) {
         parent_cell_set_accession = "All Cells";
       }
-      console.log("parent:", parent_cell_set_accession);
       parents[parent_cell_set_accession]["nodes"].push(record_node);
     }
 
