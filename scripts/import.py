@@ -44,7 +44,7 @@ def import_data(input, schema, curation_tables):
     if user_data_path:
         add_user_table_to_nanobot(user_data_path, schema, curation_tables)
     else:
-        raise Exception("Couldn't find the user data files (with tsv or csv extension) in folder: " + input)
+        raise Exception("Couldn't find the cell type annotation config file (with yaml or yml extension) in folder: " + input)
 
     if user_config_path:
         user_file_name = os.path.splitext(os.path.basename(user_data_path))[0]
