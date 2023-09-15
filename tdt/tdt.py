@@ -327,6 +327,10 @@ def create_ontodev_static_files(outdir, tgts):
     tgts.append(file_target)
     copy(WORKSPACE + "/nanobot/src/resources/ols_form.html", file_target)
 
+    file_target = "{}/src/resources/table.html".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/nanobot/src/resources/table.html", file_target)
+
 
 def create_makefile(outdir, tgts):
     mf_source = WORKSPACE + "/Makefile"
