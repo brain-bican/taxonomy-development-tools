@@ -21,7 +21,8 @@ RUN apt-get update &&  \
     libcurl4-openssl-dev  \
     openssl \
     r-base  \
-    leiningen
+    leiningen \
+    gpg
 
 # to speedup R package installations (try apt-cache search r-cran-remotes) https://datawookie.dev/blog/2019/01/docker-images-for-r-r-base-versus-r-apt/
 #RUN apt-get update && \
@@ -73,9 +74,17 @@ ADD nanobot/src/resources/ols_form.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/taxonomy_view.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/table.html $WORKSPACE/nanobot/src/resources
 
-RUN apt-get install -y aha \
+# GH cli on linux is old (2.4.0), get the latest
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+RUN chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+
+RUN apt-get update &&  \
+    apt-get install -y aha \
     sqlite3 \
-    python3-psycopg2
+    python3-psycopg2 \
+    gh
 
 # restore WORKDIR
 WORKDIR /tools
