@@ -7,17 +7,7 @@ instructions here.
 
 We will walk you though the steps to make a new ontology project
 
-## 1. Install requirements
-
-- [docker](https://www.docker.com/get-docker): Install Docker and make sure its runnning properly, for example by typing `docker ps` in your terminal or command line (CMD). If all is ok, you should be seeing something like:
-
-```
-CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
-```
-
-- git, for example bundled with [GitHub Desktop](https://desktop.github.com/)
-
-## 2. Download the wrapper script and pull latest ODK version
+## 1. Download the wrapper script and pull latest ODK version
 
 - Linux/Mac: [seed-via-docker.sh](https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/seed-via-docker.sh)
 - PC: [seed-via-docker.bat](https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/seed-via-docker.bat)

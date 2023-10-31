@@ -1,0 +1,5 @@
+cluster_id	cluster_name	level 3 (subclass)	level 2 (neighborhood)	level1 (class)	region.info (Frequency)	NSForest markers (Combo)
+1	1_MSN	D1-Matrix	D1-MSN	MSN	PuR(0.52) | CaH(0.39)	EPYC, RELN, GULP1
+2	2_MSN	D1-Matrix	D1-MSN	MSN	CaH(0.95)	SEMA3E, TOX3, RELN, RAP1GAP
+3	3_MSN	D1-Matrix	D1-MSN	MSN	CaH(0.59) | PuR(0.38)	RELN, FGGY, CDH10
+4	4_MSN	D1-Matrix	D1-MSN	MSN	PuR(0.91) | CaH(0.08)	EVC, RXFP2, ETV5, SEMA3E

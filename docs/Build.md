@@ -6,10 +6,62 @@ You can download TDT Docker image through following the steps defined in project
 docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
 ```
 
-## Build Taxonomy Development Tools
+# Install requirements
 
-Alternatively, you can build TDT docker image in your local. Checkout the project and run given command in the project root folder:
+## Docker
+
+- Install [Docker](https://www.docker.com/get-docker) and make sure its runnning properly, for example by typing `docker ps` in your terminal or command line (CMD). If all is ok, you should be seeing something like:
 
 ```
-docker build -t "ghcr.io/brain-bican/taxonomy-development-tools" .
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+```
+
+## Git
+
+1. Setup your GitHub user configs
+
+```
+git config --global user.name "your_github_user"
+git config --global user.email "your_github_email"
+```
+
+2. Create a GitHub [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic).
+
+3. Set `GH_TOKEN` environment variable. 
+
+- You can use `nano` or any other editor to edit the files.
+
+For bash (Linux):
+```
+nano ~/.bashrc
+```
+
+For zshrc (MacOS):
+```
+nano ~/.zshrc
+```
+
+- When the file opens, add the environment variable in a new line:
+
+```
+export GH_TOKEN=my_github_personal_access_token_here`
+```
+
+- Reinitialize the configuration file to apply the changes to the current session:
+
+`source ~/.bashrc` or `source ~/.zshrc`
+
+- Test your new config: 
+
+```
+echo $GH_TOKEN
+```
+
+
+## Build Taxonomy Development Tools (Optional)
+
+Users are suggested to use the [Get Taxonomy Development Tools](#get-taxonomy-development-tools) step to have a TDT Docker Image. But, alternatively, you can build TDT docker image in your local. Checkout the project and run given command in the project root folder:
+
+```
+docker build --no-cache -t "ghcr.io/brain-bican/taxonomy-development-tools" .
 ```

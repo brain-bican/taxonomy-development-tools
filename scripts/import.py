@@ -1,6 +1,8 @@
 import os
 import csv
 import click
+import logging
+import subprocess
 import shutil
 import pandas as pd
 from ctat.cell_type_annotation import format_data
@@ -30,6 +32,7 @@ def import_data(input, schema, curation_tables):
     global last_accession_id, accession_ids
     last_accession_id = 0
     accession_ids = list()
+    new_files = list()
 
     user_data_path = None
     user_config_path = None
@@ -38,11 +41,14 @@ def import_data(input, schema, curation_tables):
         if os.path.isfile(f):
             if (filename.endswith(".tsv") or filename.endswith(".csv")) and "_std." not in filename:
                 user_data_path = f
+                new_files.append(user_data_path)
             elif filename.endswith(".yaml") or filename.endswith(".yml"):
                 user_config_path = f
+                new_files.append(user_config_path)
 
     if user_data_path:
-        add_user_table_to_nanobot(user_data_path, schema, curation_tables)
+        user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables)
+        new_files.append(user_data_ct_path)
     else:
         raise Exception("Couldn't find the cell type annotation config file (with yaml or yml extension) in folder: " + input)
 
@@ -53,7 +59,27 @@ def import_data(input, schema, curation_tables):
         raise Exception("Couldn't find the config data files (with yaml or yml extension) in folder: " + input)
 
     std_data_path = convert_standard_json_to_table(std_data, user_file_name, input)
-    add_user_table_to_nanobot(std_data_path, schema, curation_tables)
+    user_data_ct_path = add_user_table_to_nanobot(std_data_path, schema, curation_tables)
+    new_files.append(user_data_ct_path)
+
+    # updated files
+    new_files.append(os.path.join(schema, "table.tsv"))
+    new_files.append(os.path.join(schema, "column.tsv"))
+
+    project_folder = os.path.dirname(os.path.abspath(input))
+    add_new_files_to_git(project_folder, new_files)
+
+
+def add_new_files_to_git(project_folder, new_files):
+    """
+    Runs git add command to add imported files to the version control.
+    Parameters:
+        project_folder: project folder path
+        new_files: imported/created file paths to add to the version control
+    """
+    runcmd("cd {dir} && git add {files}".
+           format(dir=project_folder,
+                  files=" ".join([t.replace(project_folder, ".", 1) for t in new_files])))
 
 
 def convert_standard_json_to_table(std_data: dict, source_file_name: str, input_folder: str):
@@ -174,6 +200,7 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
             else:
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
                          header.replace("_", " ").strip() + "\tempty\ttext\t\t")
+    return user_data_ct_path
 
 
 def copy_file(source_file, target_folder):
@@ -339,6 +366,17 @@ def retrieve_accession_prefix(root_folder_path):
                             return str(data["id"]).strip() + "_"
                     except Exception as e:
                         raise Exception("Yaml read failed:" + f + " " + str(e))
+
+
+def runcmd(cmd):
+    logging.info("RUNNING: {}".format(cmd))
+    p = subprocess.Popen([cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, universal_newlines=True)
+    (out, err) = p.communicate()
+    logging.info('OUT: {}'.format(out))
+    if err:
+        logging.error(err)
+    if p.returncode != 0:
+        raise Exception('Failed: {}'.format(cmd))
 
 
 if __name__ == '__main__':

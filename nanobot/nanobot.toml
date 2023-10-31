@@ -96,3 +96,9 @@ commands = [
   ["git", "-c", "color.ui=always", "status"],
   ["gh", "release", "create", "--tag", "'{tag}'"],
 ]
+
+[actions.purl]
+label = "Publish PURL"
+commands = [
+  ["tdta", "purl-publish", "-i", "./", "-t", "$$TAXONOMY_ID$$", "-u", "'{username}'"]
+]

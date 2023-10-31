@@ -221,6 +221,7 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_folder(outdir, "src/schema", tgts)
 
     create_purl_config(outdir, project, tgts)
+    create_nanobot_toml(outdir, project, tgts)
     create_readme(outdir, project, tgts)
     create_output_file(outdir, project, tgts)
     create_run_script(outdir, tgts)
@@ -291,10 +292,6 @@ def create_ontodev_tables(outdir, project, tgts):
 
 
 def create_ontodev_static_files(outdir, tgts):
-    file_target = "{}/nanobot.toml".format(outdir)
-    tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/nanobot.toml", file_target)
-
     file_target = "{}/src/assets/bstreeview.css".format(outdir)
     tgts.append(file_target)
     copy(WORKSPACE + "/nanobot/src/assets/bstreeview.css", file_target)
@@ -326,6 +323,21 @@ def create_ontodev_static_files(outdir, tgts):
     file_target = "{}/src/resources/ols_form.html".format(outdir)
     tgts.append(file_target)
     copy(WORKSPACE + "/nanobot/src/resources/ols_form.html", file_target)
+
+    file_target = "{}/src/resources/table.html".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/nanobot/src/resources/table.html", file_target)
+
+
+def create_nanobot_toml(outdir, project, tgts):
+    nanobot_source = WORKSPACE + "/nanobot/nanobot.toml"
+    with open(nanobot_source, "r") as f:
+        content = f.read()
+    content = content.replace("$$TAXONOMY_ID$$", project.id)
+    nanobot_target = "{}/nanobot.toml".format(outdir)
+    with open(nanobot_target, "w") as f:
+        f.write(content)
+    tgts.append(nanobot_target)
 
 
 def create_makefile(outdir, tgts):
@@ -364,7 +376,7 @@ def create_purl_config(outdir, project, tgts):
     purl_config = "{}/purl/{}.yml".format(outdir, project.id)
     with open(purl_config, "w") as f:
         lines = list()
-        lines.append("# PURL configuration for http://purl.bican.org/taxonomy/{}".format(project.id))
+        lines.append("# PURL configuration for https://purl.bican.org/taxonomy/{}".format(project.id))
         lines.append("")
         lines.append("idspace: {}".format(project.id))
         lines.append("base_url: /taxonomy/{}".format(project.id))
@@ -379,7 +391,7 @@ def create_purl_config(outdir, project, tgts):
         lines.append("")
         lines.append("entries:")
         lines.append("")
-        lines.append("# http://purl.bican.org/taxonomy/{id}/{id}.json".format(id=project.id))
+        lines.append("# https://purl.bican.org/taxonomy/{id}/{id}.json".format(id=project.id))
         lines.append("- exact: /{id}.json".format(id=project.id))
         lines.append("  replacement: https://raw.githubusercontent.com/{org}/{repo}/main/{id}.json".format(
             org=project.github_org, repo=project.repo, id=project.id))

@@ -8,7 +8,11 @@
 {% endblock %}
 
 {% block content %}
-<h2>Taxonomy View</h2>
+<div style="margin-top: 15px; margin-bottom: 15px;" class="container-fluid">
+    <h2 style="display:inline-block;">{{ table_name }} Taxonomy</h2>
+
+    <a class="float-end btn btn-outline-primary" href="/{{ table_name }}">Table View</a>
+</div>
 
 <div id="source-treeview" class="col" style="overflow-y:auto; height: 800px; border: 1px solid #ccc ;"></div>
 
