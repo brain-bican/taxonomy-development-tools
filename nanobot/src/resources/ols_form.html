@@ -9,6 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
 <script src="{{ page.root }}assets/ols-autocomplete.js"></script>
 <script>
+  $("*[name='cell_set_accession']").first().attr("readonly", true);
   $("*[name='rank']").first().attr("readonly", true);
 
   // ONTOLOGY AUTOCOMPLETE
