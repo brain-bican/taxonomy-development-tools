@@ -9,6 +9,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
 <script src="{{ page.root }}assets/ols-autocomplete.js"></script>
 <script>
+  $("*[name='rank']").first().attr("readonly", true);
+
   // ONTOLOGY AUTOCOMPLETE
   $("*[name='classifying_ontology_term_id']").first().attr("readonly", true);
   $("*[name='classifying_ontology_term_name']").first().attr({
