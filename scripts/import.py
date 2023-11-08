@@ -5,13 +5,10 @@ import logging
 import subprocess
 import shutil
 import pandas as pd
-from ctat.cell_type_annotation import format_data
+from ctat.cell_type_annotation import ingest_user_data
+from ctat.tabular_serializer import serialize_to_tables
 from pathlib import Path
 from ruamel.yaml import YAML
-
-
-last_accession_id = 0
-accession_ids = list()
 
 
 @click.group()
@@ -54,13 +51,16 @@ def import_data(input, schema, curation_tables):
 
     if user_config_path:
         user_file_name = os.path.splitext(os.path.basename(user_data_path))[0]
-        std_data = format_data(user_data_path, user_config_path, os.path.join(input, user_file_name + ".json"))
+        std_data = ingest_user_data(user_data_path, user_config_path)
     else:
         raise Exception("Couldn't find the config data files (with yaml or yml extension) in folder: " + input)
 
-    std_data_path = convert_standard_json_to_table(std_data, user_file_name, input)
-    user_data_ct_path = add_user_table_to_nanobot(std_data_path, schema, curation_tables)
-    new_files.append(user_data_ct_path)
+    accession_prefix = retrieve_accession_prefix(Path(input).parent.absolute())
+    std_tables = serialize_to_tables(std_data, user_file_name, input, accession_prefix)
+    # std_data_path = convert_standard_json_to_table(std_data, user_file_name, input)
+    for table_path in std_tables:
+        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables)
+        new_files.append(user_data_ct_path)
 
     # updated files
     new_files.append(os.path.join(schema, "table.tsv"))
@@ -82,82 +82,6 @@ def add_new_files_to_git(project_folder, new_files):
                   files=" ".join([t.replace(project_folder, ".", 1) for t in new_files])))
 
 
-def convert_standard_json_to_table(std_data: dict, source_file_name: str, input_folder: str):
-    """
-    Converts the standardized data json to tsv to be represented by nanobot.
-    Parameters:
-        std_data: standard json data content as dictionary
-        source_file_name: name of the user file
-        input_folder: tdt input data folder path
-    """
-    std_data_path = os.path.join(input_folder, source_file_name + "_std.tsv")
-    accession_prefix = retrieve_accession_prefix(Path(input_folder).parent.absolute())
-
-    std_records = list()
-    std_parent_records = list()
-    std_parent_records_dict = dict()
-    for annotation_object in std_data["annotation_objects"]:
-        record = dict()
-        if "cell_set_accession" in annotation_object:
-            record["annotation_set"] = str(annotation_object["annotation_set"]).replace("_name", "")
-            record["rank"] = annotation_object["rank"]
-            record["cell_set_accession"] = generate_accession_id(accession_prefix, annotation_object["cell_set_accession"])
-            record["cell_label"] = annotation_object["cell_label"]
-            record["parent_cell_set_accession"] = ""
-            record["parent_cell_set_name"] = ""
-            record["classifying_ontology_term_id"] = annotation_object.get("classifying_ontology_term_id", "")
-            record["classifying_ontology_term_name"] = annotation_object.get("classifying_ontology_term_name", "")
-            record["marker_genes"] = annotation_object["marker_genes"]
-            if "user_annotations" in annotation_object:
-                for user_annot in annotation_object["user_annotations"]:
-                    record[normalize_column_name(user_annot["annotation_set"])] = user_annot["cell_label"]
-            std_records.append(record)
-        else:
-            # parent nodes
-            parent_label = annotation_object["cell_label"]
-            if parent_label not in [parent["cell_label"] for parent in std_parent_records]:
-                record["annotation_set"] = str(annotation_object["annotation_set"]).replace("_name", "")
-                record["rank"] = annotation_object["rank"]
-                record["cell_set_accession"] = ""
-                record["cell_label"] = parent_label
-                record["parent_cell_set_accession"] = ""
-                record["parent_cell_set_name"] = ""
-                std_parent_records.append(record)
-        if "parent_cell_set_name" in annotation_object:
-            record["parent_cell_set_name"] = annotation_object["parent_cell_set_name"]
-            if annotation_object["parent_cell_set_name"] in std_parent_records_dict:
-                std_parent_records_dict.get(annotation_object["parent_cell_set_name"]).append(record)
-            else:
-                children = list()
-                children.append(record)
-                std_parent_records_dict[annotation_object["parent_cell_set_name"]] = children
-
-    assign_parent_accession_ids(accession_prefix, std_parent_records, std_parent_records_dict)
-    std_records.extend(std_parent_records)
-
-    std_records_df = pd.DataFrame.from_records(std_records)
-    std_records_df.to_csv(std_data_path, sep="\t", index=False)
-    return std_data_path
-
-
-def assign_parent_accession_ids(accession_prefix, std_parent_records, std_parent_records_dict):
-    """
-    Assigns accession ids to parent clusters and updates their references from the child clusters.
-    Params:
-        accession_prefix: accession_id prefix
-        std_parent_records: list of all parents to assign accession ids
-        std_parent_records_dict: parent cluster - child clusters dictionary
-    """
-    std_parent_records.sort(key=lambda x: int(x["rank"]))
-    for std_parent_record in std_parent_records:
-        accession_id = generate_accession_id(accession_prefix)
-        std_parent_record["cell_set_accession"] = accession_id
-
-        children = std_parent_records_dict.get(std_parent_record["cell_label"], list())
-        for child in children:
-            child["parent_cell_set_accession"] = accession_id
-
-
 def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder):
     """
     Adds user data to the nanobot. Adds user table to the curation tables folder and updates the nanobot table schema.
@@ -167,7 +91,7 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
     user_table_name = os.path.splitext(os.path.basename(user_data_ct_path))[0]
     table_tsv_path = os.path.join(schema_folder, "table.tsv")
     with open(table_tsv_path, 'a') as fd:
-        if user_table_name.endswith("_std"):
+        if user_table_name.endswith("_annotation"):
             # use custom edit_view for autocomplete
             fd.write(('\n{table_name}\t{path}\t\tols_form\t').format(table_name=user_table_name, path=user_data_ct_path))
         else:
@@ -191,10 +115,10 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
             elif index == 0 and "cell_set_accession" not in user_headers:
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
                          header.strip() + "\t\tword\tprimary\t")
-            elif header == "classifying_ontology_term_id":
+            elif header == "cell_ontology_term_id":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
                          header.replace("_", " ").strip() + "\tempty\tautocomplete_cl\t\t")
-            elif header == "classifying_ontology_term_name":
+            elif header == "cell_ontology_term":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
                          header.replace("_", " ").strip() + "\tempty\tontology_label\t\t")
             else:
@@ -312,34 +236,6 @@ def read_csv_to_dict(csv_path, id_column=0, id_column_name="", delimiter=",", id
             row_count += 1
 
     return headers, records
-
-
-def generate_accession_id(accession_prefix: str = "", id_recommendation: str = None) -> str:
-    """
-    Generates an auto-increment based accession id. If the recommended accession_id is available, uses it.
-    Params:
-        accession_prefix: accession_id prefix
-        id_recommendation: accession id recommendation. Function uses this id if it is available,
-        provides an auto-incremented id otherwise.
-    Return: accession_id
-    """
-    global last_accession_id, accession_ids
-
-    if id_recommendation and id_recommendation not in accession_ids and int(id_recommendation) > last_accession_id:
-        accession_id = id_recommendation
-        last_accession_id = int(id_recommendation)
-    else:
-        id_candidate = last_accession_id + 1
-        while str(id_candidate) in accession_ids:
-            id_candidate += 1
-        accession_id = str(id_candidate)
-        last_accession_id = id_candidate
-
-    accession_ids.append(accession_id)
-    if accession_prefix:
-        accession_id = accession_prefix + accession_id
-
-    return accession_id
 
 
 def retrieve_accession_prefix(root_folder_path):

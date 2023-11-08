@@ -45,7 +45,9 @@ require = function t(e, o, i) {
                         autocomplete_input_name = e.currentTarget.name;
                         // get the matching 'id' input field's name
                         // classifying_ontology_term_name -> classifying_ontology_term_id
-                        target_input_name = autocomplete_input_name.replace("_name", "_id");
+                        // target_input_name = autocomplete_input_name.replace("_name", "_id");
+                        // cell_ontology_term -> cell_ontology_term_id
+                        target_input_name = autocomplete_input_name + "_id";
                         if ($('input[name="' + target_input_name + '"]').length > 0) {
                             $('input[name="' + target_input_name + '"]')[0].value = i.data.shortForm;
                         }

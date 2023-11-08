@@ -10,11 +10,11 @@
 <script src="{{ page.root }}assets/ols-autocomplete.js"></script>
 <script>
   $("*[name='cell_set_accession']").first().attr("readonly", true);
-  $("*[name='rank']").first().attr("readonly", true);
+  $("*[name='labelset']").first().attr("readonly", true);
 
   // ONTOLOGY AUTOCOMPLETE
-  $("*[name='classifying_ontology_term_id']").first().attr("readonly", true);
-  $("*[name='classifying_ontology_term_name']").first().attr({
+  $("*[name='cell_ontology_term_id']").first().attr("readonly", true);
+  $("*[name='cell_ontology_term']").first().attr({
     "data-selectpath": "https://www.ebi.ac.uk/ols4/",
     "data-olsontology": "cl",
     "data-olswidget": "select",
@@ -98,7 +98,7 @@
       },
       templates: {
         suggestion: function(data) {
-            return '<p>' + data.cell_label + ' [' + data.cell_set_accession + ']  Rank:' + data.rank + '</p>';
+            return '<p>' + data.cell_label + ' [' + data.cell_set_accession + '] </p>';
         }
       }
     });
@@ -117,13 +117,13 @@
     console.log("Form data ", form_data);
     console.log("All data ", table_data);
     // sort highest rank first but ordered by accession_id if same rank. Then filter higher ranks only
-    table_data.sort((a, b) => (a.rank > b.rank) ? -1 : (a.rank === b.rank) ? ((a.cell_set_accession > b.cell_set_accession) ? 1 : -1) : 1 );
-    var parents = table_data.filter(function (el) {
-      return parseInt(el.rank) > parseInt(form_data.rank);
-    });
-    console.log("Table data ", parents);
+    // table_data.sort((a, b) => (a.rank > b.rank) ? -1 : (a.rank === b.rank) ? ((a.cell_set_accession > b.cell_set_accession) ? 1 : -1) : 1 );
+    // var parents = table_data.filter(function (el) {
+    //   return parseInt(el.rank) > parseInt(form_data.rank);
+    // });
+    // console.log("Table data ", parents);
 
-    configure_autocomplete("parent_cell_set_name", parents);
+    configure_autocomplete("parent_cell_set_name", table_data);
   });
 
 </script>

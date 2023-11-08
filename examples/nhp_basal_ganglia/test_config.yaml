@@ -1,4 +1,5 @@
 taxonomy_id: CCN20230601
+author_name: Test User
 brain_region_names:
   - Basal Ganglia
 species_names:
@@ -26,12 +27,5 @@ fields:
     rank: 3
 
   - column_name: NSForest markers (Combo)
-    column_type: marker_genes
+    column_type: marker_gene_evidence
 
-#  - column_name: region.info (Frequency)
-#    column_type: brain_region_name
-#    column_mapping: brain_region_name
-
-#  - column_name: NSForest F1 score
-#    column_type: marker_confidence_score
-#    column_mapping: marker_confidence_score
