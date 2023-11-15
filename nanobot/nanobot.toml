@@ -102,3 +102,9 @@ label = "Publish PURL"
 commands = [
   ["tdta", "purl-publish", "-i", "./", "-t", "$$TAXONOMY_ID$$", "-u", "'{username}'"]
 ]
+
+[actions.cas_save]
+label = "Save CAS"
+commands = [
+  ["tdta", "export", "-db", "./build/nanobot.db", "-o", "./$$TAXONOMY_ID$$.json"]
+]

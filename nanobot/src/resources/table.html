@@ -266,7 +266,7 @@
     {% endif %}
 
     {# extend-start #}
-    {% if  "_annotation" in table.table %}
+    {% if  "_annotation" in table.table and "_labelset" not in table.table and "_metadata" not in table.table and "_annotation_transfer" not in table.table %}
     <a style="float:right;" class="btn btn-outline-primary" href="/{{ table.table }}?view=taxonomy_view">Taxonomy View</a>
     {% endif %}
     {# extend-end #}
