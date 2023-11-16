@@ -70,6 +70,12 @@ class TaxonomyProject(JsonSchemaMixin):
     (or '' if there is no associated citation). Ideally the DOI for the publication will be used, or alternatively some 
     other permanent link."""
 
+    github_user_email: str = None
+    """GitHub user email. If not provided by config, value is read from the environment."""
+
+    github_user_name: str = None
+    """GitHub user name. If not provided by config, value is read from the environment."""
+
 
 @dataclass
 class ExecutionContext(JsonSchemaMixin):
@@ -97,8 +103,8 @@ class Generator(object):
         """
         with open(input) as file_:
             template = Template(file_.read())
-            if "ODK_VERSION" in os.environ:
-                return template.render(project=self.context.project, env={"ODK_VERSION": os.getenv("ODK_VERSION")})
+            if "TDT_VERSION" in os.environ:
+                return template.render(project=self.context.project, env={"TDT_VERSION": os.getenv("TDT_VERSION")})
             else:
                 return template.render(project=self.context.project)
 
@@ -215,7 +221,7 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_folder(outdir, "curation_tables", tgts, "Curation Tables", "CCN2 taxonomy curation tables.")
     create_folder(outdir, "purl", tgts, "PURL Configuration", "BICAN Permanent URLs sample configuration file. "
                                                               "Please make a pull request to place this file in [BICAN PURLs taxonomy configuration folder]"
-                                                              "(https://github.com/hkir-dev/purl.bican.org/tree/main/config/taxonomy).")
+                                                              "(https://github.com/hkir-dev/purl.bican.org/tree/main/config/taxonomy) via TDT 'Publish PURL' action.")
     create_folder(outdir, "src/assets", tgts)
     create_folder(outdir, "src/resources", tgts)
     create_folder(outdir, "src/schema", tgts)
@@ -362,40 +368,32 @@ def create_output_file(outdir, project, tgts):
 
 
 def create_readme(outdir, project, tgts):
-    readme_file = "{}/README.md".format(outdir)
+    nanobot_source = WORKSPACE + "/resources/repo_README.md"
+    with open(nanobot_source, "r") as f:
+        content = f.read()
     if project.description:
         desc = project.description
     else:
         desc = project.title
+    content = content.replace("$$TAXONOMY_ID$$", project.id)
+    content = content.replace("$$TAXONOMY_NAME$$", project.title)
+    content = content.replace("$$TAXONOMY_DESCRIPTION$$", desc)
+    readme_file = "{}/README.md".format(outdir)
     with open(readme_file, "w") as f:
-        f.write("# {0}({1})\n\n{2}.".format(project.title, project.id, desc))
+        f.write(content)
     tgts.append(readme_file)
 
 
 def create_purl_config(outdir, project, tgts):
+    nanobot_source = WORKSPACE + "/resources/repo_PURL_config.yml"
+    with open(nanobot_source, "r") as f:
+        content = f.read()
+    content = content.replace("$$TAXONOMY_ID$$", project.id)
+    content = content.replace("$$PROJECT_GITHUB_ORG$$", project.github_org)
+    content = content.replace("$$PROJECT_REPO$$", project.repo)
     purl_config = "{}/purl/{}.yml".format(outdir, project.id)
     with open(purl_config, "w") as f:
-        lines = list()
-        lines.append("# PURL configuration for https://purl.bican.org/taxonomy/{}".format(project.id))
-        lines.append("")
-        lines.append("idspace: {}".format(project.id))
-        lines.append("base_url: /taxonomy/{}".format(project.id))
-        lines.append("")
-        lines.append("products:")
-        lines.append(
-            "- {id}.json: https://raw.githubusercontent.com/{org}/{repo}/main/{id}.json".format(org=project.github_org,
-                                                                                                repo=project.repo,
-                                                                                                id=project.id))
-        lines.append("")
-        lines.append("base_redirect: https://github.com/{org}/{repo}".format(org=project.github_org, repo=project.repo, ))
-        lines.append("")
-        lines.append("entries:")
-        lines.append("")
-        lines.append("# https://purl.bican.org/taxonomy/{id}/{id}.json".format(id=project.id))
-        lines.append("- exact: /{id}.json".format(id=project.id))
-        lines.append("  replacement: https://raw.githubusercontent.com/{org}/{repo}/main/{id}.json".format(
-            org=project.github_org, repo=project.repo, id=project.id))
-        f.writelines(i + '\n' for i in lines)
+        f.write(content)
     tgts.append(purl_config)
 
 

@@ -4,6 +4,7 @@ ENV WORKSPACE=/tools
 RUN mkdir $WORKSPACE
 RUN mkdir $WORKSPACE/dendR
 RUN mkdir $WORKSPACE/scripts
+RUN mkdir $WORKSPACE/resources
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -41,6 +42,8 @@ RUN apt-get update &&  \
 #RUN dpkg -i ./pandoc-2.19.2-1-amd64.deb
 
 ADD Makefile $WORKSPACE
+ADD resources/repo_README.md $WORKSPACE/resources
+ADD resources/repo_PURL_config.yml $WORKSPACE/resources
 ADD requirements.txt $WORKSPACE
 ADD tdt/tdt.py $WORKSPACE
 ADD dendR/nomenclature_builder.R $WORKSPACE/dendR
@@ -48,6 +51,7 @@ ADD dendR/install_packages.R $WORKSPACE/dendR
 ADD dendR/required_scripts.R $WORKSPACE/dendR
 ADD scripts/run.sh $WORKSPACE/scripts
 ADD scripts/import.py $WORKSPACE/scripts
+ADD scripts/configurations.py $WORKSPACE/scripts
 
 RUN python3 -m pip install  -r $WORKSPACE/requirements.txt
 #RUN Rscript $WORKSPACE/dendR/install_packages.R
