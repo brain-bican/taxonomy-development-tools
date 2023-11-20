@@ -69,6 +69,18 @@ commands = [
   ["git", "commit", "--message", "'{message}'"],
 ]
 
+[actions.commitandpush]
+label = "Commit and Push"
+inputs = [
+    { name = "message", label = "Commit Message" }
+]
+commands = [
+  ["git", "add", "--update"],
+  ["git", "-c", "color.ui=always", "status"],
+  ["git", "commit", "--message", "'{message}'"],
+  ["git", "push"],
+]
+
 [actions.push]
 label = "Push"
 commands = [

@@ -38,9 +38,6 @@ class TaxonomyProject(JsonSchemaMixin):
     title: str = ""
     """Concise descriptive text about this taxonomy"""
 
-    git_user: str = ""
-    """GIT user name (necessary for generating releases)"""
-
     repo: str = ""
     """Name of repo (do not include org). E.g. mouse-mtg-taxonomy"""
 

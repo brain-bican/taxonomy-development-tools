@@ -3,16 +3,16 @@ title: NHP Basal Ganglia taxonomy
 description: Atlas of non-human primate basal ganglia, developed in collaboration with the BRAIN Initiative Cell Census Network (BICCN).
 github_org: hkir-dev
 repo: nhp_basal_ganglia_taxonomy
-author: https://orcid.org/0000-0002-7073-9172
+author: https://orcid.org/0000-0002-4436-969X
 accession_id_prefix: AIT115
 citation: ''
 creators:
-  - https://orcid.org/0000-0001-7258-9596
-  - https://orcid.org/0000-0002-3315-2794
-cross_species:
+  - https://orcid.org/0000-0002-4436-969X
+annotation_transfer:
   - taxonomy_id: CCN202002013
-    mirror_from: https://raw.githubusercontent.com/AllenInstitute/MOp_taxonomies_ontology/main/mouseMOp_CCN202002013/nomenclature_table_CCN202002013.csv
+    mirror_from: https://purl.bican.org/taxonomy/CCN202002013/CCN202002013.json
   - taxonomy_id: CCN201912132
-    mirror_from: https://raw.githubusercontent.com/AllenInstitute/MOp_taxonomies_ontology/main/marmosetM1_CCN201912132/nomenclature_table_CCN201912132.csv
+    mirror_from: https://purl.bican.org/taxonomy/CCN201912132/CCN201912132.json
 
-
+# github_user_email:
+# github_user_name:
