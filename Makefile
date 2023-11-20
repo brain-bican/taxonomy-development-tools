@@ -3,6 +3,7 @@ NANOBOT := build/nanobot
 NANOBOTDB := build/nanobot.db
 EXPORT := build/export.py
 IMPORT := $(WORKSPACE)/scripts/import.py
+CONFIGURATIONS := $(WORKSPACE)/scripts/configurations.py
 
 build/:
 	mkdir -p $@
@@ -41,6 +42,7 @@ save: $(EXPORT) $(NANOBOTDB)
 
 .PHONY: serve
 serve: $(NANOBOTDB)
+	python3 $(CONFIGURATIONS) configure-git --root_folder ./
 	$(NANOBOT) serve
 
 .PHONY: clean

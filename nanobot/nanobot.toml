@@ -69,6 +69,18 @@ commands = [
   ["git", "commit", "--message", "'{message}'"],
 ]
 
+[actions.commitandpush]
+label = "Commit and Push"
+inputs = [
+    { name = "message", label = "Commit Message" }
+]
+commands = [
+  ["git", "add", "--update"],
+  ["git", "-c", "color.ui=always", "status"],
+  ["git", "commit", "--message", "'{message}'"],
+  ["git", "push"],
+]
+
 [actions.push]
 label = "Push"
 commands = [
@@ -101,4 +113,10 @@ commands = [
 label = "Publish PURL"
 commands = [
   ["tdta", "purl-publish", "-i", "./", "-t", "$$TAXONOMY_ID$$", "-u", "'{username}'"]
+]
+
+[actions.cas_save]
+label = "Save CAS"
+commands = [
+  ["tdta", "export", "-db", "./build/nanobot.db", "-o", "./$$TAXONOMY_ID$$.json"]
 ]
