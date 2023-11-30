@@ -241,6 +241,8 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
         if gitemail is not None:
             os.environ['GIT_AUTHOR_EMAIL'] = gitemail
             os.environ['GIT_COMMITTER_EMAIL'] = gitemail
+        runcmd("git config --global init.defaultBranch master".format(dir=outdir))
+        runcmd("git config --global --add safe.directory '{dir}'".format(dir=outdir))
         runcmd("cd {dir} && git init && git add {files}".
                format(dir=outdir,
                       files=" ".join([t.replace(outdir, ".", 1) for t in tgts])))

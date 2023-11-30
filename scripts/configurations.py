@@ -34,8 +34,12 @@ def configure_git(root_folder):
 
     runcmd("git config --global credential.helper store")
 
-    if os.getenv("GITHUB_AUTH_TOKEN", default=None):
+    remotes = runcmd("git remote -v")
+
+    if "origin" in remotes and os.getenv("GITHUB_AUTH_TOKEN", default=None):
         runcmd("git remote set-url origin https://{gh_token}@github.com/{gh_org}/{gh_repo}.git/".format(gh_token=os.getenv("GITHUB_AUTH_TOKEN"), gh_org=github_org, gh_repo=repo))
+    else:
+        print("WARN: The project has not been pushed to GitHub yet, resulting in incomplete GitHub authentication.")
 
 
 def retrieve_configs(root_folder_path, *properties):
