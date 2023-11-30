@@ -6,6 +6,23 @@ You can download TDT Docker image through following the steps defined in project
 docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
 ```
 
+## Update Taxonomy Development Tools to the latest version
+
+You can update TDT Docker image to the latest version through:
+
+Stop running TDT containers:
+```
+docker stop $(docker ps -a -q --filter ancestor=ghcr.io/brain-bican/taxonomy-development-tools:latest)
+```
+
+Remove the existing TDT image and pull the latest one:
+
+```
+docker rmi $(docker images 'ghcr.io/brain-bican/taxonomy-development-tools:latest' -a -q | uniq)
+docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
+```
+
+
 # Install requirements
 
 ## Docker
