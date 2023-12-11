@@ -11,6 +11,6 @@ openpyxl
 # git+https://github.com/ontodev/axle.git
 urlp
 mkdocs
-ctat==0.0.2.dev2
+cas-tools==0.0.1.dev10
 pandas
-tdta==0.0.4.dev3
+tdta==0.1.0.dev1

@@ -118,5 +118,11 @@ commands = [
 [actions.cas_save]
 label = "Save CAS"
 commands = [
-  ["tdta", "export", "-db", "./build/nanobot.db", "-o", "./$$TAXONOMY_ID$$.json"]
+  ["tdta", "export", "-db", "./build/nanobot.db", "-o", "./$$TAXONOMY_ID$$.json", "-c", "/tdt_datasets"]
+]
+
+[actions.export_anndata]
+label = "Export AnnData"
+commands = [
+  ["tdta", "anndata", "-db", "./build/nanobot.db", "-j", "./$$TAXONOMY_ID$$.json", "-o", "/tdt_datasets/$$TAXONOMY_ID$$.h5ad", "-c", "/tdt_datasets"]
 ]
