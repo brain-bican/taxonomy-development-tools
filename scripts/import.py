@@ -5,8 +5,9 @@ import logging
 import subprocess
 import shutil
 import pandas as pd
-from ctat.cell_type_annotation import ingest_user_data
-from ctat.tabular_serializer import serialize_to_tables
+
+from cas.ingest.ingest_user_table import ingest_user_data
+from cas.flatten_data_to_tables import serialize_to_tables
 from pathlib import Path
 from ruamel.yaml import YAML
 
@@ -33,6 +34,7 @@ def import_data(input, schema, curation_tables):
 
     user_data_path = None
     user_config_path = None
+    user_cas_path = None
     for filename in os.listdir(input):
         f = os.path.join(input, filename)
         if os.path.isfile(f):
@@ -42,6 +44,9 @@ def import_data(input, schema, curation_tables):
             elif filename.endswith(".yaml") or filename.endswith(".yml"):
                 user_config_path = f
                 new_files.append(user_config_path)
+            elif filename.endswith(".json"):
+                user_cas_path = f
+                new_files.append(user_cas_path)
 
     if user_data_path:
         user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables)

@@ -1,31 +1,37 @@
 taxonomy_id: CCN20230601
-author_name: Test User
 brain_region_names:
   - Basal Ganglia
 species_names:
   - Macaca Mulatta
+author_name: Nelson
 
 fields:
+
   - column_name: cluster_id
     column_type: cluster_id
     rank: 0
 
-  - column_name: cluster_name
+  - column_name: Cluster
     column_type: cluster_name
     rank: 0
 
-  - column_name: level 3 (subclass)
+  - column_name: Subclass
     column_type: cell_set
     rank: 1
 
-  - column_name: level 2 (neighborhood)
+  - column_name: Neighborhood
     column_type: cell_set
     rank: 2
 
-  - column_name: level1 (class)
+  - column_name: Class
     column_type: cell_set
     rank: 3
 
-  - column_name: NSForest markers (Combo)
-    column_type: marker_gene_evidence
 
+#  - column_name: region.info (Frequency)
+#    column_type: brain_region_name
+#    column_mapping: brain_region_name
+
+#  - column_name: NSForest F1 score
+#    column_type: marker_confidence_score
+#    column_mapping: marker_confidence_score

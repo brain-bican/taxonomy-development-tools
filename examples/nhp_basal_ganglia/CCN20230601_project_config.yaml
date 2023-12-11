@@ -1,6 +1,7 @@
 id: CCN20230601
 title: NHP Basal Ganglia taxonomy
 description: Atlas of non-human primate basal ganglia, developed in collaboration with the BRAIN Initiative Cell Census Network (BICCN).
+matrix_file_id: CellXGene_dataset:nhp50930-982a-11ee-b9d1-0242ac120002
 github_org: hkir-dev
 repo: nhp_basal_ganglia_taxonomy
 author: https://orcid.org/0000-0002-4436-969X

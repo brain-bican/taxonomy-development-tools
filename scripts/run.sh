@@ -24,4 +24,6 @@ fi
 GITHUB_USER=$(git config user.name)
 GITHUB_EMAIL=$(git config user.email)
 
-docker run -v "$PWD:/work" -w /work --rm -ti -p 3000:3000 -p 8000:8000 -e "GITHUB_AUTH_TOKEN=$GH_TOKEN" --env "GITHUB_USER=$GITHUB_USER" --env "GITHUB_EMAIL=$GITHUB_EMAIL" ghcr.io/brain-bican/$IMAGE $TIMECMD "$@"
+mkdir -p "$HOME/tdt_datasets"
+
+docker run -v "$PWD:/work" -v "$HOME/tdt_datasets:/tdt_datasets" -w /work --rm -ti -p 3000:3000 -p 8000:8000 -e "GITHUB_AUTH_TOKEN=$GH_TOKEN" --env "GITHUB_USER=$GITHUB_USER" --env "GITHUB_EMAIL=$GITHUB_EMAIL" ghcr.io/brain-bican/$IMAGE $TIMECMD "$@"
