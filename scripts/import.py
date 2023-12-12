@@ -8,6 +8,7 @@ import pandas as pd
 
 from cas.ingest.ingest_user_table import ingest_user_data
 from cas.flatten_data_to_tables import serialize_to_tables
+from cas.file_utils import read_cas_json_file
 from pathlib import Path
 from ruamel.yaml import YAML
 
@@ -48,17 +49,22 @@ def import_data(input, schema, curation_tables):
                 user_cas_path = f
                 new_files.append(user_cas_path)
 
-    if user_data_path:
-        user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables)
-        new_files.append(user_data_ct_path)
+    # provide either json or tsv + yaml
+    if user_cas_path:
+        user_file_name = os.path.splitext(os.path.basename(user_cas_path))[0]
+        std_data = read_cas_json_file(user_cas_path)
     else:
-        raise Exception("Couldn't find the cell type annotation config file (with yaml or yml extension) in folder: " + input)
+        if user_data_path:
+            user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables)
+            new_files.append(user_data_ct_path)
+        else:
+            raise Exception("Couldn't find the cell type annotation config file (with yaml or yml extension) in folder: " + input)
 
-    if user_config_path:
-        user_file_name = os.path.splitext(os.path.basename(user_data_path))[0]
-        std_data = ingest_user_data(user_data_path, user_config_path)
-    else:
-        raise Exception("Couldn't find the config data files (with yaml or yml extension) in folder: " + input)
+        if user_config_path:
+            user_file_name = os.path.splitext(os.path.basename(user_data_path))[0]
+            std_data = ingest_user_data(user_data_path, user_config_path)
+        else:
+            raise Exception("Couldn't find the config data files (with yaml or yml extension) in folder: " + input)
 
     accession_prefix = retrieve_accession_prefix(Path(input).parent.absolute())
     std_tables = serialize_to_tables(std_data, user_file_name, input, accession_prefix)

@@ -1,9 +1,11 @@
-id: CCN202204130
+id: CS202210140
 title: Human M1 taxonomy
 description: Atlas of human primary motor cortex (M1), developed in collaboration with the BRAIN Initiative Cell Census Network (BICCN).
+matrix_file_id: CellXGene_dataset:Siletti_all_non_neuronal_cells_v2
 github_org: hkir-dev
 repo: human_m1
 author: https://orcid.org/0000-0002-7073-9172
+accession_id_prefix: CS202210140_
 citation: ''
 creators:
   - https://orcid.org/0000-0001-7258-9596
