@@ -25,21 +25,22 @@ RUN apt-get update &&  \
     leiningen \
     gpg
 
+# Shiny app dependencies https://github.com/AllenInstitute/annotation_comparison
 # to speedup R package installations (try apt-cache search r-cran-remotes) https://datawookie.dev/blog/2019/01/docker-images-for-r-r-base-versus-r-apt/
-#RUN apt-get update && \
-#    apt-get install -y -qq \
-#    r-cran-remotes \
-#    r-cran-jsonlite \
-#    r-cran-data.table \
-#    r-cran-ggplot2 \
-#    r-cran-dendextend \
-#    r-cran-biocmanager \
-#    r-cran-knitr \
-#    r-cran-httr
-
-# install pandoc (required by AllenInstitute/CCN)
-#RUN wget https://github.com/jgm/pandoc/releases/download/2.19.2/pandoc-2.19.2-1-amd64.deb
-#RUN dpkg -i ./pandoc-2.19.2-1-amd64.deb
+# to search all available packages: https://packages.debian.org/stable/allpackages
+RUN apt-get update && \
+    apt-get install -y -qq \
+    r-cran-remotes \
+    r-cran-dplyr \
+    r-cran-data.table \
+    r-cran-dt \
+    r-cran-ggplot2 \
+    r-cran-ggbeeswarm \
+    r-cran-shiny \
+    r-cran-upsetr \
+    r-cran-biocmanager \
+    r-cran-shinydashboard \
+    r-bioc-rhdf5
 
 ADD Makefile $WORKSPACE
 ADD resources/repo_README.md $WORKSPACE/resources
@@ -90,9 +91,20 @@ RUN apt-get update &&  \
     python3-psycopg2 \
     gh
 
+# install annotation_comparison tool
+WORKDIR $WORKSPACE
+RUN git clone https://github.com/hkir-dev/annotation_comparison.git && \
+    cd annotation_comparison && \
+    git checkout tdt_integration
+RUN Rscript $WORKSPACE/annotation_comparison/R/install_packages.R
+
 # restore WORKDIR
-WORKDIR /tools
+WORKDIR $WORKSPACE
 
 
 RUN chmod 777 $WORKSPACE/*.py
-CMD python3 $WORKSPACE/tdt.py
+
+COPY entrypoint.sh entrypoint.sh
+
+#CMD python3 $WORKSPACE/tdt.py
+CMD ./entrypoint.sh

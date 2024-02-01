@@ -126,3 +126,9 @@ label = "Export AnnData"
 commands = [
   ["tdta", "anndata", "-db", "./build/nanobot.db", "-j", "./$$TAXONOMY_ID$$.json", "-o", "/tdt_datasets/$$TAXONOMY_ID$$.h5ad", "-c", "/tdt_datasets"]
 ]
+
+[actions.annotation_comparison]
+label = "Compare Annotations"
+commands = [
+  ["Rscript", "-e", "shiny::runApp('/tools/annotation_comparison/R/', launch.browser = TRUE)", "&"]
+]
