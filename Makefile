@@ -9,7 +9,8 @@ build/:
 	mkdir -p $@
 
 build/nanobot: | build/
-	curl -L -o $@ "https://github.com/ontodev/nanobot.rs/releases/download/v2023-06-30/nanobot-x86_64-unknown-linux-musl"
+	#curl -L -o $@ "https://github.com/ontodev/nanobot.rs/releases/download/v2023-06-30/nanobot-x86_64-unknown-linux-musl"
+	curl -L -o $@ "https://github.com/hkir-dev/nanobot.rs/releases/download/v2024-02-05-tdt/nanobot-x86_64-unknown-linux-musl"
 	chmod +x $@
 
 build/export.py: | build/
