@@ -12,10 +12,20 @@ docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
 bash ./run.sh make load_data
 ```
 
+> For Windows: 
+> ```
+> run.bat make load_data
+> ```
+
 4- Run following command to run the online data editor:
 ```
 bash ./run.sh make serve
 ```
+
+> For Windows: 
+> ```
+> run.bat make serve
+> ```
 
 This command will print a set of logs including a log like `nanobot::serve: listening on 0.0.0.0:3000`. This means your web editor is ready, and you can start editing your data.
 
@@ -28,5 +38,10 @@ Once you complete your editing, you can run the following command to save your o
 ```
 bash ./run.sh make save
 ```
+
+> For Windows: 
+> ```
+> run.bat make save
+> ```
 
 Your data will be saved into `curation_tables` folder

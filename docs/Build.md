@@ -47,12 +47,12 @@ git config --global user.email "your_github_email"
 
 - You can use `nano` or any other editor to edit the files.
 
-For bash (Linux):
+**For bash (Linux):**
 ```
 nano ~/.bashrc
 ```
 
-For zshrc (MacOS):
+**For zshrc (MacOS):**
 ```
 nano ~/.zshrc
 ```
@@ -73,6 +73,15 @@ export GH_TOKEN=my_github_personal_access_token_here`
 echo $GH_TOKEN
 ```
 
+**For Windows:**
+```
+setx GH_TOKEN my_github_personal_access_token_here
+```
+
+- To test your new config open a new Command Prompt (Terminal) and run:
+```
+echo %GH_TOKEN%
+```
 
 ## Build Taxonomy Development Tools (Optional)
 

@@ -358,6 +358,11 @@ def create_run_script(outdir, tgts):
     tgts.append(run_script_target)
     copy(run_script_source, run_script_target)
 
+    run_script_source_win = WORKSPACE + "/scripts/run.bat"
+    run_script_target_win = "{}/run.bat".format(outdir)
+    tgts.append(run_script_target_win)
+    copy(run_script_source_win, run_script_target_win)
+
 
 def create_output_file(outdir, project, tgts):
     output_file = "{}/{}.json".format(outdir, project.id)

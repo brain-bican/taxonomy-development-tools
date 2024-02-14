@@ -50,6 +50,7 @@ ADD dendR/nomenclature_builder.R $WORKSPACE/dendR
 ADD dendR/install_packages.R $WORKSPACE/dendR
 ADD dendR/required_scripts.R $WORKSPACE/dendR
 ADD scripts/run.sh $WORKSPACE/scripts
+ADD scripts/run.bat $WORKSPACE/scripts
 ADD scripts/import.py $WORKSPACE/scripts
 ADD scripts/configurations.py $WORKSPACE/scripts
 
