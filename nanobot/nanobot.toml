@@ -1,5 +1,6 @@
 [nanobot]
 config_version = 1
+results_per_page = 5000
 
 [logging]
 level = "DEBUG"

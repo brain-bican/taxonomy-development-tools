@@ -15,6 +15,8 @@ datatype	datatype			datatype_name	primary	the name of this datatype
 datatype	parent		empty	datatype_name	tree(datatype)	the parent datatype
 datatype	condition		empty	datatype_condition		
 datatype	description		empty	text		a description of this datatype
+datatype	transform		empty	text		data type transformation
+datatype	structure		empty	text		data type structure
 datatype	SQLite type		empty	sql_type		the SQL type for representing this data in SQLite
 datatype	PostgreSQL type		empty	sql_type		the SQL type for representing this data in PostgreSQL
 datatype	HTML type		empty	html_type		the HTML type for viewing and editing this data
