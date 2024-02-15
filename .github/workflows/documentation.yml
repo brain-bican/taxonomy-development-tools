@@ -11,6 +11,8 @@ on:
 #    paths:
 #      - 'docs/**'
 
+permissions: write-all
+
 jobs:
   build-and-publish:
     name: Publish mkdocs documentation
@@ -18,17 +20,36 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v3
-      - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
-        # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial to build without the mkdocs-material theme
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CONFIG_FILE: mkdocs.yml
-          EXTRA_PACKAGES: hdf5
+#      - name: Deploy docs
+#        uses: mhausenblas/mkdocs-deploy-gh-pages@master
+#        # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial to build without the mkdocs-material theme
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          CONFIG_FILE: mkdocs.yml
+#          EXTRA_PACKAGES: hdf5
 
-#      - name: Set up Python 3.8
-#        uses: actions/setup-python@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: pip install --upgrade pip && pip install mkdocs mkdocs-gen-files
+#      - name: Configure Git Credentials
+#        run: |
+#          git config user.name github-actions[bot]
+#          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+#      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+#      - uses: actions/cache@v4
 #        with:
-#          python-version: 3.8
-#      - run: pip install mkdocs
-#      - run: mkdocs gh-deploy --force
+#          key: mkdocs-material-${{ env.cache_id }}
+#          path: .cache
+#          restore-keys: |
+#            mkdocs-material-
+      - run: pip install mkdocs-material
+#      - run: mkdocs gh-deploy --force --config-file mkdocs.yml
+      - name: Build MkDocs site
+        run: mkdocs build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
