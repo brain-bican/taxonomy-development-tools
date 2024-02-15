@@ -18,9 +18,9 @@ We will walk you though the steps to make a new ontology project
 
   `docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest`
 
-**NOTE** The very first time you run this it may be slow, while docker downloads necessary images. Don't worry, subsequent runs should be much faster!
+**NOTE:** The very first time you run this it may be slow, while docker downloads necessary images. Don't worry, subsequent runs should be much faster!
 
-**NOTE** Windows users, occasionally it has been reported that files downloaded on a Windows machine get a wrong file ending, for example `seed-via-docker.bat.txt` instead of `seed-via-docker.bat`, or, as we will see later, `project.yaml.txt` instead of `project.yaml`. If you have problems, double check your files are named correctly after the download!
+**NOTE:** Windows users, occasionally it has been reported that files downloaded on a Windows machine get a wrong file ending, for example `seed-via-docker.bat.txt` instead of `seed-via-docker.bat`, or, as we will see later, `project.yaml.txt` instead of `project.yaml`. If you have problems, double check your files are named correctly after the download!
 
 ## 3. Run the wrapper script
 
@@ -39,7 +39,7 @@ Using the predefined [CCN20230601_project_config.yaml](https://github.com/brain-
     seed-via-docker.bat -C CCN20230601_project_config.yaml
 
 This will create your starter files in
-`target/human_m1`. It will also prepare an initial
+`target/nhp_basal_ganglia_taxonomy`. It will also prepare an initial
 release and initialize a local repository (not yet pushed to your Git host site such as GitHub or GitLab).
 
 ### Problems?

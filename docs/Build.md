@@ -21,8 +21,7 @@ docker rmi $(docker images 'ghcr.io/brain-bican/taxonomy-development-tools:lates
 docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
 ```
 
-
-# Install requirements
+# Install Requirements
 
 ## Docker
 
@@ -34,16 +33,20 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 ## Git
 
-1. Setup your GitHub user configs
+1. Make sure you have [Git installed](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+
+2. Set up your GitHub user configs
 
 ```
 git config --global user.name "your_github_user"
 git config --global user.email "your_github_email"
 ```
 
-2. Create a GitHub [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic).
+3. Create a GitHub [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic).
 
-3. Set `GH_TOKEN` environment variable. 
+4. Set `GH_TOKEN` environment variable. 
+
+**_For Linux and MacOS:_**
 
 - You can use `nano` or any other editor to edit the files.
 
@@ -67,16 +70,27 @@ export GH_TOKEN=my_github_personal_access_token_here`
 
 `source ~/.bashrc` or `source ~/.zshrc`
 
-- Test your new config: 
+- Test your new config open a new Terminal and run: 
 
 ```
 echo $GH_TOKEN
 ```
 
+**_For Windows:_**
+```
+setx GH_TOKEN my_github_personal_access_token_here
+```
+
+- To test your new config open a new Command Prompt (Terminal) and run:
+```
+echo %GH_TOKEN%
+```
 
 ## Build Taxonomy Development Tools (Optional)
 
-Users are suggested to use the [Get Taxonomy Development Tools](#get-taxonomy-development-tools) step to have a TDT Docker Image. But, alternatively, you can build TDT docker image in your local. Checkout the project and run given command in the project root folder:
+This step is optional and specifically aimed at users interested in utilizing the development branch of the TDT. Please note that the development branch may exhibit instability.
+
+For those looking to use the TDT, it's recommended to follow the [Get Taxonomy Development Tools](#get-taxonomy-development-tools) section to obtain a TDT Docker Image. However, as an alternative, you have the option to build the TDT Docker image locally. To do this, clone the project repository and execute the provided command within the root directory of the project:
 
 ```
 docker build --no-cache -t "ghcr.io/brain-bican/taxonomy-development-tools" .
