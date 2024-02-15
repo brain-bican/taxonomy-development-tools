@@ -1,12 +1,11 @@
 # Taxonomy Development Tools Guide
 
-This guide is intended for maintainers and editors of CCN2 Taxonomies.
+This guide is designed for the maintainers and editors responsible for managing CCN2 Taxonomies.
 
-The first part of the guide is how to set up a new taxonomy
-project. This requires some technical steps.
+Initially, the guide provides instructions on preparing your system and initiating a new taxonomy project, which involves several technical procedures.
 
-The second part of the guide is for curating the CCN2 taxonomies.
+Subsequently, it delves into the process of curating the CCN2 taxonomies, offering detailed guidance on the necessary steps and considerations.
 
+- [Get Your System Ready](Build.md)  
 - [Create a New Repo](NewRepo.md)
-- [Get TDT Docker Image](Build.md)  
 - [Start Curating Taxonomies](Curation.md)
