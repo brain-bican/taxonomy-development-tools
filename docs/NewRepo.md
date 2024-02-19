@@ -7,7 +7,7 @@ instructions here.
 
 We will walk you though the steps to make a new ontology project
 
-## 1. Download the wrapper script and pull latest ODK version
+## 1. Download the wrapper script and pull latest TDT version
 
 - Linux/Mac: [seed-via-docker.sh](https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/seed-via-docker.sh)
 - PC: [seed-via-docker.bat](https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/seed-via-docker.bat)
