@@ -1,26 +1,3 @@
-# Get Taxonomy Development Tools
-
-You can download TDT Docker image through following the steps defined in project [GitHub Container Registry](https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/taxonomy-development-tools).
-
-```
-docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
-```
-
-## Update Taxonomy Development Tools to the latest version
-
-If you already have a version of TDT Docker image and want to update it to the latest version, you can follow these steps:
-
-Stop the running TDT containers:
-```
-docker stop $(docker ps -a -q --filter ancestor=ghcr.io/brain-bican/taxonomy-development-tools:latest)
-```
-
-Remove the existing TDT image and pull the latest one:
-```
-docker rmi $(docker images 'ghcr.io/brain-bican/taxonomy-development-tools:latest' -a -q | uniq)
-docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
-```
-
 # Install Requirements
 
 ## Docker
@@ -85,6 +62,37 @@ setx GH_TOKEN my_github_personal_access_token_here
 ```
 echo %GH_TOKEN%
 ```
+
+# Taxonomy Development Tools Docker image
+
+The Docker image for Taxonomy Development Tools (TDT) will be automatically fetched and installed on your system if it is not already present.
+
+To explore the TDT Docker image and its version history, visit the [GitHub Container Registry](https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/taxonomy-development-tools).
+
+## Manual Download of the Taxonomy Development Tools Docker Image
+
+Should you prefer to manually obtain the TDT Docker image, execute the following command:
+
+```
+docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
+```
+
+## Update Taxonomy Development Tools to the latest version
+
+To upgrade an existing TDT Docker image to the most current version, proceed as follows:
+
+1. Terminate all active TDT containers:
+```
+docker stop $(docker ps -a -q --filter ancestor=ghcr.io/brain-bican/taxonomy-development-tools:latest)
+```
+
+2. Delete the current TDT image and download the newest version:
+```
+docker rmi $(docker images 'ghcr.io/brain-bican/taxonomy-development-tools:latest' -a -q | uniq)
+docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
+```
+
+This streamlined approach ensures that you are always working with the latest tools and features available for Taxonomy Development.
 
 ## Build Taxonomy Development Tools (Optional)
 
