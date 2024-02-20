@@ -70,6 +70,13 @@
     return str ? str.split(/[^a-zA-Z0-9]+/) : [];
   }
 
+  $("*[name='cell_ontology_term']").first().on('change', function(evt, item) {
+    if (!this.value) {
+      // clear id when term cleaned
+      $("*[name='cell_ontology_term_id']").first()[0].value = "";
+    }
+  });
+
   // PARENT AUTOCOMPLETE
   $("*[name='parent_cell_set_accession']").first().attr("readonly", true);
 
@@ -126,5 +133,11 @@
     configure_autocomplete("parent_cell_set_name", table_data);
   });
 
+  $("*[name='parent_cell_set_name']").first().on('change', function(evt, item) {
+    if (!this.value) {
+      // clear id when term cleaned
+      $("*[name='parent_cell_set_accession']").first()[0].value = "";
+    }
+  });
 </script>
 {% endblock %}
