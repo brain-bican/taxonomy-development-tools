@@ -35,11 +35,8 @@ TDT categorizes tables into two main types, each serving distinct purposes:
 - `*_annotation_transfer`: Tracks annotation transfer records.
 For detailed information on table structures and fields, refer to the Cell Annotation Schema [documentation](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md).
 
-**System tables:** System tables are essential for the internal configurations of TDT and are typically not modified by users. These tables include:
+**System tables:** System tables are essential for the internal configurations of TDT and are typically not modified by users. Currently, only a single system table is visible to the users:
 - `table`: Lists all loaded tables and the physical location of the backing files.
-- `column`: Associates table columns with their respective data types.
-- `datatype`: Lists all datatypes existing in the system. Datatypes allow users to define regex patterns for cell values. The datatypes are a hierarchy of types, and when a datatype is provided as a condition, all parent values are also checked.
-- `message`: TDT allows users to load invalid data (invalid datatypes, value not matching with regex etc.) and displays issues on top of each table and column. `messages` table stores the found errors in the data.
 
 ## Table Management
 
