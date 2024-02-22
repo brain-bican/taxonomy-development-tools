@@ -1,16 +1,20 @@
 import os
 import csv
+import json
 import click
 import logging
 import subprocess
 import shutil
 import pandas as pd
 
+from importlib import resources
+from pathlib import Path
+from ruamel.yaml import YAML
+
 from cas.ingest.ingest_user_table import ingest_user_data
 from cas.flatten_data_to_tables import serialize_to_tables
 from cas.file_utils import read_cas_json_file
-from pathlib import Path
-from ruamel.yaml import YAML
+from cas_schema import schemas
 
 
 @click.group()
@@ -55,7 +59,7 @@ def import_data(input, schema, curation_tables):
         std_data = read_cas_json_file(user_cas_path)
     else:
         if user_data_path:
-            user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables)
+            user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables, read_cas_schema())
             new_files.append(user_data_ct_path)
         else:
             raise Exception("Couldn't find the cell type annotation config file (with yaml or yml extension) in folder: " + input)
@@ -69,8 +73,9 @@ def import_data(input, schema, curation_tables):
     accession_prefix = retrieve_accession_prefix(Path(input).parent.absolute())
     std_tables = serialize_to_tables(std_data, user_file_name, input, accession_prefix)
     # std_data_path = convert_standard_json_to_table(std_data, user_file_name, input)
+    cas_schema = read_cas_schema()
     for table_path in std_tables:
-        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables)
+        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables, cas_schema)
         new_files.append(user_data_ct_path)
 
     # updated files
@@ -93,7 +98,7 @@ def add_new_files_to_git(project_folder, new_files):
                   files=" ".join([t.replace(project_folder, ".", 1) for t in new_files])))
 
 
-def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder):
+def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema):
     """
     Adds user data to the nanobot. Adds user table to the curation tables folder and updates the nanobot table schema.
     """
@@ -122,20 +127,59 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
         for index, header in enumerate(user_headers):
             if header == "cell_set_accession":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.replace("_", " ").strip() + "\t\tword\tprimary\t")
+                         header.replace("_", " ").strip() + "\t\tword\tprimary\t" + get_column_description(cas_schema, user_table_name, header))
             elif index == 0 and "cell_set_accession" not in user_headers:
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.strip() + "\t\tword\tprimary\t")
+                         header.strip() + "\t\tword\tprimary\t" + get_column_description(cas_schema, user_table_name, "cell_set_accession"))
             elif header == "cell_ontology_term_id":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.replace("_", " ").strip() + "\tempty\tautocomplete_cl\t\t")
+                         header.replace("_", " ").strip() + "\tempty\tautocomplete_cl\t\t" + get_column_description(cas_schema, user_table_name, header))
             elif header == "cell_ontology_term":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.replace("_", " ").strip() + "\tempty\tontology_label\t\t")
+                         header.replace("_", " ").strip() + "\tempty\tontology_label\t\t" + get_column_description(cas_schema, user_table_name, header))
             else:
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.replace("_", " ").strip() + "\tempty\ttext\t\t")
+                         header.replace("_", " ").strip() + "\tempty\ttext\t\t" + get_column_description(cas_schema, user_table_name, header))
     return user_data_ct_path
+
+
+def get_column_description(cas_schema, table_name, column_name):
+    """
+    Extracts column description from the cell annotation schema.
+    """
+    schema_section = cas_schema
+    if table_name.endswith("_annotation"):
+        schema_section = cas_schema["definitions"]["Annotation"]["properties"]
+    elif table_name.endswith("_labelset"):
+        schema_section = cas_schema["definitions"]["Labelset"]["properties"]
+    elif table_name.endswith("_metadata"):
+        schema_section = cas_schema["properties"]
+    elif table_name.endswith("_annotation_transfer"):
+        schema_section = cas_schema["definitions"]["Annotation_transfer"]["properties"]
+
+    desc = extract_definition_from_cas_object(cas_schema, column_name, schema_section)
+
+    return desc
+
+
+def extract_definition_from_cas_object(cas_schema, column_name, schema_section):
+    desc = ""
+    if column_name in schema_section and "description" in schema_section[column_name]:
+        desc = schema_section[column_name]["description"]
+        desc = str(desc).strip().replace("\t", "").replace("\n", "")
+    else:
+        # handle nested objects
+        parts = column_name.split("_")
+        nested_obj_name = parts[0]
+        for i in range(1, len(parts) - 1):
+            if nested_obj_name in schema_section:
+                inner_schema_section = cas_schema["definitions"][nested_obj_name]["properties"]
+                inner_column_name = column_name.replace(nested_obj_name + "_", "")
+                if inner_column_name in inner_schema_section:
+                    return extract_definition_from_cas_object(cas_schema, inner_column_name, inner_schema_section)
+            else:
+                nested_obj_name = nested_obj_name + "_" + parts[i]
+    return desc
 
 
 def copy_file(source_file, target_folder):
@@ -273,6 +317,12 @@ def retrieve_accession_prefix(root_folder_path):
                             return str(data["id"]).strip() + "_"
                     except Exception as e:
                         raise Exception("Yaml read failed:" + f + " " + str(e))
+
+
+def read_cas_schema():
+    schema_file = (resources.files(schemas) / "BICAN_schema.json")
+    with schema_file.open("rt") as f:
+        return json.loads(f.read())
 
 
 def runcmd(cmd):

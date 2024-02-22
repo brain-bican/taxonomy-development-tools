@@ -12,5 +12,7 @@ openpyxl
 urlp
 mkdocs
 cas-tools==0.0.1.dev14
-pandas
+cell-annotation-schema==0.2b0
 tdta==0.1.0.dev2
+pandas
+pyarrow
