@@ -5,6 +5,7 @@
     - [human-brain-cell-atlas_v1_neurons](https://github.com/brain-bican/human-brain-cell-atlas_v1_neurons)
     - [human-brain-cell-atlas_v1_non-neuronal](https://github.com/brain-bican/human-brain-cell-atlas_v1_non-neuronal)
     - [nhp_basal_ganglia_taxonomy](https://github.com/hkir-dev/nhp_basal_ganglia_taxonomy)
+   
    In this guide `nhp_basal_ganglia_taxonomy` is used:
    ```
     git clone https://github.com/hkir-dev/nhp_basal_ganglia_taxonomy.git
