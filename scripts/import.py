@@ -166,7 +166,7 @@ def extract_definition_from_cas_object(cas_schema, column_name, schema_section):
     desc = ""
     if column_name in schema_section and "description" in schema_section[column_name]:
         desc = schema_section[column_name]["description"]
-        desc = str(desc).strip().replace("\t", "").replace("\n", "")
+        desc = str(desc).strip().replace("\t", " ").replace("\n", " ")
     else:
         # handle nested objects
         parts = column_name.split("_")

@@ -78,6 +78,7 @@ ADD nanobot/src/resources/cross_taxonomy.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/ols_form.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/taxonomy_view.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/table.html $WORKSPACE/nanobot/src/resources
+ADD nanobot/src/resources/page.html $WORKSPACE/nanobot/src/resources
 
 # GH cli on linux is old (2.4.0), get the latest
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
