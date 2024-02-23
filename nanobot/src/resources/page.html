@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
 
+{#
+## This template is derived from https://github.com/ontodev/nanobot.rs/blob/main/src/resources/page.html
+## check the 'extend-start' 'extend-end' comment lines
+#}
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -128,10 +133,12 @@
             </a>
             <ul class="dropdown-menu">
               {% for table, href in page.tables|items %}
+              {# extend-start #}
               {% if table not in ["column", "datatype", "message"]  %}
               <li><a class="dropdown-item" href="{{ page.root }}{{ href }}">{{ table }}</a></li>
               {% endif %}
               {% endfor %}
+              {# extend-end #}
             </ul>
           </li>
         </ul>
