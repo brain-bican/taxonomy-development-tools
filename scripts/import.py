@@ -31,6 +31,8 @@ def import_data(input, schema, curation_tables):
     Imports user data to the system
     Parameters:
         input (str): Path to the input data folder
+        schema: Nanobot schema folder path.
+        curation_tables: TDT curation tables folder path.
     """
     global last_accession_id, accession_ids
     last_accession_id = 0
@@ -59,7 +61,7 @@ def import_data(input, schema, curation_tables):
         std_data = read_cas_json_file(user_cas_path)
     else:
         if user_data_path:
-            user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables, read_cas_schema())
+            user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables, read_cas_schema(), False)
             new_files.append(user_data_ct_path)
         else:
             raise Exception("Couldn't find the cell type annotation config file (with yaml or yml extension) in folder: " + input)
@@ -70,12 +72,12 @@ def import_data(input, schema, curation_tables):
         else:
             raise Exception("Couldn't find the config data files (with yaml or yml extension) in folder: " + input)
 
-    accession_prefix = retrieve_accession_prefix(Path(input).parent.absolute())
-    std_tables = serialize_to_tables(std_data, user_file_name, input, accession_prefix)
+    project_config = retrieve_project_config(Path(input).parent.absolute())
+    std_tables = serialize_to_tables(std_data, user_file_name, input, project_config)
     # std_data_path = convert_standard_json_to_table(std_data, user_file_name, input)
     cas_schema = read_cas_schema()
     for table_path in std_tables:
-        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables, cas_schema)
+        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables, cas_schema, True)
         new_files.append(user_data_ct_path)
 
     # updated files
@@ -98,7 +100,7 @@ def add_new_files_to_git(project_folder, new_files):
                   files=" ".join([t.replace(project_folder, ".", 1) for t in new_files])))
 
 
-def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema):
+def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema, delete_source=False):
     """
     Adds user data to the nanobot. Adds user table to the curation tables folder and updates the nanobot table schema.
     """
@@ -137,9 +139,18 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
             elif header == "cell_ontology_term":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
                          header.replace("_", " ").strip() + "\tempty\tontology_label\t\t" + get_column_description(cas_schema, user_table_name, header))
+            elif header == "labelset" and user_table_name.endswith("_annotation"):
+                labelset_table = user_table_name[:len(user_table_name) - len("_annotation")] + "_labelset"
+                fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
+                         header.replace("_", " ").strip() + "\tempty\ttext\t" + "from({}.name)".format(labelset_table)
+                         + "\t" + get_column_description(cas_schema, user_table_name, header))
             else:
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
                          header.replace("_", " ").strip() + "\tempty\ttext\t\t" + get_column_description(cas_schema, user_table_name, header))
+
+    if delete_source:
+        os.remove(user_data_path)
+
     return user_data_ct_path
 
 
@@ -167,6 +178,9 @@ def extract_definition_from_cas_object(cas_schema, column_name, schema_section):
     if column_name in schema_section and "description" in schema_section[column_name]:
         desc = schema_section[column_name]["description"]
         desc = str(desc).strip().replace("\t", " ").replace("\n", " ")
+        if schema_section[column_name]["type"] == "array":
+            desc = desc + " Multiple values can be concatenated by using the '|' character as a delimiter."
+            desc = desc.strip()
     else:
         # handle nested objects
         parts = column_name.split("_")
@@ -230,7 +244,7 @@ def normalize_column_name(column_name: str) -> str:
     Returns:
         normalized column_name
     """
-    return column_name.strip().replace("(", "_").replace(")", "_")
+    return column_name.strip().replace("(", "_").replace(")", "_").replace("-", "_")
 
 
 def read_tsv_to_dict(tsv_path, id_column=0, generated_ids=False):
@@ -293,13 +307,14 @@ def read_csv_to_dict(csv_path, id_column=0, id_column_name="", delimiter=",", id
     return headers, records
 
 
-def retrieve_accession_prefix(root_folder_path):
+def retrieve_project_config(root_folder_path):
     """
     Reads project configuration from the root folder and returns the accession prefix.
     Params:
         root_folder_path: path of the project root folder.
     Returns: Accession id prefix defined in the project configuration.
     """
+    project_config = dict()
     for filename in os.listdir(root_folder_path):
         f = os.path.join(root_folder_path, filename)
         if os.path.isfile(f):
@@ -308,15 +323,20 @@ def retrieve_accession_prefix(root_folder_path):
                 with open(f, "r") as fs:
                     try:
                         data = ryaml.load(fs)
+
                         if "accession_id_prefix" in data:
                             prefix = str(data["accession_id_prefix"]).strip()
                             if not prefix.endswith("_"):
                                 prefix = prefix + "_"
-                            return prefix
+                            project_config["accession_id_prefix"] = prefix
                         else:
-                            return str(data["id"]).strip() + "_"
+                            project_config["accession_id_prefix"] = str(data["id"]).strip() + "_"
+
+                        project_config["matrix_file_id"] = data.get("matrix_file_id", "")
+                        project_config["author"] = data.get("author", "")
                     except Exception as e:
                         raise Exception("Yaml read failed:" + f + " " + str(e))
+    return project_config
 
 
 def read_cas_schema():
