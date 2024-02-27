@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Start Curating Taxonomies - Taxonomy Development Tools (TDT)</title>
+    <title>TDT Quick Start Guide - Taxonomy Development Tools (TDT)</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Start Curating Taxonomies";
-        var mkdocs_page_input_path = "Curation.md";
+        var mkdocs_page_name = "TDT Quick Start Guide";
+        var mkdocs_page_input_path = "QuickStart.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -51,12 +51,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="../NewRepo/">Create a New Repo</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Start Curating Taxonomies</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#saving-edited-data">Saving Edited Data</a>
-    </li>
-    </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Curation/">Start Curating Taxonomies</a>
                 </li>
               </ul>
       </div>
@@ -73,9 +69,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Start Curating Taxonomies</li>
+      <li class="breadcrumb-item active">TDT Quick Start Guide</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/master/docs/Curation.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/master/docs/QuickStart.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -83,42 +79,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ccn2-taxonomy-curation-with-the-taxonomy-development-tools">CCN2 Taxonomy Curation with the Taxonomy Development Tools</h1>
-<p>1- Pull the latest TDT docker image via following the steps defined in the project <a href="https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/taxonomy-development-tools">GitHub Container Registry</a>. </p>
-<pre><code>docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
+                <h1 id="tdt-quick-start-guide">TDT Quick Start Guide</h1>
+<p>Welcome to the Taxonomy Development Tools User Interface Guide. This document is designed to provide comprehensive details on navigating and utilizing the TDT interface efficiently. Whether you are looking to manage data tables, edit information, or leverage advanced features, this quick start guide will guide you through the set up of TDT</p>
+<ol>
+<li><a href="https://brain-bican.github.io/taxonomy-development-tools/Build/">Install requirements</a></li>
+<li><a href="https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop">Install GitHub</a></li>
+<li><a href="https://www.docker.com/products/docker-desktop/">Install Docker</a></li>
+<li>Git clone one of the reference projects:<ul>
+<li><a href="https://github.com/brain-bican/human-brain-cell-atlas_v1_neurons">human-brain-cell-atlas_v1_neurons</a></li>
+<li><a href="https://github.com/brain-bican/human-brain-cell-atlas_v1_non-neuronal">human-brain-cell-atlas_v1_non-neuronal</a></li>
+<li><a href="https://github.com/hkir-dev/nhp_basal_ganglia_taxonomy">nhp_basal_ganglia_taxonomy</a></li>
+</ul>
+</li>
+</ol>
+<p>In this guide <code>nhp_basal_ganglia_taxonomy</code> is used:
+   <code>git clone https://github.com/hkir-dev/nhp_basal_ganglia_taxonomy.git</code>
+3. To run the Taxonomy Development Tools, navigate to the Github project folder you have just cloned:
+    <code>cd nhp_basal_ganglia_taxonomy</code>
+4. On the terminal, run Taxonomy Development Tools:
+    MacOS and Linux:
+    <code>bash ./run.sh make serve</code></p>
+<pre><code>Windows: 
+```
+run.bat make serve
+```
 </code></pre>
-<p>2- Place your data (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/AIT115_annotation_sheet.tsv">AIT115_annotation_sheet.tsv</a>) and configuration file (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/ingestion_config.yaml">test_config.yaml</a>) into your project's <code>input_data</code> folder.  </p>
-<p>3- In the project root folder, run following command to ingest your data files:</p>
-<pre><code>bash ./run.sh make load_data
-</code></pre>
-<blockquote>
-<p>For Windows: 
-<code>run.bat make load_data</code></p>
-</blockquote>
-<p>4- Run following command to run the online data editor:</p>
-<pre><code>bash ./run.sh make serve
-</code></pre>
-<blockquote>
-<p>For Windows: 
-<code>run.bat make serve</code></p>
-</blockquote>
-<p>This command will print a set of logs including a log like <code>nanobot::serve: listening on 0.0.0.0:3000</code>. This means your web editor is ready, and you can start editing your data.</p>
-<p>5- You can start browsing web taxonomy editor from: <a href="http://localhost:3000/table">http://localhost:3000/table</a></p>
-<h2 id="saving-edited-data">Saving Edited Data</h2>
-<p>Once you complete your editing, you can run the following command to save your online edited data to your local: </p>
-<pre><code>bash ./run.sh make save
-</code></pre>
-<blockquote>
-<p>For Windows: 
-<code>run.bat make save</code></p>
-</blockquote>
-<p>Your data will be saved into <code>curation_tables</code> folder</p>
+<ol>
+<li>Upon successful execution, you should observe a log stating <code>listening on 0.0.0.0:3000</code> in the terminal and then be able to browse TDT from http://localhost:3000/table</li>
+<li>Details of the TDT user interface can be found at <a href="https://brain-bican.github.io/taxonomy-development-tools/UserInterface/">user interface</a> guide.</li>
+</ol>
+<p>To create and curate your own taxonomy please follow <a href="https://brain-bican.github.io/taxonomy-development-tools/NewRepo/">create your first repository</a> guide.</p>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../NewRepo/" class="btn btn-neutral float-left" title="Create a New Repo"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-    </div>
 
   <hr/>
 
@@ -143,8 +136,6 @@
           <a href="https://github.com/brain-bican/taxonomy-development-tools" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
         </span>
     
-    
-      <span><a href="../NewRepo/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
   </span>

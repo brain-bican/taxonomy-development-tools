@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Taxonomy Development Tools User Interface Guide - Taxonomy Development Tools (TDT)</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Taxonomy Development Tools User Interface Guide";
+        var mkdocs_page_input_path = "UserInterface.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Taxonomy Development Tools (TDT)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Getting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build/">Get Your System Ready</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NewRepo/">Create a New Repo</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Curation/">Start Curating Taxonomies</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Taxonomy Development Tools (TDT)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Taxonomy Development Tools User Interface Guide</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/master/docs/UserInterface.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="taxonomy-development-tools-user-interface-guide">Taxonomy Development Tools User Interface Guide</h1>
+<p>Welcome to the Taxonomy Development Tools User Interface Guide. This document is designed to provide comprehensive details on navigating and utilizing the TDT interface efficiently. Whether you are looking to manage data tables, edit information, or leverage advanced features, this guide will assist you in making the most out of TDT.</p>
+<ol>
+<li><a href="#tables">Tables</a></li>
+<li><a href="#table-management">Table Management</a></li>
+<li><a href="#add-new-records">Adding new Records</a></li>
+<li><a href="#editing-existing-data">Editing Existing Data</a></li>
+<li><a href="#sorting-and-filtering-data">Sorting and Filtering Data</a></li>
+<li><a href="#actions">Actions</a></li>
+<li><a href="#save">Save</a></li>
+<li><a href="#github-controls">GitHub Controls</a></li>
+<li><a href="#make-a-release">Make a Release</a></li>
+<li><a href="#publish-purl">Publish PURL</a></li>
+<li><a href="#export-cas-json">Export CAS Json</a></li>
+<li><a href="#export-to-anndata">Export to AnnData</a></li>
+<li><a href="#views">Views</a></li>
+</ol>
+<h2 id="tables">Tables</h2>
+<p>At the heart of the Taxonomy Development Tools is a robust internal database designed to streamline the management and curation of taxonomy-related data. Access to this database is facilitated through a user-friendly interface, with tables being a central component.</p>
+<p>To view the available tables, simply navigate to the Tables dropdown menu at the top of the interface.</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tables.png" alt="Tables" width="300"/>
+</p>
+
+<p>TDT categorizes tables into two main types, each serving distinct purposes:</p>
+<p><strong>User tables:</strong> User tables are created when data is uploaded to the TDT using the <code>load_data</code> operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the <a href="https://github.com/cellannotation/cell-annotation-schema">Cell Annotation Schema</a> and organized into multiple interrelated tables. These tables include: 
+- <code>*_metadata</code>: Contains metadata related to the taxonomy.
+- <code>*_labelset</code>: Houses definitions of the label sets.
+- <code>*_annotation</code>: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata.
+- <code>*_annotation_transfer</code>: Tracks annotation transfer records.
+For detailed information on table structures and fields, refer to the Cell Annotation Schema <a href="https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md">documentation</a>.</p>
+<p><strong>System tables:</strong> System tables are essential for the internal configurations of TDT and are typically not modified by users. Currently, only a single system table is visible to the users:
+- <code>table</code>: Lists all loaded tables and the physical location of the backing files.</p>
+<h2 id="table-management">Table Management</h2>
+<h3 id="adding-new-records">Adding New Records</h3>
+<p><code>Add row</code> button can be used to add new records to the table.</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/add_row2.png" alt="Edit Form" width="400"/>
+</p>
+
+<h3 id="editing-existing-data">Editing Existing Data</h3>
+<p>Users can initiate the editing of records by clicking on the pen icon located at the start of each row. This action directs them to a data submission form that supports auto-completion, allowing for efficient data entry. After validating the entered data, users can finalize their edits by clicking the Submit button.</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/edit_form.png" alt="Edit Form" width="600"/>
+</p>
+
+<h3 id="sorting-and-filtering-data">Sorting and Filtering Data</h3>
+<p>By clicking on column names, data sort and filter pop-up widget can be activated. This widget allows for the alphabetical sorting of data and the application of conditions to filter data accordingly. Icons next to the column header indicate active sorting or filtering, and clicking the column header again lets you update or clear these parameters.</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/sort_and_filter.png" alt="Sort and Filter by Column" width="400"/>
+</p>
+
+<h2 id="actions">Actions</h2>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions.png" alt="Sort and Filter by Column" width="300"/>
+</p>
+
+<h3 id="save">Save</h3>
+<p>All user modifications are automatically saved to the internal database. However, if user wants to save changes back to the source tsv files located in the project <code>curation_tables/</code> folder, <code>save</code> action can be utilized.</p>
+<h3 id="github-controls">GitHub Controls</h3>
+<p>Details to be added</p>
+<h3 id="make-a-release">Make a Release</h3>
+<p>Details to be added</p>
+<h3 id="publish-purl">Publish PURL</h3>
+<p>A Permanent URL (PURL) provides a stable link that always directs users to the same digital content. The <code>Publish PURL</code> allows you to generate a PURL for the current taxonomy version, ensuring consistent access to it. For instance, a taxonomy might be accessible through a PURL like:</p>
+<p>https://purl.brain-bican.org/taxonomy/CCN202210140/CS202210140_neurons.json --&gt; redirects to --&gt; https://raw.githubusercontent.com/brain-bican/human-brain-cell-atlas_v1_neurons/main/CS202210140.json</p>
+<p>Create a PURL once you deem the taxonomy mature enough for community sharing. This process will generate a PURL configuration file and initiate a pull request to the <a href="https://github.com/brain-bican/purl.brain-bican.org">purl.brain-bican.org repository</a>.</p>
+<p>Note: This step requires a fork of the <a href="https://github.com/brain-bican/purl.brain-bican.org">purl.brain-bican.org</a> repository in case you lack write access. Please ensure any existing forks are removed to avoid conflicts. The system will alert you if an existing fork is detected.</p>
+<h3 id="export-cas-json">Export CAS Json</h3>
+<p>This action converts all data into a JSON file formatted according to the <a href="https://github.com/cellannotation/cell-annotation-schema">Cell Annotation Schema</a> located in the project's root directory.</p>
+<h3 id="export-to-anndata">Export to AnnData</h3>
+<p>Apply your modifications directly to the associated AnnData file for the taxonomy.</p>
+<p>The <code>*_metadata</code> table contains a <code>matrix_file_id</code> column, representing a resolvable ID for a cell-by-gene matrix file, formatted as <code>namespace:accession</code>. For example, <code>CellXGene_dataset:8e10f1c4-8e98-41e5-b65f-8cd89a887122</code> (Please refer to the <a href="https://github.com/cellannotation/cell-annotation-schema/blob/main/registry/registry.json">cell-annotation-schema registry</a> for a list of supported namespaces.)</p>
+<p>WUpon initial launch, TDT creates a <code>tdt_datasets</code> directory in the user home folder. It attempts to resolve all matrix_file_id references within this directory. The system searches for the corresponding file (e.g., <code>$HOME/tdt_datasets/8e10f1c4-8e98-41e5-b65f-8cd89a887122.h5ad</code>) and then initiates a <a href="https://github.com/cellannotation/cas-tools/blob/main/docs/cli.md#flatten-onto-anndata">cas-tools flatten operation</a>. This process, which may vary in duration depending on the taxonomy's size, results in a new AnnData file (<code>/tdt_datasets/$$TAXONOMY_ID$$.h5ad</code>) incorporating the user's annotations.</p>
+<h2 id="views">Views</h2>
+<p>Annotation tables are equipped to display data in a hierarchical structure, offering a more intuitive understanding of relationships within the taxonomy. To access this perspective, simply click on the <code>Taxonomy View</code> button.</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
+</p>
+
+<p>While in the Taxonomy View, users can visually explore the taxonomy's structure in a read-only format, providing a clear overview of the hierarchical relationships. To switch back to a more detailed and interactive tabular format, click the <code>Table View</code> button.</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/brain-bican/taxonomy-development-tools" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
