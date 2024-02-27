@@ -5,6 +5,7 @@ Welcome to the Taxonomy Development Tools User Interface Guide. This document is
 1. [Install requirements](https://brain-bican.github.io/taxonomy-development-tools/Build/)
    - [Install GitHub](https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop)
    - [Install Docker](https://www.docker.com/products/docker-desktop/)
+
 2. Git clone one of the reference projects:
     - [human-brain-cell-atlas_v1_neurons](https://github.com/brain-bican/human-brain-cell-atlas_v1_neurons)
     - [human-brain-cell-atlas_v1_non-neuronal](https://github.com/brain-bican/human-brain-cell-atlas_v1_non-neuronal)
