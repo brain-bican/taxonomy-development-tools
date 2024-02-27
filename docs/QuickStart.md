@@ -1,6 +1,10 @@
 # TDT Quick Start Guide
 
-1. [Install requirements](https://brain-bican.github.io/taxonomy-development-tools/Build/) (Docker and Git)
+Welcome to the Taxonomy Development Tools User Interface Guide. This document is designed to provide comprehensive details on navigating and utilizing the TDT interface efficiently. Whether you are looking to manage data tables, edit information, or leverage advanced features, this quick start guide will guide you through the set up of TDT
+
+1. [Install requirements](https://brain-bican.github.io/taxonomy-development-tools/Build/)
+   - [Install GitHub](https://docs.github.com/en/desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop)
+   - [Install Docker](https://www.docker.com/products/docker-desktop/)
 2. Git clone one of the reference projects:
     - [human-brain-cell-atlas_v1_neurons](https://github.com/brain-bican/human-brain-cell-atlas_v1_neurons)
     - [human-brain-cell-atlas_v1_non-neuronal](https://github.com/brain-bican/human-brain-cell-atlas_v1_non-neuronal)
@@ -10,11 +14,11 @@
    ```
     git clone https://github.com/hkir-dev/nhp_basal_ganglia_taxonomy.git
    ```
-3. Navigate to the project folder:
+3. To run the Taxonomy Development Tools, navigate to the Github project folder you have just cloned:
     ```
     cd nhp_basal_ganglia_taxonomy
    ```
-4. Run Taxonomy Development Tools:
+4. On the terminal, run Taxonomy Development Tools:
     MacOS and Linux:
     ```
     bash ./run.sh make serve
