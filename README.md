@@ -13,7 +13,7 @@ Tools for building and curating [CCN2](https://github.com/obophenotype/CCN2) tax
 # Where to get help
 
 - _How-to guides_:
-  - [Install requirements](https://brain-bican.github.io/taxonomy-development-tools/Build/)
   - [Quick Start](https://brain-bican.github.io/taxonomy-development-tools/QuickStart/)
   - How to [create your first repository](https://brain-bican.github.io/taxonomy-development-tools/NewRepo/) with the TDT
   - Start [curating taxonomies](https://brain-bican.github.io/taxonomy-development-tools/Curation/)
+  - [UI Guide](https://brain-bican.github.io/taxonomy-development-tools/UserInterface/)

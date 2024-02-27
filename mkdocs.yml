@@ -5,7 +5,9 @@ theme: readthedocs
 #      permalink: true
 nav:
   - Getting started: index.md
-  - Get Your System Ready: Build.md
+  - Install Requirements: Build.md
+  - Quick Start: QuickStart.md
   - Create a New Repo: NewRepo.md
   - Start Curating Taxonomies: Curation.md
+  - User Interface: UserInterface.md
 repo_url: https://github.com/brain-bican/taxonomy-development-tools
