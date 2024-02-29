@@ -133,12 +133,8 @@
             </a>
             <ul class="dropdown-menu">
               {% for table, href in page.tables|items %}
-              {# extend-start #}
-              {% if table not in ["column", "datatype", "message"]  %}
               <li><a class="dropdown-item" href="{{ page.root }}{{ href }}">{{ table }}</a></li>
-              {% endif %}
               {% endfor %}
-              {# extend-end #}
             </ul>
           </li>
         </ul>
@@ -169,6 +165,10 @@
           </li>
         </ul>
       </div>
+      {# extend-start #}
+      <a style="float:right;" class="btn" href="https://brain-bican.github.io/taxonomy-development-tools/UserInterface/" target="_blank"><i
+        class="bi-info-square"></i> Help</a>
+      {# extend-end #}
     </div>
   </nav>
   <div id="content" class="container-fluid">
