@@ -71,6 +71,7 @@
   }
 
   $("*[name='cell_ontology_term']").first().on('change', function(evt, item) {
+    console.log("cell_ontology_term changed");
     if (!this.value) {
       // clear id when term cleaned
       $("*[name='cell_ontology_term_id']").first()[0].value = "";
