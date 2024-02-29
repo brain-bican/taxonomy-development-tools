@@ -231,6 +231,7 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_makefile(outdir, tgts)
     create_ontodev_tables(outdir, project, tgts)
     create_ontodev_static_files(outdir, tgts)
+    create_gitignore(outdir, tgts)
 
     for tgt in tgts:
         logging.info("  File: {}".format(tgt))
@@ -403,6 +404,13 @@ def create_purl_config(outdir, project, tgts):
     with open(purl_config, "w") as f:
         f.write(content)
     tgts.append(purl_config)
+
+
+def create_gitignore(outdir, tgts):
+    gitignore_source = WORKSPACE + "/scripts/.gitignore"
+    gitignore_target = "{}/.gitignore".format(outdir)
+    tgts.append(gitignore_target)
+    copy(gitignore_source, gitignore_target)
 
 
 def create_folder(outdir, folder_name,  tgts, title=None, description=None):
