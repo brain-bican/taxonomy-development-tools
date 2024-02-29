@@ -107,7 +107,7 @@ commands = [
   ["git", "checkout", "main"],
   ["git", "pull"],
   ["git", "-c", "color.ui=always", "status"],
-  ["gh", "release", "create", "--tag", "'{tag}'"],
+  ["gh", "release", "create", "{tag}"],
 ]
 
 [actions.purl]

@@ -300,13 +300,11 @@
       {% for column, cell in r|items -%}
       {% if column == "row_number" %}
       <!-- extend-start -->
-      {% if  table.table not in ["table"] %}
-      <!-- extend-end -->
       <td>
-        <a class="btn btn-sm" href="{{ table.href }}/row/{{ cell.value }}?view={{ table.edit_view or 'form' }}"><i
+        <a class="btn btn-sm" {% if table.table in ["table"] %} hidden="true" {% endif %} href="{{ table.href }}/row/{{ cell.value }}?view={{ table.edit_view or 'form' }}"><i
             class="bi-pencil" style="color: #adb5bd;"></i></a>
       </td>
-      {% endif %}
+      <!-- extend-end -->
       {% else %}
       <td class="{{ cell.classes|join(" , ") }}">
         {% if cell.nulltype %}
