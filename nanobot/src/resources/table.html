@@ -368,4 +368,26 @@
     {% endfor %}
   </tbody>
 </table>
+
+{# extend-start #}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+
+// auto place wildcards to ilike fo convenience
+$("form[id$='Modal']").each(function (i, el) {
+  $("#" + el.id + "").submit(function(e){
+    e.preventDefault();
+    var form = $("#" + el.id + "");
+    filter_operator = form.find("*[name='nb.operator']")[0].value
+    filter_contraint = form.find("*[name='nb.constraint']")[0].value;
+    if (filter_operator == "ilike" && ! (filter_contraint.includes("*") && filter_contraint.includes("_"))) {
+      form.find("*[name='nb.constraint']")[0].value = "*" + filter_contraint + "*"
+    }
+    this.submit();
+  });
+});
+
+</script>
+{# extend-end #}
+
 {% endblock %}
