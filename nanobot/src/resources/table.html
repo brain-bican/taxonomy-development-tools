@@ -262,7 +262,11 @@
     </span>
 
     {% if table.table != "message" %}
+    {% if  "_annotation" in table.table and "_labelset" not in table.table and "_metadata" not in table.table and "_annotation_transfer" not in table.table %}
     <a class="btn btn-outline-success" href="{{ table.table }}?view=ols_form">Add row</a>
+    {% else %}
+    <a class="btn btn-outline-success" href="{{ table.table }}?view=form">Add row</a>
+    {% endif %}
     {% endif %}
 
     {# extend-start #}
