@@ -2,7 +2,7 @@
 name: Task
 about: Issue for Task
 title: ''
-labels: ''
+labels: task
 assignees: ''
 
 ---
