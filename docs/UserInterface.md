@@ -74,19 +74,25 @@ By clicking on column names, data sort and filter pop-up widget can be activated
 
 All user modifications are automatically saved to the internal database. However, if user wants to save changes back to the source tsv files located in the project `curation_tables/` folder, `save` action can be utilized.
 
-### GitHub Controls
+### Version Control with GitHub
+
+The `Version Control` feature enables users to seamlessly perform GitHub operations directly from our interface. Before you can leverage these capabilities, it's essential to configure your environment by setting the `GH_TOKEN` variable. This step is critical for authentication and authorization purposes. For a comprehensive guide on setting up your environment, please refer to our [prerequisites installation guide](https://github.com/brain-bican/taxonomy-development-tools/blob/main/docs/Build.md#git). 
 
 Details to be added
 
 ### Make a Release
 
-Details to be added
+The `Release` action facilitates the creation of a new GitHub release for the taxonomy project. This feature is part of our broader `Version Control` toolkit and requires the `GH_TOKEN` environment variable to be set for operation. For detailed instructions on how to configure this, please visit our [prerequisites installation guide](https://github.com/brain-bican/taxonomy-development-tools/blob/main/docs/Build.md#git).
+
+When initiating a release, the action will prompt you for a release tag. The current date is the default value for this tag, but you can specify your own. It's important to ensure that your tag is valid and adheres to GitHub's naming conventions. Avoid using disallowed characters such as spaces ( ), carriage returns (\r), new lines (\n), tildes (~), carets (^), colons (:), double quotes ("), question marks (?), brackets ([), and asterisks (*). For more information on creating well-formed tags, please consult the [Git documentation on reference formats](https://git-scm.com/docs/git-check-ref-format). 
+
+Upon successful creation of a release, you will be notified of the new release's URL, allowing you to easily share or promote your latest version.
 
 ### Publish PURL
 
 A Permanent URL (PURL) provides a stable link that always directs users to the same digital content. The `Publish PURL` allows you to generate a PURL for the current taxonomy version, ensuring consistent access to it. For instance, a taxonomy might be accessible through a PURL like:
 
-https://purl.brain-bican.org/taxonomy/CCN202210140/CS202210140_neurons.json --> redirects to --> https://raw.githubusercontent.com/brain-bican/human-brain-cell-atlas_v1_neurons/main/CS202210140.json
+> https://purl.brain-bican.org/taxonomy/CCN202210140/CS202210140_neurons.json --> redirects to --> https://raw.githubusercontent.com/brain-bican/human-brain-cell-atlas_v1_neurons/main/CS202210140.json
 
 Create a PURL once you deem the taxonomy mature enough for community sharing. This process will generate a PURL configuration file and initiate a pull request to the [purl.brain-bican.org repository](https://github.com/brain-bican/purl.brain-bican.org).
 

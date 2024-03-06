@@ -71,6 +71,7 @@
   }
 
   $("*[name='cell_ontology_term']").first().on('change', function(evt, item) {
+    console.log("cell_ontology_term changed");
     if (!this.value) {
       // clear id when term cleaned
       $("*[name='cell_ontology_term_id']").first()[0].value = "";
@@ -115,14 +116,48 @@
     });
   }// end configure_autocomplete
 
-  var table_json_url = String(window.location.href).split("/row")[0] + ".json?limit=100000&shape=value_rows";
-  var row_number =  String(window.location.href).split("?")[0].split("/row/")[1]
+  var table_json_url = "";
+  var row_number = 0;
+  var is_new_row = false;
+  if (String(window.location.href).includes("/row/")) {
+    // for edit row
+    table_json_url = String(window.location.href).split("/row")[0] + ".json?limit=100000&shape=value_rows";
+    row_number =  String(window.location.href).split("?")[0].split("/row/")[1]
+    is_new_row = false;
+  } else {
+    // for add new row
+    table_json_url = String(window.location.href).split("?view=")[0] + ".json?limit=100000&shape=value_rows";
+    is_new_row = true;
+  }
+
+  function get_accession_prefix(records) {
+    var accession_prefix= records[0]["cell_set_accession"];
+    for (index in records){
+      record = records[index];
+      while (!record["cell_set_accession"].includes(accession_prefix)) {
+        accession_prefix = accession_prefix.slice(0, -1);
+      }
+    }
+    return accession_prefix;
+  }
+
+  function get_new_accession(records, accession_prefix) {
+    var max_id = 0;
+    for (index in records){
+      record = records[index];
+      var record_accession = parseInt(record["cell_set_accession"].replace(accession_prefix, ""), 10);
+      if (record_accession > max_id) {
+        max_id = record_accession;
+      }
+    }
+    return accession_prefix + (max_id + 1);
+  }
 
   $.getJSON(table_json_url, function (table_data) {
-    var form_data = table_data[parseInt(row_number) - 1]
+    // var form_data = table_data[parseInt(row_number) - 1]
 
-    console.log("Form data ", form_data);
-    console.log("All data ", table_data);
+    // console.log("Form data ", form_data);
+    // console.log("All data ", table_data);
     // sort highest rank first but ordered by accession_id if same rank. Then filter higher ranks only
     // table_data.sort((a, b) => (a.rank > b.rank) ? -1 : (a.rank === b.rank) ? ((a.cell_set_accession > b.cell_set_accession) ? 1 : -1) : 1 );
     // var parents = table_data.filter(function (el) {
@@ -131,6 +166,12 @@
     // console.log("Table data ", parents);
 
     configure_autocomplete("parent_cell_set_name", table_data);
+    if (is_new_row) {
+      accession_prefix = get_accession_prefix(table_data);
+      console.log("accession_prefix:", accession_prefix);
+      // auto assign incremental accession
+      $("*[name='cell_set_accession']").first()[0].value = get_new_accession(table_data, accession_prefix);
+    }
   });
 
   $("*[name='parent_cell_set_name']").first().on('change', function(evt, item) {
