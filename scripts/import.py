@@ -109,7 +109,7 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
     user_table_name = os.path.splitext(os.path.basename(user_data_ct_path))[0]
     table_tsv_path = os.path.join(schema_folder, "table.tsv")
     with open(table_tsv_path, 'a') as fd:
-        if user_table_name.endswith("_annotation"):
+        if user_table_name == "annotation":
             # use custom edit_view for autocomplete
             fd.write(('\n{table_name}\t{path}\t\tols_form\t').format(table_name=user_table_name, path=user_data_ct_path))
         else:
@@ -139,10 +139,9 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
             elif header == "cell_ontology_term":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
                          header.replace("_", " ").strip() + "\tempty\tontology_label\t\t" + get_column_description(cas_schema, user_table_name, header))
-            elif header == "labelset" and user_table_name.endswith("_annotation"):
-                labelset_table = user_table_name[:len(user_table_name) - len("_annotation")] + "_labelset"
+            elif header == "labelset" and user_table_name == "annotation":
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.replace("_", " ").strip() + "\tempty\ttext\t" + "from({}.name)".format(labelset_table)
+                         header.replace("_", " ").strip() + "\tempty\ttext\t" + "from(labelset.name)"
                          + "\t" + get_column_description(cas_schema, user_table_name, header))
             else:
                 fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
@@ -159,13 +158,13 @@ def get_column_description(cas_schema, table_name, column_name):
     Extracts column description from the cell annotation schema.
     """
     schema_section = cas_schema
-    if table_name.endswith("_annotation"):
+    if table_name == "annotation":
         schema_section = cas_schema["definitions"]["Annotation"]["properties"]
-    elif table_name.endswith("_labelset"):
+    elif table_name == "labelset":
         schema_section = cas_schema["definitions"]["Labelset"]["properties"]
-    elif table_name.endswith("_metadata"):
+    elif table_name == "metadata":
         schema_section = cas_schema["properties"]
-    elif table_name.endswith("_annotation_transfer"):
+    elif table_name == "annotation_transfer":
         schema_section = cas_schema["definitions"]["Annotation_transfer"]["properties"]
 
     desc = extract_definition_from_cas_object(cas_schema, column_name, schema_section)

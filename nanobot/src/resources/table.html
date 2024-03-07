@@ -262,15 +262,17 @@
     </span>
 
     {% if table.table != "message" %}
-    {% if  "_annotation" in table.table and "_labelset" not in table.table and "_metadata" not in table.table and "_annotation_transfer" not in table.table %}
+    {# extend-start #}
+    {% if table.table == "annotation" %}
     <a class="btn btn-outline-success" href="{{ table.table }}?view=ols_form">Add row</a>
     {% else %}
-    <a class="btn btn-outline-success" href="{{ table.table }}?view=form">Add row</a>
+    <a class="btn btn-outline-success" {% if table.table not in ["column", "datatype", "annotation", "metadata", "labelset", "annotation_transfer"] %} hidden="true" {% endif %} href="{{ table.table }}?view=form">Add row</a>
     {% endif %}
+    {# extend-end #}
     {% endif %}
 
     {# extend-start #}
-    {% if  "_annotation" in table.table and "_labelset" not in table.table and "_metadata" not in table.table and "_annotation_transfer" not in table.table %}
+    {% if table.table == "annotation" %}
     <a style="float:right;" class="btn btn-outline-primary" href="/{{ table.table }}?view=taxonomy_view">Taxonomy View</a>
     {% endif %}
     {# extend-end #}
@@ -300,12 +302,16 @@
   </thead>
   <tbody>
     {% for r in row -%}
+    <!-- extend-start -->
+    <!-- only display user tables in the column table -->
+    {% if table.table != "column" or ("table" in r and r["table"]["value"] not in ["table", "column", "datatype", "message"]) %}
+    <!-- extend-end -->
     <tr>
       {% for column, cell in r|items -%}
       {% if column == "row_number" %}
       <!-- extend-start -->
       <td>
-        <a class="btn btn-sm" {% if table.table in ["table"] %} hidden="true" {% endif %} href="{{ table.href }}/row/{{ cell.value }}?view={{ table.edit_view or 'form' }}"><i
+        <a class="btn btn-sm" {% if table.table not in ["column", "datatype", "annotation", "metadata", "labelset", "annotation_transfer"] %} hidden="true" {% endif %} href="{{ table.href }}/row/{{ cell.value }}?view={{ table.edit_view or 'form' }}"><i
             class="bi-pencil" style="color: #adb5bd;"></i></a>
       </td>
       <!-- extend-end -->
@@ -369,6 +375,7 @@
       {% endif %}
       {% endfor %}
     </tr>
+    {% endif %}
     {% endfor %}
   </tbody>
 </table>
