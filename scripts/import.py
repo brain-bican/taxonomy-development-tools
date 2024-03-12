@@ -57,32 +57,37 @@ def import_data(input, schema, curation_tables):
 
     # provide either json or tsv + yaml
     if user_cas_path:
+        print("Using the provided cas data file: " + user_cas_path)
         user_file_name = os.path.splitext(os.path.basename(user_cas_path))[0]
         std_data = read_cas_json_file(user_cas_path)
     else:
         if user_data_path:
-            user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables, read_cas_schema(), False)
-            new_files.append(user_data_ct_path)
+            print("Using the provided annotation file: " + user_data_path)
         else:
             raise Exception("Couldn't find the cell type annotation config file (with yaml or yml extension) in folder: " + input)
 
         if user_config_path:
             user_file_name = os.path.splitext(os.path.basename(user_data_path))[0]
             std_data = ingest_user_data(user_data_path, user_config_path)
+
+            user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables, read_cas_schema(), False)
+            if user_data_ct_path:
+                new_files.append(user_data_ct_path)
         else:
             raise Exception("Couldn't find the config data files (with yaml or yml extension) in folder: " + input)
 
     project_config = retrieve_project_config(Path(input).parent.absolute())
     std_tables = serialize_to_tables(std_data, user_file_name, input, project_config)
-    # std_data_path = convert_standard_json_to_table(std_data, user_file_name, input)
+
     cas_schema = read_cas_schema()
     for table_path in std_tables:
         user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables, cas_schema, True)
-        new_files.append(user_data_ct_path)
+        if user_data_ct_path:
+            new_files.append(user_data_ct_path)
 
-    # updated files
-    new_files.append(os.path.join(schema, "table.tsv"))
-    new_files.append(os.path.join(schema, "column.tsv"))
+    if new_files:
+        new_files.append(os.path.join(schema, "table.tsv"))
+        new_files.append(os.path.join(schema, "column.tsv"))
 
     project_folder = os.path.dirname(os.path.abspath(input))
     add_new_files_to_git(project_folder, new_files)
@@ -105,51 +110,55 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
     Adds user data to the nanobot. Adds user table to the curation tables folder and updates the nanobot table schema.
     """
     # update nanobot table.tsv
-    user_data_ct_path = copy_file(user_data_path, curation_tables_folder)
-    user_table_name = os.path.splitext(os.path.basename(user_data_ct_path))[0]
-    table_tsv_path = os.path.join(schema_folder, "table.tsv")
-    with open(table_tsv_path, 'a') as fd:
-        if user_table_name == "annotation":
-            # use custom edit_view for autocomplete
-            fd.write(('\n{table_name}\t{path}\t\tols_form\t').format(table_name=user_table_name, path=user_data_ct_path))
-        else:
-            fd.write(('\n{table_name}\t{path}\t\t\t').format(table_name=user_table_name, path=user_data_ct_path))
-
-    user_data_extension = os.path.splitext(user_data_ct_path)[1]
-    user_headers = []
-    user_data = dict()
-    if user_data_extension == ".tsv":
-        user_headers, user_data = read_tsv_to_dict(user_data_ct_path, generated_ids=True)
-    elif user_data_extension == ".csv":
-        user_headers, user_data = read_csv_to_dict(user_data_ct_path, generated_ids=True)
-
-    # update nanobot column.tsv
-    column_tsv_path = os.path.join(schema_folder, "column.tsv")
-    with open(column_tsv_path, 'a') as fd:
-        for index, header in enumerate(user_headers):
-            if header == "cell_set_accession":
-                fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.replace("_", " ").strip() + "\t\tword\tprimary\t" + get_column_description(cas_schema, user_table_name, header))
-            elif index == 0 and "cell_set_accession" not in user_headers:
-                fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.strip() + "\t\tword\tprimary\t" + get_column_description(cas_schema, user_table_name, "cell_set_accession"))
-            elif header == "cell_ontology_term_id":
-                fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.replace("_", " ").strip() + "\tempty\tautocomplete_cl\t\t" + get_column_description(cas_schema, user_table_name, header))
-            elif header == "cell_ontology_term":
-                fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.replace("_", " ").strip() + "\tempty\tontology_label\t\t" + get_column_description(cas_schema, user_table_name, header))
-            elif header == "labelset" and user_table_name == "annotation":
-                fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.replace("_", " ").strip() + "\tempty\ttext\t" + "from(labelset.name)"
-                         + "\t" + get_column_description(cas_schema, user_table_name, header))
+    user_data_ct_path = os.path.join(curation_tables_folder, Path(user_data_path).name)
+    if os.path.isfile(user_data_ct_path) is False or os.path.getsize(user_data_ct_path) == 0:
+        user_data_ct_path = copy_file(user_data_path, curation_tables_folder)
+        user_table_name = os.path.splitext(os.path.basename(user_data_ct_path))[0]
+        table_tsv_path = os.path.join(schema_folder, "table.tsv")
+        with open(table_tsv_path, 'a') as fd:
+            if user_table_name == "annotation":
+                # use custom edit_view for autocomplete
+                fd.write(('\n{table_name}\t{path}\t\tols_form\t').format(table_name=user_table_name, path=user_data_ct_path))
             else:
-                fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                         header.replace("_", " ").strip() + "\tempty\ttext\t\t" + get_column_description(cas_schema, user_table_name, header))
+                fd.write(('\n{table_name}\t{path}\t\t\t').format(table_name=user_table_name, path=user_data_ct_path))
+
+        user_data_extension = os.path.splitext(user_data_ct_path)[1]
+        user_headers = []
+        user_data = dict()
+        if user_data_extension == ".tsv":
+            user_headers, user_data = read_tsv_to_dict(user_data_ct_path, generated_ids=True)
+        elif user_data_extension == ".csv":
+            user_headers, user_data = read_csv_to_dict(user_data_ct_path, generated_ids=True)
+
+        # update nanobot column.tsv
+        column_tsv_path = os.path.join(schema_folder, "column.tsv")
+        with open(column_tsv_path, 'a') as fd:
+            for index, header in enumerate(user_headers):
+                if header == "cell_set_accession":
+                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
+                             header.replace("_", " ").strip() + "\t\tword\tprimary\t" + get_column_description(cas_schema, user_table_name, header))
+                elif index == 0 and "cell_set_accession" not in user_headers:
+                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
+                             header.strip() + "\t\tword\tprimary\t" + get_column_description(cas_schema, user_table_name, "cell_set_accession"))
+                elif header == "cell_ontology_term_id":
+                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
+                             header.replace("_", " ").strip() + "\tempty\tautocomplete_cl\t\t" + get_column_description(cas_schema, user_table_name, header))
+                elif header == "cell_ontology_term":
+                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
+                             header.replace("_", " ").strip() + "\tempty\tontology_label\t\t" + get_column_description(cas_schema, user_table_name, header))
+                elif header == "labelset" and user_table_name == "annotation":
+                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
+                             header.replace("_", " ").strip() + "\tempty\ttext\t" + "from(labelset.name)"
+                             + "\t" + get_column_description(cas_schema, user_table_name, header))
+                else:
+                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
+                             header.replace("_", " ").strip() + "\tempty\ttext\t\t" + get_column_description(cas_schema, user_table_name, header))
+    else:
+        print("Table already exists in the schema: {}. Skipping...".format(Path(user_data_path).name))
+        user_data_ct_path = None
 
     if delete_source:
         os.remove(user_data_path)
-
     return user_data_ct_path
 
 
