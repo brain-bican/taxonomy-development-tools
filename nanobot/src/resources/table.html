@@ -263,11 +263,7 @@
 
     {% if table.table != "message" %}
     {# extend-start #}
-    {% if table.table == "annotation" %}
-    <a class="btn btn-outline-success" href="{{ table.table }}?view=ols_form">Add row</a>
-    {% else %}
-    <a class="btn btn-outline-success" {% if table.table not in ["column", "datatype", "annotation", "metadata", "labelset", "annotation_transfer"] %} hidden="true" {% endif %} href="{{ table.table }}?view=form">Add row</a>
-    {% endif %}
+    <a class="btn btn-outline-success" {% if table.table not in ["column", "datatype", "annotation", "metadata", "labelset", "annotation_transfer"] %} hidden="true" {% endif %} href="{{ table.table }}?view={{ table.edit_view or 'form' }}">Add row</a>
     {# extend-end #}
     {% endif %}
 

@@ -1,9 +1,10 @@
 WORKSPACE=/tools
 NANOBOT := build/nanobot
 NANOBOTDB := build/nanobot.db
-EXPORT := build/export.py
+EXPORT := $(WORKSPACE)/scripts/export.py
 IMPORT := $(WORKSPACE)/scripts/import.py
 CONFIGURATIONS := $(WORKSPACE)/scripts/configurations.py
+AUTO_SYNCH := true
 
 build/:
 	mkdir -p $@
@@ -11,9 +12,6 @@ build/:
 build/nanobot: | build/
 	curl -L -o $@ "https://github.com/hkir-dev/nanobot.rs/releases/download/v2024-02-05-tdt/nanobot-x86_64-unknown-linux-musl"
 	chmod +x $@
-
-build/export.py: | build/
-	curl -L -o $@ "https://github.com/ontodev/valve.rs/raw/main/scripts/export.py"
 
 .PHONY: build_nomenclature_tables
 build_nomenclature_tables:
@@ -35,7 +33,7 @@ load: clean | $(NANOBOT)
 	$(NANOBOT) init
 
 .PHONY:
-save: $(EXPORT) $(NANOBOTDB)
+save: $(NANOBOTDB)
 	python3 $(EXPORT) data $(NANOBOTDB) src/schema/ table column datatype
 	python3 $(EXPORT) data $(NANOBOTDB) curation_tables/ $(foreach t,$(wildcard curation_tables/*.tsv), $(basename $(notdir $t)))
 	#python3 $(EXPORT) data $(NANOBOTDB) curation_tables/ $$(cut -f1 src/schema/table.tsv | grep CCN2 | tr '\n' ' ')
@@ -43,6 +41,13 @@ save: $(EXPORT) $(NANOBOTDB)
 .PHONY: serve
 serve: $(NANOBOTDB)
 	python3 $(CONFIGURATIONS) configure-git --root_folder ./
+	if [ $(AUTO_SYNCH) = true ]; then \
+		python3 $(EXPORT) data $(NANOBOTDB) src/schema/ table column datatype; \
+		python3 $(EXPORT) data $(NANOBOTDB) curation_tables/ $(foreach t,$(wildcard curation_tables/*.tsv), $(basename $(notdir $t))); \
+		git commit --message "Auto-commit on startup."; \
+		git pull; \
+		git push; \
+	fi
 	$(NANOBOT) serve
 
 .PHONY: clean
