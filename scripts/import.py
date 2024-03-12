@@ -113,8 +113,11 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
     user_data_ct_path = os.path.join(curation_tables_folder, Path(user_data_path).name)
     if os.path.isfile(user_data_ct_path) is False or os.path.getsize(user_data_ct_path) == 0:
         user_data_ct_path = copy_file(user_data_path, curation_tables_folder)
-        user_table_name = os.path.splitext(os.path.basename(user_data_ct_path))[0]
-        table_tsv_path = os.path.join(schema_folder, "table.tsv")
+
+    user_table_name = os.path.splitext(os.path.basename(user_data_ct_path))[0]
+    table_tsv_path = os.path.join(schema_folder, "table.tsv")
+
+    if user_data_ct_path not in Path(table_tsv_path).read_text():
         with open(table_tsv_path, 'a') as fd:
             if user_table_name == "annotation":
                 # use custom edit_view for autocomplete
