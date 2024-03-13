@@ -3,6 +3,8 @@
 Welcome to the Taxonomy Development Tools User Interface Guide. This document is designed to provide comprehensive details on navigating and utilizing the TDT interface efficiently. Whether you are looking to manage data tables, edit information, or leverage advanced features, this guide will assist you in making the most out of TDT.
 
 1. [Tables](#tables)
+   1. [Switch system tables](#switch-system-tables)
+   2.[User tables](#user-tables)
 1. [Table Management](#table-management)
    1. [Adding new Records](#add-new-records)
    1. [Editing Existing Data](#editing-existing-data)
@@ -20,23 +22,123 @@ Welcome to the Taxonomy Development Tools User Interface Guide. This document is
 
 At the heart of the Taxonomy Development Tools is a robust internal database designed to streamline the management and curation of taxonomy-related data. Access to this database is facilitated through a user-friendly interface, with tables being a central component.
 
-To view the available tables, simply navigate to the Tables dropdown menu at the top of the interface.
+To view the available tables,  navigate to the Tables dropdown menu at the top of the interface.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tables.png" alt="Tables" width="300"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_dropdownmenu_AITT.png"/>
 </p>
 
-TDT categorizes tables into two main types, each serving distinct purposes:
+TDT categorizes tables into two main types, **switch system tables** and **user tables**, each serving distinct purposes:
 
-**User tables:** User tables are created when data is uploaded to the TDT using the `load_data` operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema) and organized into multiple interrelated tables. These tables include: 
-- `*_metadata`: Contains metadata related to the taxonomy.
-- `*_labelset`: Houses definitions of the label sets.
-- `*_annotation`: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata.
-- `*_annotation_transfer`: Tracks annotation transfer records.
+**Switch system tables:**
+these tables are essential for the internal configuration of the TDT and cannot be modified by the users.
+
+- `table`: this table lists all the tables present in the TDT and it appears in the default page of the TDT
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_AITT.png"/>
+</p>
+
+- `datatype` : this table shows all the datatype columns present in each table.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/datatype_table_AITT.png"/>
+</p>
+
+- `column`: this table contains all the columns present in each table.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/column_table_AITT.png"/>
+</p>
+
+- `message`: this table contains all the messages present one very row of each table.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/message_table_AITT.png"/>
+</p>
+
+**User tables**
+
+User tables are created when data is uploaded to the TDT using the `load_data` operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema) and organized into multiple interrelated tables. 
+
+> Example: the [nhp_basal_ganglia_taxonomy](https://github.com/hkir-dev/nhp_basal_ganglia_taxonomy) present an annotation table named `AIT115_annotation_sheet` from this table a series of `user tables` are generated and displayed in the TDT.
+
+
+The user tables are the following: 
+
+- `original data table` : This table is provided by the author and contains their original annotations.
+
+> Exp. AIT115_annotation_sheet
+
+
+
+- `*_metadata`: This table contains all the medatadata related to the taxonomy. For full specifications of the metadata properties, look up the cell annotation schema documentation under the section [properties](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties). The `*_metadata` column names are explained below:
+
+`author name` : the name of the first author of the taxonomy.
+`author contact` : author's email.
+`author list`: name of secondary authors.
+`matrix file ID`: a resolvable ID for a cell by gene matrix file. 
+`cellannotation schema version`: the version of the cell annotation schema. 
+`cellannotation timestamp`: the time (yyyy-mm-dd) of when the cell annotations are published.
+`cellannotation url`: a URL where all cell annotations are published for each dataset.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_metadata.png"/>
+</p>
+
+
+
+
+- `*_labelset`: This table contains the definition of the labels used in the annotation and the methodology used to acquire those labels. Full specifications of the label set can be found in the Cell annotation schema documentation under the [labelsets](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties) section. 
+`name` : the name of the type of annotation key
+`description` : description of the annotation key
+`rank` : the level of granularity of the annotation with 0 being the most specific 
+`annotation method` : the method used for the type of annotation, it can either be algorithmic, manual or both 
+`automated annotation algorithm name` : the name of the algorithm used for the automated annotation 
+`automated annotation algorithm verision` : the version used for the algorithm 
+`automated annotation algorithm repo url` : a resolvable URL of the version control of the algorithm used.
+`automated annotation reference location` : a resolvable URL of the source of the data. 
+	
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_labelset.png"/>
+</p>
+
+
+
+
+- `*_annotation`: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata. Further information on the annotation columns can be found in the Cell annotation schema documentation under the [annotations](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md) section.
+
+`cell set accession` : an identifier that can be used to consistently refer to the set of cells being annotated, even if the cell_label changes.
+`cell label` : the cell annotation provided by the author.
+`cell fullname` : the full-length term of the annotated cell set. 
+`parent cell set accession` : similar to the `cell set accession`, this is the term for a set of cells on step higher than the cells in the row in the hierarchical classification.
+`labelset` : the type of cell annotation from the AnnData/Seurat file.
+`cell ontology term id` : the ontology term ID that define the cell type. I has to be the closest term matching the `cell label` 
+`cell ontology term` : the ontology term name from the ontology term ID
+`rationale` : The short name of the publications used to define the `cell ontology term`.
+`rationale dois` : The DOI of the paper mentioned in the `rationale`
+`maker gene evidence` : List of names of genes whose expression in the cells being annotated is explicitly used as evidence for this cell annotation. Each gene MUST be included in the matrix of the AnnData/Seurat file.
+`synonyms` : synonyms of the `cell label`
+
+
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation.png"/>
+</p>
+
+
+
+
+- `*_annotation_transfer`: Tracks annotation transfer records. **I need some help for this part** @dosumis maybe we could discuss about it.
 For detailed information on table structures and fields, refer to the Cell Annotation Schema [documentation](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md).
 
-**System tables:** System tables are essential for the internal configurations of TDT and are typically not modified by users. Currently, only a single system table is visible to the users:
-- `table`: Lists all loaded tables and the physical location of the backing files.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation_transfer.png"/>
+</p>
+
+
+
 
 ## Table Management
 
