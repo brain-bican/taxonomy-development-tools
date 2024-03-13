@@ -137,15 +137,19 @@ The user tables are the following:
 
 
 
-- `annotation_transfer`: Tracks annotation transfer records. **I need some help for this part** @dosumis maybe we could discuss about it.
+
+**User tables:** User tables are created when data is uploaded to the TDT using the `load_data` operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema) and organized into multiple interrelated tables. These tables include: 
+- `metadata`: Contains metadata related to the taxonomy.
+- `labelset`: Houses definitions of the label sets.
+- `annotation`: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata.
+- `annotation_transfer`: Tracks annotation transfer records.
 For detailed information on table structures and fields, refer to the Cell Annotation Schema [documentation](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md).
 
-
-<p align="center">
-    <img src="images/screenshots/AIT115_annotation_sheet_annotation_transfer.png" alt = "Sort and filter by column" width = "900"/>
-</p>
-
-
+**System tables:** System tables are essential for the internal configurations of TDT and are typically not modified by users. These tables include:
+- `table`: Lists all loaded tables and the physical location of the backing files.
+- `column`: Associates table columns with their respective data types.
+- `datatype`: Lists all datatypes existing in the system. Datatypes allow users to define regex patterns for cell values. The datatypes are a hierarchy of types, and when a datatype is provided as a condition, all parent values are also checked.
+- `message`: TDT allows users to load invalid data (invalid datatypes, value not matching with regex etc.) and displays issues on top of each table and column. `messages` table stores the found errors in the data.
 
 
 ## Table Management
@@ -304,7 +308,7 @@ This action converts all data into a JSON file formatted according to the [Cell 
 
 Apply your modifications directly to the associated AnnData file for the taxonomy.
 
-The `*_metadata` table contains a `matrix_file_id` column, representing a resolvable ID for a cell-by-gene matrix file, formatted as `namespace:accession`. For example, `CellXGene_dataset:8e10f1c4-8e98-41e5-b65f-8cd89a887122` (Please refer to the [cell-annotation-schema registry](https://github.com/cellannotation/cell-annotation-schema/blob/main/registry/registry.json) for a list of supported namespaces.)
+The `metadata` table contains a `matrix_file_id` column, representing a resolvable ID for a cell-by-gene matrix file, formatted as `namespace:accession`. For example, `CellXGene_dataset:8e10f1c4-8e98-41e5-b65f-8cd89a887122` (Please refer to the [cell-annotation-schema registry](https://github.com/cellannotation/cell-annotation-schema/blob/main/registry/registry.json) for a list of supported namespaces.)
 
 WUpon initial launch, TDT creates a `tdt_datasets` directory in the user home folder. It attempts to resolve all matrix_file_id references within this directory. The system searches for the corresponding file (e.g., `$HOME/tdt_datasets/8e10f1c4-8e98-41e5-b65f-8cd89a887122.h5ad`) and then initiates a [cas-tools flatten operation](https://github.com/cellannotation/cas-tools/blob/main/docs/cli.md#flatten-onto-anndata). This process, which may vary in duration depending on the taxonomy's size, results in a new AnnData file (`/tdt_datasets/$$TAXONOMY_ID$$.h5ad`) incorporating the user's annotations.
 

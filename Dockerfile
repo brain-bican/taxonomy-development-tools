@@ -53,6 +53,8 @@ ADD scripts/run.sh $WORKSPACE/scripts
 ADD scripts/run.bat $WORKSPACE/scripts
 ADD scripts/import.py $WORKSPACE/scripts
 ADD scripts/configurations.py $WORKSPACE/scripts
+ADD scripts/export.py $WORKSPACE/scripts
+ADD scripts/upgrade.py $WORKSPACE/scripts
 ADD scripts/.gitignore $WORKSPACE/scripts
 
 RUN python3 -m pip install  -r $WORKSPACE/requirements.txt

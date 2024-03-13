@@ -17,37 +17,83 @@ path = "src/assets/"
 [templates]
 path = "src/resources/"
 
-[actions.save]
+[actions.file]
+label = "File"
+commands = []
+
+[actions.sub_file_save]
 label = "Save"
+inputs = [
+    { name = "message", label = "Save comment" }
+]
 commands = [
   ["make", "save"],
+  ["git", "add", "--update"],
+  ["git", "commit", "--message", "'{message}'"],
+  ["git", "pull"],
+  ["git", "push"]
 ]
 
-[actions.status]
+[actions.sub_file_publish]
+label = "Publish"
+inputs = [
+  { name = "tag", label = "Release Tag", default = "v{today}" },
+]
+commands = [
+  ["make", "save"],
+  ["git", "add", "--update"],
+  ["git", "commit", "--message", "'{message}'"],
+  ["git", "pull"],
+  ["git", "push"],
+  ["gh", "release", "create", "{tag}"],
+  ["tdta", "purl-publish", "-i", "./", "-t", "CCN20230601", "-u", "'{username}'"]
+]
+
+[actions.export]
+label = "Export"
+commands = []
+
+[actions.sub_export_cas_save]
+label = "To CAS"
+commands = [
+  ["tdta", "export", "-db", "./build/nanobot.db", "-o", "./CCN20230601.json", "-c", "/tdt_datasets"]
+]
+
+[actions.sub_export_export_anndata]
+label = "To AnnData"
+commands = [
+  ["tdta", "anndata", "-db", "./build/nanobot.db", "-j", "./CCN20230601.json", "-o", "/tdt_datasets/CCN20230601.h5ad", "-c", "/tdt_datasets"]
+]
+
+[actions.github]
+label = "Version Control"
+commands = []
+
+[actions.sub_github_status]
 label = "Status"
 commands = [
   ["git", "-c", "color.ui=always", "status"],
 ]
 
-[actions.diff]
+[actions.sub_github_diff]
 label = "Diff"
 commands = [
   ["git", "-c", "color.ui=always", "diff"],
 ]
 
-[actions.fetch]
+[actions.sub_github_fetch]
 label = "Fetch"
 commands = [
   ["git", "fetch"],
 ]
 
-[actions.pull]
+[actions.sub_github_pull]
 label = "Pull"
 commands = [
   ["git", "pull"],
 ]
 
-[actions.branch]
+[actions.sub_github_branch]
 label = "Branch"
 inputs = [
   { name = "branch_name", label = "Branch Name", default = "{username}-{today}", validate = "\\w+" }
@@ -59,7 +105,7 @@ commands = [
   ["git", "push", "--set-upstream", "origin", "{branch_name}"],
 ]
 
-[actions.commit]
+[actions.sub_github_commit]
 label = "Commit"
 inputs = [
     { name = "message", label = "Commit Message" }
@@ -70,7 +116,7 @@ commands = [
   ["git", "commit", "--message", "'{message}'"],
 ]
 
-[actions.commitandpush]
+[actions.sub_github_commitandpush]
 label = "Commit and Push"
 inputs = [
     { name = "message", label = "Commit Message" }
@@ -82,13 +128,13 @@ commands = [
   ["git", "push"],
 ]
 
-[actions.push]
+[actions.sub_github_push]
 label = "Push"
 commands = [
   ["git", "push"],
 ]
 
-[actions.pr]
+[actions.sub_github_pr]
 label = "Pull Request"
 inputs = [
   { name = "title", label = "Title" },
@@ -98,7 +144,7 @@ commands = [
   ["gh", "pr", "create", "--title", "'{title}'", "--body", "'{body}'"],
 ]
 
-[actions.release]
+[actions.sub_github_release]
 label = "Release"
 inputs = [
   { name = "tag", label = "Release Tag", default = "v{today}" },
@@ -110,20 +156,8 @@ commands = [
   ["gh", "release", "create", "{tag}"],
 ]
 
-[actions.purl]
+[actions.sub_github_purl]
 label = "Publish PURL"
 commands = [
-  ["tdta", "purl-publish", "-i", "./", "-t", "$$TAXONOMY_ID$$", "-u", "'{username}'"]
-]
-
-[actions.cas_save]
-label = "Save CAS"
-commands = [
-  ["tdta", "export", "-db", "./build/nanobot.db", "-o", "./$$TAXONOMY_ID$$.json", "-c", "/tdt_datasets"]
-]
-
-[actions.export_anndata]
-label = "Export AnnData"
-commands = [
-  ["tdta", "anndata", "-db", "./build/nanobot.db", "-j", "./$$TAXONOMY_ID$$.json", "-o", "/tdt_datasets/$$TAXONOMY_ID$$.h5ad", "-c", "/tdt_datasets"]
+  ["tdta", "purl-publish", "-i", "./", "-t", "CCN20230601", "-u", "'{username}'"]
 ]
