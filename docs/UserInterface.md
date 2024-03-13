@@ -178,7 +178,7 @@ The `Project specific` columns are transferred from the `original data table`. T
 
 
 <p align="center">
-    <img src="AIT115_annotation_sheet_annotation.png" alt = "Sort and filter by column" width = "900"/>
+    <img src="images/screenshots/AIT115_annotation_sheet_annotation.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 
@@ -378,7 +378,7 @@ In the `Actions` menu, select the `File` dropdown menu. Two options will be disp
 
 
 <p align="center">
-    <img src="images/screenshots/action_file_save.png" alt="Use the dropdown menu" width="300"/>
+    <img src="images/screenshots/actions_file_save.png" alt="Use the dropdown menu" width="300"/>
 </p>
 
 
@@ -388,7 +388,7 @@ Under the `Actions` menu, select the `Export` drowpdown menu. Two options will b
 
 
 <p align="center">
-    <img src="images/screenshots/action_export.png" alt="Use the dropdown menu" width="300"/>
+    <img src="images/screenshots/actions_export.png" alt="Use the dropdown menu" width="300"/>
 </p>
 
 
