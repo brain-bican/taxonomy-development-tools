@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Configuring a new project - Taxonomy Development Tools (TDT)</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Configuring a new project";
+        var mkdocs_page_input_path = "config.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Taxonomy Development Tools (TDT)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Getting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build/">Install Requirements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../QuickStart/">Quick Start</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NewRepo/">Create a New Repo</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Curation/">Start Curating Taxonomies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../UserInterface/">User Interface</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How-to guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Update/">Update to a newer TDT version</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Taxonomy Development Tools (TDT)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Configuring a new project</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/master/docs/config.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="configuring-a-new-project">Configuring a new project</h1>
+<p>New projects need configuration </p>
+<h2 id="project-config">Project Config</h2>
+<p>To start a new project, we need to collect some general metadata. Here, for example, is a project configuration for the non-neuronal component of  Human Brain Cell Atlas v1.0:</p>
+<pre><code class="language-yaml">id: CS202210140 
+title: Human Brain Cell Atlas v1.0 - non neuronal
+description: &quot;Atlas of human primary motor cortex (M1), developed in collaboration with the BRAIN Initiative Cell Census Network (BICCN), non neuronal cells.
+matrix_file_id: CellXGene_dataset:b165f033-9dec-468a-9248-802fc6902a74  
+github_org: brain-bican
+repo: human-brain-cell-atlas_v1_non-neuronal
+author: https://orcid.org/0000-0001-7620-8973
+accession_id_prefix: CS202210140_
+citation: DOI:10.1126/science.add7046
+creators:
+  - https://orcid.org/0000-0001-7258-9596
+  - https://orcid.org/0000-0002-3315-2794
+</code></pre>
+<ul>
+<li><code>id</code>: should specify a unique ID for the taxonomy.  This is used to name files as well as URLs from which the taxonomy can be retrieved.</li>
+<li><code>title</code> and <code>description</code> should be self-explanatory.</li>
+<li><code>matrix_file_id</code>:  An ID that can be used to resolve a cell by gene matrix file in AnnData (h5ad) format.  In this case the file in question is present on CZ CELLxGENE.  TDT (and CAS-Tools) recognises the prefix and uses this to retrieve the relevant file.</li>
+<li><code>github_org</code>: The GitHub organization that hosts the taxonomy.  For BICAN this should be brain-bican, although you could use your own GitHub username if you want to experiment.</li>
+<li><code>author</code>: Every taxonomy must have a primary author.  We use ORCID to record this.</li>
+<li><code>accession_id_prefix</code>: The prefix used to create IDs for new cell sets added to the taxonomy</li>
+<li><code>citation</code>: DOI of associated paper (where the taxonomy is for a published dataset)</li>
+<li>creators: ORCIDs or all other authors should be included here</li>
+</ul>
+<h2 id="configure-seeding-a-new-taxonomy-from-an-existing-informal-taxonomy">Configure seeding a new taxonomy from an existing informal taxonomy.</h2>
+<p>TDT supports seeding of new taxonomies from existing informal taxonomy spreadsheets. The entire content of these spreadsheets is preserved and editable within the TDT annotation table. A simple configuration file supports mapping of relevant content into the  content in  Cell Annotation Schema (CAS) Taxonomy standard.</p>
+<p>Configuration assumes informal taxonomies will have 1 row per cluster (where cluster is the most granular level in the hierarchy), 1 column per heirarchy level and that additional columns record information about clusters. For example, the following informal taxonomy has one row per cluster - with cluster identity indicated by the first 2 columns.</p>
+<p><img alt="image" src="https://github.com/brain-bican/taxonomy-development-tools/assets/112839/b11e5f81-3016-47b3-8004-32a23a93bb4e" /></p>
+<p>The next 3 columns specify different taxonomy levels.</p>
+<p>We record this in the config as follows:</p>
+<pre><code class="language-yaml">fields:
+  - column_name: cluster_id
+    column_type: cluster_id
+    rank: 0
+  - column_name: Cluster
+    column_type: cluster_name
+    rank: 0
+  - column_name: Subclass
+    column_type: cell_set
+    rank: 1
+  - column_name: Neighborhood
+    column_type: cell_set
+    rank: 2
+  - column_name: Class
+    column_type: cell_set
+    rank: 3
+</code></pre>
+<p>The rank field indicates level in the heirarchy. The most granular level (cluster) gets <code>rank: 0</code>, the next level up in the heirarchy gets <code>rank: 1</code> etc.</p>
+<p>Our aim is to gradually increase the number of types of field that can be mapped into the schema and can benefit from autocomplete editing, including fields for recording markers and anatomical locations.</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/brain-bican/taxonomy-development-tools" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
