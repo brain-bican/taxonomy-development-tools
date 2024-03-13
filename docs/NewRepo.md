@@ -22,6 +22,9 @@ We will walk you though the steps to make a new ontology project
 
 **NOTE:** Windows users, occasionally it has been reported that files downloaded on a Windows machine get a wrong file ending, for example `seed-via-docker.bat.txt` instead of `seed-via-docker.bat`, or, as we will see later, `project.yaml.txt` instead of `project.yaml`. If you have problems, double check your files are named correctly after the download!
 
+## 2. Prepare your configuration file:
+ - [Follow the instructions here].(config.md)
+
 ## 3. Run the wrapper script
 
 You can pass in a configuration file in YAML format that specifies your taxonomy project setup. You can use `dir` in your command line on PC to ensure that your wrapper script, .gitconfig, and project.yaml (if you so choose) are all in the correct directory before running the wrapper script.
