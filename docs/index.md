@@ -8,8 +8,7 @@ Subsequently, it delves into the process of curating BICAN taxonomies, offering 
 - [Quick Start TDT](QuickStart.md) - How to install and launch TDT.
 - [Intro to TDT](Intro_to_TDT.md) - A general introduction to the Taxonomy Development. What are taxonomies, why are they needed, how Taxonomy Development Tools can help you collaboratively develop and publish them.
 - [Get Your System Ready](Build.md) - A more detailed guide to setup.
-- [Create a New Repo](NewRepo.md) - How to create a new taxonomy with its own repo.
-- [Start Curating Taxonomies](Curation.md)
-- [UI Guide](UserInterface.md)
+- [Create a taxonomy](NewRepo.md) - How to create a new taxonomy with its own repo.
+- [UI Guide](UserInterface.md) - An overview of the user interface and how to use if for editing, saving, publishing and exporting taxonomies.
 - [Updating TDT](Update.md) - How to update your repo to run the latest version of TDT.
 
