@@ -28,8 +28,7 @@ inputs = [
 ]
 commands = [
   ["make", "save"],
-  ["git", "add", "--update"],
-  ["git", "commit", "--message", "'{message}'"],
+  ["git", "commit", "-a", "--message", "'{message}'"],
   ["git", "pull"],
   ["git", "push"]
 ]
@@ -41,12 +40,11 @@ inputs = [
 ]
 commands = [
   ["make", "save"],
-  ["git", "add", "--update"],
-  ["git", "commit", "--message", "'{message}'"],
+  ["git", "commit", "-a", "--allow-empty", "--message", "'Auto commit'"],
   ["git", "pull"],
   ["git", "push"],
   ["gh", "release", "create", "{tag}"],
-  ["tdta", "purl-publish", "-i", "./", "-t", "CCN20230601", "-u", "'{username}'"]
+  ["tdta", "purl-publish", "-i", "./", "-t", "$$TAXONOMY_ID$$", "-u", "'{username}'"]
 ]
 
 [actions.export]
@@ -56,13 +54,13 @@ commands = []
 [actions.sub_export_cas_save]
 label = "To CAS"
 commands = [
-  ["tdta", "export", "-db", "./build/nanobot.db", "-o", "./CCN20230601.json", "-c", "/tdt_datasets"]
+  ["tdta", "export", "-db", "./build/nanobot.db", "-o", "./$$TAXONOMY_ID$$.json", "-c", "/tdt_datasets"]
 ]
 
 [actions.sub_export_export_anndata]
 label = "To AnnData"
 commands = [
-  ["tdta", "anndata", "-db", "./build/nanobot.db", "-j", "./CCN20230601.json", "-o", "/tdt_datasets/CCN20230601.h5ad", "-c", "/tdt_datasets"]
+  ["tdta", "anndata", "-db", "./build/nanobot.db", "-j", "./$$TAXONOMY_ID$$.json", "-o", "/tdt_datasets/$$TAXONOMY_ID$$.h5ad", "-c", "/tdt_datasets"]
 ]
 
 [actions.github]
@@ -111,9 +109,8 @@ inputs = [
     { name = "message", label = "Commit Message" }
 ]
 commands = [
-  ["git", "add", "--update"],
   ["git", "-c", "color.ui=always", "status"],
-  ["git", "commit", "--message", "'{message}'"],
+  ["git", "commit", "-a", "--message", "'{message}'"],
 ]
 
 [actions.sub_github_commitandpush]
@@ -122,9 +119,8 @@ inputs = [
     { name = "message", label = "Commit Message" }
 ]
 commands = [
-  ["git", "add", "--update"],
   ["git", "-c", "color.ui=always", "status"],
-  ["git", "commit", "--message", "'{message}'"],
+  ["git", "commit", "-a", "--message", "'{message}'"],
   ["git", "push"],
 ]
 
@@ -159,5 +155,5 @@ commands = [
 [actions.sub_github_purl]
 label = "Publish PURL"
 commands = [
-  ["tdta", "purl-publish", "-i", "./", "-t", "CCN20230601", "-u", "'{username}'"]
+  ["tdta", "purl-publish", "-i", "./", "-t", "$$TAXONOMY_ID$$", "-u", "'{username}'"]
 ]
