@@ -49,6 +49,7 @@ serve: $(NANOBOTDB)
 		git pull; \
 		git push; \
 		rm -rf build/; \
+		$(NANOBOT) init; \
 	fi
 	$(NANOBOT) serve
 
