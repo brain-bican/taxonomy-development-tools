@@ -78,7 +78,7 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#save">Save</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#github-controls">GitHub Controls</a>
+    <li class="toctree-l3"><a class="reference internal" href="#version-control-with-github">Version Control with GitHub</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#make-a-release">Make a Release</a>
     </li>
@@ -94,6 +94,11 @@
     </li>
     </ul>
                 </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How-to guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Update/">Update to a newer TDT version</a>
+                  </li>
               </ul>
       </div>
     </div>
@@ -145,13 +150,16 @@
 
 <p>TDT categorizes tables into two main types, each serving distinct purposes:</p>
 <p><strong>User tables:</strong> User tables are created when data is uploaded to the TDT using the <code>load_data</code> operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the <a href="https://github.com/cellannotation/cell-annotation-schema">Cell Annotation Schema</a> and organized into multiple interrelated tables. These tables include: 
-- <code>*_metadata</code>: Contains metadata related to the taxonomy.
-- <code>*_labelset</code>: Houses definitions of the label sets.
-- <code>*_annotation</code>: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata.
-- <code>*_annotation_transfer</code>: Tracks annotation transfer records.
+- <code>metadata</code>: Contains metadata related to the taxonomy.
+- <code>labelset</code>: Houses definitions of the label sets.
+- <code>annotation</code>: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata.
+- <code>annotation_transfer</code>: Tracks annotation transfer records.
 For detailed information on table structures and fields, refer to the Cell Annotation Schema <a href="https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md">documentation</a>.</p>
-<p><strong>System tables:</strong> System tables are essential for the internal configurations of TDT and are typically not modified by users. Currently, only a single system table is visible to the users:
-- <code>table</code>: Lists all loaded tables and the physical location of the backing files.</p>
+<p><strong>System tables:</strong> System tables are essential for the internal configurations of TDT and are typically not modified by users. These tables include:
+- <code>table</code>: Lists all loaded tables and the physical location of the backing files.
+- <code>column</code>: Associates table columns with their respective data types.
+- <code>datatype</code>: Lists all datatypes existing in the system. Datatypes allow users to define regex patterns for cell values. The datatypes are a hierarchy of types, and when a datatype is provided as a condition, all parent values are also checked.
+- <code>message</code>: TDT allows users to load invalid data (invalid datatypes, value not matching with regex etc.) and displays issues on top of each table and column. <code>messages</code> table stores the found errors in the data.</p>
 <h2 id="table-management">Table Management</h2>
 <h3 id="adding-new-records">Adding New Records</h3>
 <p><code>Add row</code> button can be used to add new records to the table.</p>
@@ -178,20 +186,25 @@ For detailed information on table structures and fields, refer to the Cell Annot
 
 <h3 id="save">Save</h3>
 <p>All user modifications are automatically saved to the internal database. However, if user wants to save changes back to the source tsv files located in the project <code>curation_tables/</code> folder, <code>save</code> action can be utilized.</p>
-<h3 id="github-controls">GitHub Controls</h3>
+<h3 id="version-control-with-github">Version Control with GitHub</h3>
+<p>The <code>Version Control</code> feature enables users to seamlessly perform GitHub operations directly from our interface. Before you can leverage these capabilities, it's essential to configure your environment by setting the <code>GH_TOKEN</code> variable. This step is critical for authentication and authorization purposes. For a comprehensive guide on setting up your environment, please refer to our <a href="https://github.com/brain-bican/taxonomy-development-tools/blob/main/docs/Build.md#git">prerequisites installation guide</a>. </p>
 <p>Details to be added</p>
 <h3 id="make-a-release">Make a Release</h3>
-<p>Details to be added</p>
+<p>The <code>Release</code> action facilitates the creation of a new GitHub release for the taxonomy project. This feature is part of our broader <code>Version Control</code> toolkit and requires the <code>GH_TOKEN</code> environment variable to be set for operation. For detailed instructions on how to configure this, please visit our <a href="https://github.com/brain-bican/taxonomy-development-tools/blob/main/docs/Build.md#git">prerequisites installation guide</a>.</p>
+<p>When initiating a release, the action will prompt you for a release tag. The current date is the default value for this tag, but you can specify your own. It's important to ensure that your tag is valid and adheres to GitHub's naming conventions. Avoid using disallowed characters such as spaces ( ), carriage returns (\r), new lines (\n), tildes (~), carets (^), colons (:), double quotes ("), question marks (?), brackets ([), and asterisks (*). For more information on creating well-formed tags, please consult the <a href="https://git-scm.com/docs/git-check-ref-format">Git documentation on reference formats</a>. </p>
+<p>Upon successful creation of a release, you will be notified of the new release's URL, allowing you to easily share or promote your latest version.</p>
 <h3 id="publish-purl">Publish PURL</h3>
 <p>A Permanent URL (PURL) provides a stable link that always directs users to the same digital content. The <code>Publish PURL</code> allows you to generate a PURL for the current taxonomy version, ensuring consistent access to it. For instance, a taxonomy might be accessible through a PURL like:</p>
+<blockquote>
 <p>https://purl.brain-bican.org/taxonomy/CCN202210140/CS202210140_neurons.json --&gt; redirects to --&gt; https://raw.githubusercontent.com/brain-bican/human-brain-cell-atlas_v1_neurons/main/CS202210140.json</p>
+</blockquote>
 <p>Create a PURL once you deem the taxonomy mature enough for community sharing. This process will generate a PURL configuration file and initiate a pull request to the <a href="https://github.com/brain-bican/purl.brain-bican.org">purl.brain-bican.org repository</a>.</p>
 <p>Note: This step requires a fork of the <a href="https://github.com/brain-bican/purl.brain-bican.org">purl.brain-bican.org</a> repository in case you lack write access. Please ensure any existing forks are removed to avoid conflicts. The system will alert you if an existing fork is detected.</p>
 <h3 id="export-cas-json">Export CAS Json</h3>
 <p>This action converts all data into a JSON file formatted according to the <a href="https://github.com/cellannotation/cell-annotation-schema">Cell Annotation Schema</a> located in the project's root directory.</p>
 <h3 id="export-to-anndata">Export to AnnData</h3>
 <p>Apply your modifications directly to the associated AnnData file for the taxonomy.</p>
-<p>The <code>*_metadata</code> table contains a <code>matrix_file_id</code> column, representing a resolvable ID for a cell-by-gene matrix file, formatted as <code>namespace:accession</code>. For example, <code>CellXGene_dataset:8e10f1c4-8e98-41e5-b65f-8cd89a887122</code> (Please refer to the <a href="https://github.com/cellannotation/cell-annotation-schema/blob/main/registry/registry.json">cell-annotation-schema registry</a> for a list of supported namespaces.)</p>
+<p>The <code>metadata</code> table contains a <code>matrix_file_id</code> column, representing a resolvable ID for a cell-by-gene matrix file, formatted as <code>namespace:accession</code>. For example, <code>CellXGene_dataset:8e10f1c4-8e98-41e5-b65f-8cd89a887122</code> (Please refer to the <a href="https://github.com/cellannotation/cell-annotation-schema/blob/main/registry/registry.json">cell-annotation-schema registry</a> for a list of supported namespaces.)</p>
 <p>WUpon initial launch, TDT creates a <code>tdt_datasets</code> directory in the user home folder. It attempts to resolve all matrix_file_id references within this directory. The system searches for the corresponding file (e.g., <code>$HOME/tdt_datasets/8e10f1c4-8e98-41e5-b65f-8cd89a887122.h5ad</code>) and then initiates a <a href="https://github.com/cellannotation/cas-tools/blob/main/docs/cli.md#flatten-onto-anndata">cas-tools flatten operation</a>. This process, which may vary in duration depending on the taxonomy's size, results in a new AnnData file (<code>/tdt_datasets/$$TAXONOMY_ID$$.h5ad</code>) incorporating the user's annotations.</p>
 <h2 id="views">Views</h2>
 <p>Annotation tables are equipped to display data in a hierarchical structure, offering a more intuitive understanding of relationships within the taxonomy. To access this perspective, simply click on the <code>Taxonomy View</code> button.</p>
@@ -205,6 +218,7 @@ For detailed information on table structures and fields, refer to the Cell Annot
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../Curation/" class="btn btn-neutral float-left" title="Start Curating Taxonomies"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Update/" class="btn btn-neutral float-right" title="Update to a newer TDT version">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -233,6 +247,8 @@ For detailed information on table structures and fields, refer to the Cell Annot
     
       <span><a href="../Curation/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="../Update/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

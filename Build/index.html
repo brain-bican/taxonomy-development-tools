@@ -69,6 +69,11 @@
                 <li class="toctree-l1"><a class="reference internal" href="../UserInterface/">User Interface</a>
                 </li>
               </ul>
+              <p class="caption"><span class="caption-text">How-to guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Update/">Update to a newer TDT version</a>
+                  </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -159,20 +164,6 @@ git config --global user.email &quot;your_github_email&quot;
 <p>Should you prefer to manually obtain the TDT Docker image, execute the following command:</p>
 <pre><code>docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
 </code></pre>
-<h2 id="update-taxonomy-development-tools-to-the-latest-version">Update Taxonomy Development Tools to the latest version</h2>
-<p>To upgrade an existing TDT Docker image to the most current version, proceed as follows:</p>
-<ol>
-<li>Terminate all active TDT containers:</li>
-</ol>
-<pre><code>docker stop $(docker ps -a -q --filter ancestor=ghcr.io/brain-bican/taxonomy-development-tools:latest)
-</code></pre>
-<ol>
-<li>Delete the current TDT image and download the newest version:</li>
-</ol>
-<pre><code>docker rmi $(docker images 'ghcr.io/brain-bican/taxonomy-development-tools:latest' -a -q | uniq)
-docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
-</code></pre>
-<p>This streamlined approach ensures that you are always working with the latest tools and features available for Taxonomy Development.</p>
 <h2 id="build-taxonomy-development-tools-optional">Build Taxonomy Development Tools (Optional)</h2>
 <p>This step is optional and specifically aimed at users interested in utilizing the development branch of the TDT. Please note that the development branch may exhibit instability.</p>
 <p>For those looking to use the TDT, it's recommended to follow the <a href="#get-taxonomy-development-tools">Get Taxonomy Development Tools</a> section to obtain a TDT Docker Image. However, as an alternative, you have the option to build the TDT Docker image locally. To do this, clone the project repository and execute the provided command within the root directory of the project:</p>
