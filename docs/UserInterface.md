@@ -2,15 +2,38 @@
 
 Welcome to the Taxonomy Development Tools User Interface Guide. This document is designed to provide comprehensive details on navigating and utilizing the TDT interface efficiently. Whether you are looking to manage data tables, edit information, or leverage advanced features, this guide will assist you in making the most out of TDT.
 
+
+1. [Tables](#tables)
+1. [Table Management](#table-management)
+   1. [Change Table Format](#change-table-format)
+   1. [Sorting and Filtering Data](#sorting-and-filtering-data)
+   1. [Reset Table](#reset-table)
+   1. [Change Table View](#change-table-view)
+   1. [Adding New Record](#adding-new-records)
+   1. [Editing Existing Data](#editing-existing-data)
+   1. [Saving Existing or New Data](#saving-existing-or-new-data)
+1. [Actions](#actions)
+   1. [Save](#save)
+   1. [Export](#export)
+       1. [to CAS](#to-CAS)
+       1. [to AnnData](#to-anndata)
+   1. [Advanced settings - Version Control](#advanced-settings-version-control)
+
+
+
 ## Tables
 
 At the heart of the Taxonomy Development Tools is a robust internal database designed to streamline the management and curation of taxonomy-related data. Access to this database is facilitated through a user-friendly interface, with tables being a central component.
 
 To view the available tables,  navigate to the Tables dropdown menu at the top of the interface.
 
+
+
 <p align="center">
-    <img src="images/screenshots/table_dropdownmenu.png" alt="Select a table" width="900"/>
+    <img src="images/screenshots/table_dropdownmenu_AITT.png" alt="Select a table" width="900"/>
 </p>
+
+
 
 TDT categorizes tables into two main types, **switch system tables** and **user tables**, each serving distinct purposes:
 
@@ -19,27 +42,43 @@ these tables are essential for the internal configuration of the TDT and cannot 
 
 - `table`: this table lists all the tables present in the TDT and it appears in the default page of the TDT
 
+
+
 <p align="center">
     <img src="images/screenshots/table_AITT.png" alt="Select a table" width="900"/>
 </p>
 
+
+
 - `datatype` : this table shows all the datatype columns present in each table.
+
+
 
 <p align="center">
     <img src="images/screenshots/datatype_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
+
+
 - `column`: this table contains all the columns present in each table.
+
+
 
 <p align="center">
     <img src="images/screenshots/column_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
+
+
 - `message`: this table contains all the messages present one very row of each table.
+
+
 
 <p align="center">
     <img src="images/screenshots/message_table_AITT.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
+
+
 
 ### User tables
 
@@ -72,6 +111,8 @@ The user tables are the following:
 
 `cellannotation url`: A URL where all cell annotations are published for each dataset.
 
+
+
 <p align="center">
     <img src="images/screenshots/AIT115_annotation_sheet_metadata.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
@@ -97,6 +138,8 @@ The user tables are the following:
 
 `automated annotation reference location` : A resolvable URL of the source of the data. 
 	
+
+
 <p align="center">
     <img src="images/screenshots/AIT115_annotation_sheet_labelset.png" alt = "Sort and filter by column" width = "900"/>
 </p>
@@ -104,7 +147,11 @@ The user tables are the following:
 
 
 
-- `annotation`: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. The  It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata. The `annotation` table presents Cell Annotation Standard columns and Project specific columns. Further information on the Cell Annotation annotation columns can be found in the Cell annotation schema documentation under the [annotations](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md) section. The Project specific columns are transferred from the `original data table`. The Project specific columns allow customisation of the `annotation` table and flexibility over the annotation of the data. 
+- `annotation`: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. The  It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata. 
+
+The `annotation` table presents `Cell Annotation Standard` columns and `Project specific` columns. Further information on the `Cell Annotation annotation` columns can be found in the Cell annotation schema documentation under the [annotations](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md) section. 
+
+The `Project specific` columns are transferred from the `original data table`. The Project specific columns allow customisation of the `annotation` table and flexibility over the annotation of the data. 
 
 `cell set accession` : An identifier that can be used to consistently refer to the set of cells being annotated, even if the cell_label changes.
 
@@ -139,6 +186,7 @@ The user tables are the following:
 
 
 **User tables:** User tables are created when data is uploaded to the TDT using the `load_data` operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema) and organized into multiple interrelated tables. These tables include: 
+
 - `metadata`: Contains metadata related to the taxonomy.
 - `labelset`: Houses definitions of the label sets.
 - `annotation`: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata.
@@ -160,33 +208,49 @@ This section shows how to interact with the Tables within the TDT. In this docum
 
 The table format can be changed by selecting the `Format` button underneath the table name. This will open a dropdown menu with a series of options to display the data in different format of a `TSV` or a `CSV` table; `Plain Text` or in a `Json` raw or page format (for more information about Json format have a look at [additional resources](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)). In addition to the `Json` raw or page option, the options `Json(raw, pretty)` and `Json(page, pretty)` are available to display the data in a Json format that is easier to read. 
 
+
+
 <p align="center">
     <img src="images/screenshots/table_format_AITT.png" alt = "Select dropdown menu" width = "900"/>
 </p>
+
 
 
 ### Sorting and Filtering Data
 
 By clicking on column names, data sort and filter pop-up widget can be activated. This widget allows for the alphabetical sorting of data and the application of conditions to filter data accordingly. Icons next to the column header indicate active sorting or filtering, and clicking the column header again lets you update or clear these parameters. 
 
+
+
 <p align="center">
     <img src="images/screenshots/sort_and_filter.png" alt = "Sort and filter" width = "500" />
 </p>
+
+
 
 ### Reset Table
 
 To reset the sorting and filtering of the table select the `Reset` button underneath the table name.
 
+
+
 <p align="center">
     <img src="images/screenshots/reset_button.png" alt = "Select reset button to reset the table order" width = "900"/>
 </p>
 
+
+
 ### Change Table View
 
 Annotation tables are equipped to display data in a hierarchical structure, offering a more intuitive understanding of relationships within the taxonomy. To access this perspective, simply click on the `Taxonomy View` button.
+
+
+
 <p align="center">
     <img src="images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
 </p>
+
+
 
 While in the Taxonomy View, users can visually explore the taxonomy's structure in a read-only format, providing a clear overview of the hierarchical relationships. To switch back to a more detailed and interactive tabular format, click the `Table View` button.
 
@@ -195,11 +259,17 @@ While in the Taxonomy View, users can visually explore the taxonomy's structure 
 
 `Add row` button can be used to add new records to the table. By selecting `Add row`, a new page will open, start inserting the informations for the new row. The option `cell set accession` will be auto-filled with a new cell set unique identifier.
 
+
+
 <p align="center">
     <img src="images/screenshots/add_row.png" alt="Edit Form" width="400"/>
 </p>
 
+
+
 To know what each option represents, over on the question mark icon near each option. 
+
+
 
 <p align="center">
     <img src="images/screenshots/question_mark.png" alt="Select cell ontology term" width="400"/>
@@ -213,28 +283,40 @@ To know what each option represents, over on the question mark icon near each op
 
 Users can initiate the editing of records by clicking on the pen icon located at the start of each row. This action directs them to a data submission form that supports auto-completion, allowing for efficient data entry. After validating the entered data, users can finalize their edits by clicking the Submit button.
 
+
+
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/edit_form.png" alt="Edit Form" width="600"/>
 </p>
 
 
+
 Some options will have a dropdown menu with suggested terms. 
 Example: In the dataset generated from the `AIT115_annotation_sheet`, by selecting the empty box for the `labelset` option the dropdown options `Class`, `Cluster`, `Neighborhood`, `Subclass` will appear. 
+
+
 
 <p align="center">
     <img src="images/screenshots/label_set_dropdown_menu.png" alt="Edit Form" width="600"/>
 </p>
 
 
+
 Example: When editing the `parent cell set name`, suggested terms will appear as a dropdown menu.
+
+
 
 <p align="center">
     <img src="images/screenshots/parent_cell_set_name.png" alt="Edit Form" width="600"/>
 </p>
 
+
+
 Some options will automatically fill other fields linked to them. 
 
 Example: When changing the `parent cell set name` field, the `parent cell set accession` field will also change. 
+
+
 
 <p align="center">
     <img src="images/screenshots/parent_cell_set_accession.png" alt="Edit Form" width="600"/>
@@ -244,11 +326,18 @@ Example: When changing the `parent cell set name` field, the `parent cell set ac
 
 To add a pre-existing [Cell Ontology](https://www.ebi.ac.uk/ols4) term select the `cell ontology term` option and start typing the cell term of interest. A dropdown menu will appear with different options for pre-existing ontology terms.
 
+
+
 <p align="center">
     <img src="images/screenshots/cell_ontology_term_dropdown_menu.png" alt="Select cell ontology term" width="400"/>
 </p>
 
+
+
 After selecting the cell ontology term of interest, the `cell ontology term` option and the `cell ontology term ID` will be autofilled. 
+
+
+
 <p align="center">
     <img src="images/screenshots/cell_ontology_term_ID.png" alt="Select cell ontology term" width="400"/>
 </p>
@@ -261,6 +350,8 @@ After selecting the cell ontology term of interest, the `cell ontology term` opt
 To save the modified or newly added row select `Submit` at the bottom right corner of the page. 
 The `Validate` option will ensure that the terms added in each column follow the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema)
 
+
+
 <p align="center">
     <img src="images/screenshots/submit_button.png" alt="Select option" width="400"/>
 </p>
@@ -269,46 +360,59 @@ The `Validate` option will ensure that the terms added in each column follow the
 
 ## Actions
 
+
+
 <p align="center">
     <img src="images/screenshots/actions.png" alt="Sort and Filter by Column" width="300"/>
 </p>
+
+
 
 ### Save
 
 All user modifications are automatically saved to the internal database. However, if user wants to save changes back to the source tsv files located in the project `curation_tables/` folder, `save` action can be utilized.
 
-### Version Control with GitHub
+In the `Actions` menu, select the `File` dropdown menu. Two options will be displayed `save` and `publish`.
 
-The `Version Control` feature enables users to seamlessly perform GitHub operations directly from our interface. Before you can leverage these capabilities, it's essential to configure your environment by setting the `GH_TOKEN` variable. This step is critical for authentication and authorization purposes. For a comprehensive guide on setting up your environment, please refer to our [prerequisites installation guide](https://github.com/brain-bican/taxonomy-development-tools/blob/main/docs/Build.md#git). 
 
-Details to be added
 
-### Make a Release
 
-The `Release` action facilitates the creation of a new GitHub release for the taxonomy project. This feature is part of our broader `Version Control` toolkit and requires the `GH_TOKEN` environment variable to be set for operation. For detailed instructions on how to configure this, please visit our [prerequisites installation guide](https://github.com/brain-bican/taxonomy-development-tools/blob/main/docs/Build.md#git).
+<p align="center">
+    <img src="images/screenshots/action_file_save.png" alt="Use the dropdown menu" width="300"/>
+</p>
 
-When initiating a release, the action will prompt you for a release tag. The current date is the default value for this tag, but you can specify your own. It's important to ensure that your tag is valid and adheres to GitHub's naming conventions. Avoid using disallowed characters such as spaces ( ), carriage returns (\r), new lines (\n), tildes (~), carets (^), colons (:), double quotes ("), question marks (?), brackets ([), and asterisks (*). For more information on creating well-formed tags, please consult the [Git documentation on reference formats](https://git-scm.com/docs/git-check-ref-format). 
 
-Upon successful creation of a release, you will be notified of the new release's URL, allowing you to easily share or promote your latest version.
+### Export
 
-### Publish PURL
+Under the `Actions` menu, select the `Export` drowpdown menu. Two options will be diplayed `To CAS` and `To AnnData`.
 
-A Permanent URL (PURL) provides a stable link that always directs users to the same digital content. The `Publish PURL` allows you to generate a PURL for the current taxonomy version, ensuring consistent access to it. For instance, a taxonomy might be accessible through a PURL like:
 
-> https://purl.brain-bican.org/taxonomy/CCN202210140/CS202210140_neurons.json --> redirects to --> https://raw.githubusercontent.com/brain-bican/human-brain-cell-atlas_v1_neurons/main/CS202210140.json
+<p align="center">
+    <img src="images/screenshots/action_export.png" alt="Use the dropdown menu" width="300"/>
+</p>
 
-Create a PURL once you deem the taxonomy mature enough for community sharing. This process will generate a PURL configuration file and initiate a pull request to the [purl.brain-bican.org repository](https://github.com/brain-bican/purl.brain-bican.org).
 
-Note: This step requires a fork of the [purl.brain-bican.org](https://github.com/brain-bican/purl.brain-bican.org) repository in case you lack write access. Please ensure any existing forks are removed to avoid conflicts. The system will alert you if an existing fork is detected.
-### Export CAS Json
+### To CAS
 
 This action converts all data into a JSON file formatted according to the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema) located in the project's root directory.
 
-### Export to AnnData
+### To AnnData
 
 Apply your modifications directly to the associated AnnData file for the taxonomy.
 
 The `metadata` table contains a `matrix_file_id` column, representing a resolvable ID for a cell-by-gene matrix file, formatted as `namespace:accession`. For example, `CellXGene_dataset:8e10f1c4-8e98-41e5-b65f-8cd89a887122` (Please refer to the [cell-annotation-schema registry](https://github.com/cellannotation/cell-annotation-schema/blob/main/registry/registry.json) for a list of supported namespaces.)
 
 WUpon initial launch, TDT creates a `tdt_datasets` directory in the user home folder. It attempts to resolve all matrix_file_id references within this directory. The system searches for the corresponding file (e.g., `$HOME/tdt_datasets/8e10f1c4-8e98-41e5-b65f-8cd89a887122.h5ad`) and then initiates a [cas-tools flatten operation](https://github.com/cellannotation/cas-tools/blob/main/docs/cli.md#flatten-onto-anndata). This process, which may vary in duration depending on the taxonomy's size, results in a new AnnData file (`/tdt_datasets/$$TAXONOMY_ID$$.h5ad`) incorporating the user's annotations.
+
+
+
+### Advanced Setting - Version Control
+
+This documentation is under development.
+
+
+
+<p align="center">
+    <img src="images/screenshots/actions_version_control.png" alt="Sort and Filter by Column" width="300"/>
+</p>
 
