@@ -159,7 +159,7 @@
 <p>At the heart of the Taxonomy Development Tools is a robust internal database designed to streamline the management and curation of taxonomy-related data. Access to this database is facilitated through a user-friendly interface, with tables being a central component.</p>
 <p>To view the available tables,  navigate to the Tables dropdown menu at the top of the interface.</p>
 <p align="center">
-    <img src="images/screenshots/table_dropdownmenu_AITT.png" alt="Select a table" width="900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_dropdownmenu_AITT.png" alt="Select a table" width="900"/>
 </p>
 
 <p>TDT categorizes tables into two main types, <strong>switch system tables</strong> and <strong>user tables</strong>, each serving distinct purposes:</p>
@@ -169,28 +169,28 @@
 <li><code>table</code>: this table lists all the tables present in the TDT and it appears in the default page of the TDT</li>
 </ul>
 <p align="center">
-    <img src="images/screenshots/table_AITT.png" alt="Select a table" width="900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_AITT.png" alt="Select a table" width="900"/>
 </p>
 
 <ul>
 <li><code>datatype</code> : this table shows all the datatype columns present in each table.</li>
 </ul>
 <p align="center">
-    <img src="images/screenshots/datatype_table_AITT.png" alt="Sort and filter by column" width="900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/datatype_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
 <ul>
 <li><code>column</code>: this table contains all the columns present in each table.</li>
 </ul>
 <p align="center">
-    <img src="images/screenshots/column_table_AITT.png" alt="Sort and filter by column" width="900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/column_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
 <ul>
 <li><code>message</code>: this table contains all the messages present one very row of each table.</li>
 </ul>
 <p align="center">
-    <img src="images/screenshots/message_table_AITT.png" alt="Sort and filter by colummn" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/message_table_AITT.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
 
 <h3 id="user-tables">User tables</h3>
@@ -216,7 +216,7 @@
 <p><code>cellannotation timestamp</code>: The time (yyyy-mm-dd) of when the cell annotations are published.</p>
 <p><code>cellannotation url</code>: A URL where all cell annotations are published for each dataset.</p>
 <p align="center">
-    <img src="images/screenshots/AIT115_annotation_sheet_metadata.png" alt="Sort and filter by colummn" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_metadata.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
 
 <ul>
@@ -231,7 +231,7 @@
 <p><code>automated annotation algorithm repo url</code> : A resolvable URL of the version control of the algorithm used.</p>
 <p><code>automated annotation reference location</code> : A resolvable URL of the source of the data. </p>
 <p align="center">
-    <img src="images/screenshots/AIT115_annotation_sheet_labelset.png" alt = "Sort and filter by column" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_labelset.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 <ul>
@@ -251,7 +251,7 @@
 <p><code>maker gene evidence</code> : List of names of genes whose expression in the cells being annotated is explicitly used as evidence for this cell annotation. Each gene MUST be included in the matrix of the AnnData/Seurat file.</p>
 <p><code>synonyms</code> : Synonyms of the <code>cell label</code>.</p>
 <p align="center">
-    <img src="images/screenshots/AIT115_annotation_sheet_annotation.png" alt = "Sort and filter by column" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 <p><strong>User tables:</strong> User tables are created when data is uploaded to the TDT using the <code>load_data</code> operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the <a href="https://github.com/cellannotation/cell-annotation-schema">Cell Annotation Schema</a> and organized into multiple interrelated tables. These tables include: </p>
@@ -272,95 +272,95 @@ For detailed information on table structures and fields, refer to the Cell Annot
 <h3 id="change-table-format">Change Table Format</h3>
 <p>The table format can be changed by selecting the <code>Format</code> button underneath the table name. This will open a dropdown menu with a series of options to display the data in different format of a <code>TSV</code> or a <code>CSV</code> table; <code>Plain Text</code> or in a <code>Json</code> raw or page format (for more information about Json format have a look at <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON">additional resources</a>). In addition to the <code>Json</code> raw or page option, the options <code>Json(raw, pretty)</code> and <code>Json(page, pretty)</code> are available to display the data in a Json format that is easier to read. </p>
 <p align="center">
-    <img src="images/screenshots/table_format_AITT.png" alt = "Select dropdown menu" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_format_AITT.png" alt = "Select dropdown menu" width = "900"/>
 </p>
 
 <h3 id="sorting-and-filtering-data">Sorting and Filtering Data</h3>
 <p>By clicking on column names, data sort and filter pop-up widget can be activated. This widget allows for the alphabetical sorting of data and the application of conditions to filter data accordingly. Icons next to the column header indicate active sorting or filtering, and clicking the column header again lets you update or clear these parameters. </p>
 <p align="center">
-    <img src="images/screenshots/sort_and_filter.png" alt = "Sort and filter" width = "500" />
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/sort_and_filter.png" alt = "Sort and filter" width = "500" />
 </p>
 
 <h3 id="reset-table">Reset Table</h3>
 <p>To reset the sorting and filtering of the table select the <code>Reset</code> button underneath the table name.</p>
 <p align="center">
-    <img src="images/screenshots/reset_button.png" alt = "Select reset button to reset the table order" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/reset_button.png" alt = "Select reset button to reset the table order" width = "900"/>
 </p>
 
 <h3 id="change-table-view">Change Table View</h3>
 <p>Annotation tables are equipped to display data in a hierarchical structure, offering a more intuitive understanding of relationships within the taxonomy. To access this perspective, simply click on the <code>Taxonomy View</code> button.</p>
 <p align="center">
-    <img src="images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
 </p>
 
 <p>While in the Taxonomy View, users can visually explore the taxonomy's structure in a read-only format, providing a clear overview of the hierarchical relationships. To switch back to a more detailed and interactive tabular format, click the <code>Table View</code> button.</p>
 <h3 id="adding-new-records">Adding New Records</h3>
 <p><code>Add row</code> button can be used to add new records to the table. By selecting <code>Add row</code>, a new page will open, start inserting the informations for the new row. The option <code>cell set accession</code> will be auto-filled with a new cell set unique identifier.</p>
 <p align="center">
-    <img src="images/screenshots/add_row.png" alt="Edit Form" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/add_row.png" alt="Edit Form" width="400"/>
 </p>
 
 <p>To know what each option represents, over on the question mark icon near each option. </p>
 <p align="center">
-    <img src="images/screenshots/question_mark.png" alt="Select cell ontology term" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/question_mark.png" alt="Select cell ontology term" width="400"/>
 </p>
 
 <h3 id="editing-existing-data">Editing Existing Data</h3>
 <p>Users can initiate the editing of records by clicking on the pen icon located at the start of each row. This action directs them to a data submission form that supports auto-completion, allowing for efficient data entry. After validating the entered data, users can finalize their edits by clicking the Submit button.</p>
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/edit_form.png" alt="Edit Form" width="600"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/edit_form.png" alt="Edit Form" width="600"/>
 </p>
 
 <p>Some options will have a dropdown menu with suggested terms. 
 Example: In the dataset generated from the <code>AIT115_annotation_sheet</code>, by selecting the empty box for the <code>labelset</code> option the dropdown options <code>Class</code>, <code>Cluster</code>, <code>Neighborhood</code>, <code>Subclass</code> will appear. </p>
 <p align="center">
-    <img src="images/screenshots/label_set_dropdown_menu.png" alt="Edit Form" width="600"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/label_set_dropdown_menu.png" alt="Edit Form" width="600"/>
 </p>
 
 <p>Example: When editing the <code>parent cell set name</code>, suggested terms will appear as a dropdown menu.</p>
 <p align="center">
-    <img src="images/screenshots/parent_cell_set_name.png" alt="Edit Form" width="600"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/parent_cell_set_name.png" alt="Edit Form" width="600"/>
 </p>
 
 <p>Some options will automatically fill other fields linked to them. </p>
 <p>Example: When changing the <code>parent cell set name</code> field, the <code>parent cell set accession</code> field will also change. </p>
 <p align="center">
-    <img src="images/screenshots/parent_cell_set_accession.png" alt="Edit Form" width="600"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/parent_cell_set_accession.png" alt="Edit Form" width="600"/>
 </p>
 
 <p>To add a pre-existing <a href="https://www.ebi.ac.uk/ols4">Cell Ontology</a> term select the <code>cell ontology term</code> option and start typing the cell term of interest. A dropdown menu will appear with different options for pre-existing ontology terms.</p>
 <p align="center">
-    <img src="images/screenshots/cell_ontology_term_dropdown_menu.png" alt="Select cell ontology term" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_dropdown_menu.png" alt="Select cell ontology term" width="400"/>
 </p>
 
 <p>After selecting the cell ontology term of interest, the <code>cell ontology term</code> option and the <code>cell ontology term ID</code> will be autofilled. </p>
 <p align="center">
-    <img src="images/screenshots/cell_ontology_term_ID.png" alt="Select cell ontology term" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_ID.png" alt="Select cell ontology term" width="400"/>
 </p>
 
 <h3 id="saving-existing-or-new-data">Saving existing or new data</h3>
 <p>To save the modified or newly added row select <code>Submit</code> at the bottom right corner of the page. 
 The <code>Validate</code> option will ensure that the terms added in each column follow the <a href="https://github.com/cellannotation/cell-annotation-schema">Cell Annotation Schema</a></p>
 <p align="center">
-    <img src="images/screenshots/submit_button.png" alt="Select option" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/submit_button.png" alt="Select option" width="400"/>
 </p>
 
 <h2 id="actions">Actions</h2>
 <p align="center">
-    <img src="images/screenshots/actions.png" alt="Sort and Filter by Column" width="300"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions.png" alt="Sort and Filter by Column" width="300"/>
 </p>
 
 <h3 id="save">Save</h3>
 <p>All user modifications are automatically saved to the internal database. However, if user wants to save changes back to the source tsv files located in the project <code>curation_tables/</code> folder, <code>save</code> action can be utilized.</p>
 <p>In the <code>Actions</code> menu, select the <code>File</code> dropdown menu. Two options will be displayed <code>save</code> and <code>publish</code>.</p>
 <p align="center">
-    <img src="images/screenshots/actions_file_save.png" alt="Use the dropdown menu" width="300"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions_file_save.png" alt="Use the dropdown menu" width="300"/>
 </p>
 
 <h3 id="export">Export</h3>
 <p>Under the <code>Actions</code> menu, select the <code>Export</code> drowpdown menu. Two options will be diplayed <code>To CAS</code> and <code>To AnnData</code>.</p>
 <p align="center">
-    <img src="images/screenshots/actions_export.png" alt="Use the dropdown menu" width="300"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions_export.png" alt="Use the dropdown menu" width="300"/>
 </p>
 
 <h3 id="to-cas">To CAS</h3>
@@ -372,7 +372,7 @@ The <code>Validate</code> option will ensure that the terms added in each column
 <h3 id="advanced-setting-version-control">Advanced Setting - Version Control</h3>
 <p>This documentation is under development.</p>
 <p align="center">
-    <img src="images/screenshots/actions_version_control.png" alt="Sort and Filter by Column" width="300"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions_version_control.png" alt="Sort and Filter by Column" width="300"/>
 </p>
               
             </div>
