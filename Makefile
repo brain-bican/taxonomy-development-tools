@@ -48,6 +48,7 @@ serve: $(NANOBOTDB)
 		git commit --message "Auto-commit on startup."; \
 		git pull; \
 		git push; \
+		rm -rf build/; \
 	fi
 	$(NANOBOT) serve
 
