@@ -9,7 +9,7 @@ At the heart of the Taxonomy Development Tools is a robust internal database des
 To view the available tables,  navigate to the Tables dropdown menu at the top of the interface.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_dropdownmenu.png" alt="Select a table" width="900"/>
+    <img src="images/screenshots/table_dropdownmenu.png" alt="Select a table" width="900"/>
 </p>
 
 TDT categorizes tables into two main types, **switch system tables** and **user tables**, each serving distinct purposes:
@@ -20,25 +20,25 @@ these tables are essential for the internal configuration of the TDT and cannot 
 - `table`: this table lists all the tables present in the TDT and it appears in the default page of the TDT
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_AITT.png" alt="Select a table" width="900"/>
+    <img src="images/screenshots/table_AITT.png" alt="Select a table" width="900"/>
 </p>
 
 - `datatype` : this table shows all the datatype columns present in each table.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/datatype_table_AITT.png" alt="Sort and filter by column" width="900"/>
+    <img src="images/screenshots/datatype_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
 - `column`: this table contains all the columns present in each table.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/column_table_AITT.png" alt="Sort and filter by column" width="900"/>
+    <img src="images/screenshots/column_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
 - `message`: this table contains all the messages present one very row of each table.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/message_table_AITT.png" alt="Sort and filter by colummn" width = "900"/>
+    <img src="images/screenshots/message_table_AITT.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
 
 ### User tables
@@ -56,69 +56,93 @@ The user tables are the following:
 
 
 
-- `*_metadata`: This table contains all the medatadata related to the taxonomy. For full specifications of the metadata properties, look up the cell annotation schema documentation under the section [properties](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties). The `*_metadata` column names are explained below:
+- `metadata`: This table contains all the medatadata related to the taxonomy. For full specifications of the metadata properties, look up the cell annotation schema documentation under the section [properties](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties). The `*_metadata` column names are explained below:
 
-`author name` : the name of the first author of the taxonomy.
-`author contact` : author's email.
-`author list`: name of secondary authors.
-`matrix file ID`: a resolvable ID for a cell by gene matrix file. 
-`cellannotation schema version`: the version of the cell annotation schema. 
-`cellannotation timestamp`: the time (yyyy-mm-dd) of when the cell annotations are published.
-`cellannotation url`: a URL where all cell annotations are published for each dataset.
+`author name` : The name of the first author of the taxonomy.
+
+`author contact` : Author's email.
+
+`author list`: Name of secondary authors.
+
+`matrix file ID`: A resolvable ID for a cell by gene matrix file. 
+
+`cellannotation schema version`: The version of the cell annotation schema. 
+
+`cellannotation timestamp`: The time (yyyy-mm-dd) of when the cell annotations are published.
+
+`cellannotation url`: A URL where all cell annotations are published for each dataset.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_metadata.png" alt="Sort and filter by colummn" width = "900"/>
+    <img src="images/screenshots/AIT115_annotation_sheet_metadata.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
 
 
 
 
-- `*_labelset`: This table contains the definition of the labels used in the annotation and the methodology used to acquire those labels. Full specifications of the label set can be found in the Cell annotation schema documentation under the [labelsets](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties) section. 
-`name` : the name of the type of annotation key
-`description` : description of the annotation key
-`rank` : the level of granularity of the annotation with 0 being the most specific 
-`annotation method` : the method used for the type of annotation, it can either be algorithmic, manual or both 
-`automated annotation algorithm name` : the name of the algorithm used for the automated annotation 
-`automated annotation algorithm verision` : the version used for the algorithm 
-`automated annotation algorithm repo url` : a resolvable URL of the version control of the algorithm used.
-`automated annotation reference location` : a resolvable URL of the source of the data. 
+- `labelset`: This table contains the definition of the labels used in the annotation and the methodology used to acquire those labels. Full specifications of the label set can be found in the Cell annotation schema documentation under the [labelsets](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties) section. 
+
+`name` : The name of the type of annotation key
+
+`description` : Description of the annotation key
+
+`rank` : The level of granularity of the annotation with 0 being the most specific 
+
+`annotation method` : The method used for the type of annotation, it can either be algorithmic, manual or both 
+
+`automated annotation algorithm name` : The name of the algorithm used for the automated annotation 
+
+`automated annotation algorithm verision` : The version used for the algorithm 
+
+`automated annotation algorithm repo url` : A resolvable URL of the version control of the algorithm used.
+
+`automated annotation reference location` : A resolvable URL of the source of the data. 
 	
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_labelset.png" alt = "Sort and filter by column" width = "900"/>
+    <img src="images/screenshots/AIT115_annotation_sheet_labelset.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 
 
 
-- `*_annotation`: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata. Further information on the annotation columns can be found in the Cell annotation schema documentation under the [annotations](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md) section.
+- `annotation`: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. The  It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata. The `annotation` table presents Cell Annotation Standard columns and Project specific columns. Further information on the Cell Annotation annotation columns can be found in the Cell annotation schema documentation under the [annotations](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md) section. The Project specific columns are transferred from the `original data table`. The Project specific columns allow customisation of the `annotation` table and flexibility over the annotation of the data. 
 
-`cell set accession` : an identifier that can be used to consistently refer to the set of cells being annotated, even if the cell_label changes.
-`cell label` : the cell annotation provided by the author.
-`cell fullname` : the full-length term of the annotated cell set. 
-`parent cell set accession` : similar to the `cell set accession`, this is the term for a set of cells on step higher than the cells in the row in the hierarchical classification.
-`labelset` : the type of cell annotation from the AnnData/Seurat file.
-`cell ontology term id` : the ontology term ID that define the cell type. I has to be the closest term matching the `cell label` 
-`cell ontology term` : the ontology term name from the ontology term ID
+`cell set accession` : An identifier that can be used to consistently refer to the set of cells being annotated, even if the cell_label changes.
+
+`cell label` : The cell annotation provided by the author.
+
+`cell fullname` : The full-length term of the annotated cell set. 
+
+`parent cell set accession` : Similar to the `cell set accession`, this is the term for a set of cells on step higher than the cells in the row in the hierarchical classification.
+
+`labelset` : The type of cell annotation from the AnnData/Seurat file.
+
+`cell ontology term id` : The ontology term ID that define the cell type. I has to be the closest term matching the `cell label` 
+
+`cell ontology term` : The ontology term name from the ontology term ID
+
 `rationale` : The short name of the publications used to define the `cell ontology term`.
+
 `rationale dois` : The DOI of the paper mentioned in the `rationale`
+
 `maker gene evidence` : List of names of genes whose expression in the cells being annotated is explicitly used as evidence for this cell annotation. Each gene MUST be included in the matrix of the AnnData/Seurat file.
-`synonyms` : synonyms of the `cell label`
+
+`synonyms` : Synonyms of the `cell label`.
 
 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation.png" alt = "Sort and filter by column" width = "900"/>
+    <img src="AIT115_annotation_sheet_annotation.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 
 
 
-- `*_annotation_transfer`: Tracks annotation transfer records. **I need some help for this part** @dosumis maybe we could discuss about it.
+- `annotation_transfer`: Tracks annotation transfer records. **I need some help for this part** @dosumis maybe we could discuss about it.
 For detailed information on table structures and fields, refer to the Cell Annotation Schema [documentation](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md).
 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation_transfer.png" alt = "Sort and filter by column" width = "900"/>
+    <img src="images/screenshots/AIT115_annotation_sheet_annotation_transfer.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 
@@ -126,14 +150,14 @@ For detailed information on table structures and fields, refer to the Cell Annot
 
 ## Table Management
 
-This section shows how to interact with the Tables within the TDT. In this documentation, the overview of the table management is shown with the `*_annotation` table.
+This section shows how to interact with the Tables within the TDT. In this documentation, the overview of the table management is shown with the `annotation` table.
 
 ### Change Table Format
 
 The table format can be changed by selecting the `Format` button underneath the table name. This will open a dropdown menu with a series of options to display the data in different format of a `TSV` or a `CSV` table; `Plain Text` or in a `Json` raw or page format (for more information about Json format have a look at [additional resources](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)). In addition to the `Json` raw or page option, the options `Json(raw, pretty)` and `Json(page, pretty)` are available to display the data in a Json format that is easier to read. 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_format_AITT.png" alt = "Select dropdown menu" width = "900"/>
+    <img src="images/screenshots/table_format_AITT.png" alt = "Select dropdown menu" width = "900"/>
 </p>
 
 
@@ -142,7 +166,7 @@ The table format can be changed by selecting the `Format` button underneath the 
 By clicking on column names, data sort and filter pop-up widget can be activated. This widget allows for the alphabetical sorting of data and the application of conditions to filter data accordingly. Icons next to the column header indicate active sorting or filtering, and clicking the column header again lets you update or clear these parameters. 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/sort_and_filter.png" alt = "Sort and filter" width = "500" />
+    <img src="images/screenshots/sort_and_filter.png" alt = "Sort and filter" width = "500" />
 </p>
 
 ### Reset Table
@@ -150,14 +174,14 @@ By clicking on column names, data sort and filter pop-up widget can be activated
 To reset the sorting and filtering of the table select the `Reset` button underneath the table name.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/reset_button.png" alt = "Select reset button to reset the table order" width = "900"/>
+    <img src="images/screenshots/reset_button.png" alt = "Select reset button to reset the table order" width = "900"/>
 </p>
 
 ### Change Table View
 
 Annotation tables are equipped to display data in a hierarchical structure, offering a more intuitive understanding of relationships within the taxonomy. To access this perspective, simply click on the `Taxonomy View` button.
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
+    <img src="images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
 </p>
 
 While in the Taxonomy View, users can visually explore the taxonomy's structure in a read-only format, providing a clear overview of the hierarchical relationships. To switch back to a more detailed and interactive tabular format, click the `Table View` button.
@@ -168,27 +192,20 @@ While in the Taxonomy View, users can visually explore the taxonomy's structure 
 `Add row` button can be used to add new records to the table. By selecting `Add row`, a new page will open, start inserting the informations for the new row. The option `cell set accession` will be auto-filled with a new cell set unique identifier.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/add_row2.png" alt="Edit Form" width="400"/>
+    <img src="images/screenshots/add_row.png" alt="Edit Form" width="400"/>
 </p>
 
 To know what each option represents, over on the question mark icon near each option. 
 
-> Picture needs to be added once the new release is out
-
-Some options will have a dropdown menu with suggested terms. For instance, by selecting the empty box for the `labelset` option the dropdown options `Class`, `Cluster`, `Neighborhood`, `Subclass` will appear. 
-
-To add a pre-existing [Cell Ontology](https://www.ebi.ac.uk/ols4) term select the `cell ontology term` option and start typing the cell term of interest. A dropdown menu will appear with different options for pre-existing ontology terms.
-
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_dropdown_menu.png" alt="Select cell ontology term" width="400"/>
+    <img src="images/screenshots/question_mark.png" alt="Select cell ontology term" width="400"/>
 </p>
-After selecting the cell ontology term of interest, the `cell ontology term` option and the `cell ontology term ID` will be autofilled. 
-<p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_ID.png" alt="Select cell ontology term" width="400"/>
-</p>
+
+
  
 
 ### Editing Existing Data
+
 
 Users can initiate the editing of records by clicking on the pen icon located at the start of each row. This action directs them to a data submission form that supports auto-completion, allowing for efficient data entry. After validating the entered data, users can finalize their edits by clicking the Submit button.
 
@@ -197,13 +214,51 @@ Users can initiate the editing of records by clicking on the pen icon located at
 </p>
 
 
+Some options will have a dropdown menu with suggested terms. 
+Example: In the dataset generated from the `AIT115_annotation_sheet`, by selecting the empty box for the `labelset` option the dropdown options `Class`, `Cluster`, `Neighborhood`, `Subclass` will appear. 
+
+<p align="center">
+    <img src="images/screenshots/label_set_dropdown_menu.png" alt="Edit Form" width="600"/>
+</p>
+
+
+Example: When editing the `parent cell set name`, suggested terms will appear as a dropdown menu.
+
+<p align="center">
+    <img src="images/screenshots/parent_cell_set_name.png" alt="Edit Form" width="600"/>
+</p>
+
+Some options will automatically fill other fields linked to them. 
+
+Example: When changing the `parent cell set name` field, the `parent cell set accession` field will also change. 
+
+<p align="center">
+    <img src="images/screenshots/parent_cell_set_accession.png" alt="Edit Form" width="600"/>
+</p>
+
+
+
+To add a pre-existing [Cell Ontology](https://www.ebi.ac.uk/ols4) term select the `cell ontology term` option and start typing the cell term of interest. A dropdown menu will appear with different options for pre-existing ontology terms.
+
+<p align="center">
+    <img src="images/screenshots/cell_ontology_term_dropdown_menu.png" alt="Select cell ontology term" width="400"/>
+</p>
+
+After selecting the cell ontology term of interest, the `cell ontology term` option and the `cell ontology term ID` will be autofilled. 
+<p align="center">
+    <img src="images/screenshots/cell_ontology_term_ID.png" alt="Select cell ontology term" width="400"/>
+</p>
+ 
+
+
+
 ### Saving existing or new data
 
 To save the modified or newly added row select `Submit` at the bottom right corner of the page. 
 The `Validate` option will ensure that the terms added in each column follow the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema)
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/submit_button.png" alt="Select option" width="400"/>
+    <img src="images/screenshots/submit_button.png" alt="Select option" width="400"/>
 </p>
 
 
@@ -211,7 +266,7 @@ The `Validate` option will ensure that the terms added in each column follow the
 ## Actions
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions.png" alt="Sort and Filter by Column" width="300"/>
+    <img src="images/screenshots/actions.png" alt="Sort and Filter by Column" width="300"/>
 </p>
 
 ### Save
