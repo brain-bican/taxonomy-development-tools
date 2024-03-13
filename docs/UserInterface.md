@@ -25,7 +25,7 @@ At the heart of the Taxonomy Development Tools is a robust internal database des
 To view the available tables,  navigate to the Tables dropdown menu at the top of the interface.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_dropdownmenu_AITT.png">
+    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/table_dropdownmenu_AITT.png"/>
 </p>
 
 TDT categorizes tables into two main types, **switch system tables** and **user tables**, each serving distinct purposes:
@@ -142,6 +142,43 @@ For detailed information on table structures and fields, refer to the Cell Annot
 
 ## Table Management
 
+This section shows how to interact with the Tables within the TDT. In this documentation, the overview of the table management is shown with the `*_annotation` table.
+
+### Change Table Format
+
+The table format can be changed by selecting the `Format` button underneath the table name. This will open a dropdown menu with a series of options to display the data in different format of a `TSV` or a `CSV` table; `Plain Text` or in a `Json` raw or page format (for more information about Json format have a look at [additional resources](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)). In addition to the `Json` raw or page option, the options `Json(raw, pretty)` and `Json(page, pretty)` are available to display the data in a Json format that is easier to read. 
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_format_AITT.png">
+</p>
+
+
+### Sorting and Filtering Data
+
+By clicking on column names, data sort and filter pop-up widget can be activated. This widget allows for the alphabetical sorting of data and the application of conditions to filter data accordingly. Icons next to the column header indicate active sorting or filtering, and clicking the column header again lets you update or clear these parameters. 
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/sort_and_filter.png">
+</p>
+
+### Reset Table
+
+To reset the sorting and filtering of the table select the `Reset` button underneath the table name.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/reset_button.png">
+</p>
+
+### Change Table View
+
+Annotation tables are equipped to display data in a hierarchical structure, offering a more intuitive understanding of relationships within the taxonomy. To access this perspective, simply click on the `Taxonomy View` button.
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
+</p>
+
+While in the Taxonomy View, users can visually explore the taxonomy's structure in a read-only format, providing a clear overview of the hierarchical relationships. To switch back to a more detailed and interactive tabular format, click the `Table View` button.
+
+
 ### Adding New Records
 
 `Add row` button can be used to add new records to the table.
@@ -149,6 +186,8 @@ For detailed information on table structures and fields, refer to the Cell Annot
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/add_row2.png" alt="Edit Form" width="400"/>
 </p>
+
+
 
 ### Editing Existing Data
 
@@ -158,13 +197,8 @@ Users can initiate the editing of records by clicking on the pen icon located at
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/edit_form.png" alt="Edit Form" width="600"/>
 </p>
 
-### Sorting and Filtering Data
 
-By clicking on column names, data sort and filter pop-up widget can be activated. This widget allows for the alphabetical sorting of data and the application of conditions to filter data accordingly. Icons next to the column header indicate active sorting or filtering, and clicking the column header again lets you update or clear these parameters.
 
-<p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/sort_and_filter.png" alt="Sort and Filter by Column" width="400"/>
-</p>
 
 ## Actions
 
@@ -211,11 +245,3 @@ The `*_metadata` table contains a `matrix_file_id` column, representing a resolv
 
 WUpon initial launch, TDT creates a `tdt_datasets` directory in the user home folder. It attempts to resolve all matrix_file_id references within this directory. The system searches for the corresponding file (e.g., `$HOME/tdt_datasets/8e10f1c4-8e98-41e5-b65f-8cd89a887122.h5ad`) and then initiates a [cas-tools flatten operation](https://github.com/cellannotation/cas-tools/blob/main/docs/cli.md#flatten-onto-anndata). This process, which may vary in duration depending on the taxonomy's size, results in a new AnnData file (`/tdt_datasets/$$TAXONOMY_ID$$.h5ad`) incorporating the user's annotations.
 
-## Views
-
-Annotation tables are equipped to display data in a hierarchical structure, offering a more intuitive understanding of relationships within the taxonomy. To access this perspective, simply click on the `Taxonomy View` button.
-<p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
-</p>
-
-While in the Taxonomy View, users can visually explore the taxonomy's structure in a read-only format, providing a clear overview of the hierarchical relationships. To switch back to a more detailed and interactive tabular format, click the `Table View` button.
