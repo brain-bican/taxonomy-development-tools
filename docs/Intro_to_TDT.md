@@ -29,7 +29,7 @@ Hierarchical annotations (taxonomies) are built on top of these clusters
 by combining them to form a hierarchy of nested cell sets with a fixed
 number of levels (see figure {hierarchical annotation}).
 
-<img src="images/screenshots/media/image1.png"
+<img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/media/image1.png"
 style="width:5.83333in;height:2.67984in"
 alt="media/Pasted image 20240312105853.png" />  
 ***Figure {hierarchical annotation}***: *Hierarchical annotation on an
@@ -60,7 +60,7 @@ cluster. Additional columns record membership of the cluster higher
 level cell sets and metadata about clusters (see figure
 {informal_taxonomy})
 
-<img src="images/screenshots/media/image2.png"
+<img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/media/image2.png"
 style="width:6.32375in;height:1.27604in"
 alt="media/Pasted image 20240312105438.png" />  
 ***Figure: {Informal Taxonomy}*** *A fragment of an informal taxonomy
@@ -122,27 +122,27 @@ defined fields.
 
 A
 
-<img src="images/screenshots/media/image3.png"
+<img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/media/image3.png"
 style="width:5.83333in;height:1.33517in"
 alt="media/Pasted image 20240312122531.png" />  
 B  
-<img src="images/screenshots/media/image4.png"
+<img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/media/image4.png"
 style="width:3.71707in;height:1.27498in"
 alt="media/Pasted image 20240312122701.png" />
 
 C  
-<img src="images/screenshots/media/image5.png"
+<img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/media/image5.png"
 style="width:5.83333in;height:1.94444in"
 alt="media/Pasted image 20240312122910.png" />  
 D  
-<img src="images/screenshots/media/image6.png"
+<img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/media/image6.png"
 style="width:2.08333in;height:2.69927in"
 alt="media/Pasted image 20240312135021.png" />  
 ***Figure {annotation_table}***: ***A** Core CAS fields: accession (ID),
 label, hierarchy. **B** Additional CAS fields allow linking to cell
 ontology terms, recording marker gene evidence, synonyms, and
 references. **C** User defined fields from the original spreadsheet
-(shown in figure {Informal Taxonomy}. **D** Visualization of taxonomy
+{shown in figure {Informal Taxonomy}. **D** Visualization of taxonomy
 hierarchy as a tree.*
 
 TDT uses GitHub to support concurrent editing by multiple users and to
