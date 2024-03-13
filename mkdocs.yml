@@ -10,4 +10,6 @@ nav:
   - Create a New Repo: NewRepo.md
   - Start Curating Taxonomies: Curation.md
   - User Interface: UserInterface.md
+  - How-to guides:
+    -  Update to a newer TDT version: Update.md
 repo_url: https://github.com/brain-bican/taxonomy-development-tools
