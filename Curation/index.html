@@ -58,8 +58,6 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Start Curating Taxonomies</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#saving-edited-data">Saving Edited Data</a>
-    </li>
     </ul>
                 </li>
               </ul>
@@ -96,36 +94,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ccn2-taxonomy-curation-with-the-taxonomy-development-tools">CCN2 Taxonomy Curation with the Taxonomy Development Tools</h1>
-<p>1- Pull the latest TDT docker image via following the steps defined in the project <a href="https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/taxonomy-development-tools">GitHub Container Registry</a>. </p>
-<pre><code>docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
-</code></pre>
-<p>2- Place your data (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/AIT115_annotation_sheet.tsv">AIT115_annotation_sheet.tsv</a>) and configuration file (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/ingestion_config.yaml">test_config.yaml</a>) into your project's <code>input_data</code> folder.  </p>
-<p>3- In the project root folder, run following command to ingest your data files:</p>
+                <h1 id="seed-your-taxonomy-from-a-spreadsheet">Seed your taxonomy from a spreadsheet</h1>
+<ol>
+<li>Pull the latest TDT docker image via following the steps defined in the project <a href="https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/taxonomy-development-tools">GitHub Container Registry</a>: <code>docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest</code></li>
+<li>Follow <a href="../config/#configure-seeding-a-new-taxonomy-from-an-existing-informal-taxonomy">instructions here</a> to prepare your ingest config file</li>
+<li>Save config file and informal spreadsheet taxonomy (as tsv) into your project's <code>input_data</code> folder.  (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/AIT115_annotation_sheet.tsv">AIT115_annotation_sheet.tsv</a>) and configuration file (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/ingestion_config.yaml">test_config.yaml</a>)  </li>
+<li>In the project root folder, run following command to ingest your data files:</li>
+</ol>
 <pre><code>bash ./run.sh make load_data
 </code></pre>
 <blockquote>
 <p>For Windows: 
-<code>run.bat make load_data</code></p>
+<code>run.bat make load_data</code>
+5. Launch TDT:</p>
 </blockquote>
-<p>4- Run following command to run the online data editor:</p>
 <pre><code>bash ./run.sh make serve
 </code></pre>
 <blockquote>
 <p>For Windows: 
-<code>run.bat make serve</code></p>
+<code>run.bat make serve</code>
+This command will print a set of logs including a log like <code>nanobot::serve: listening on 0.0.0.0:3000</code>. This means your web editor is ready, and you can start editing your data.
+6.  You can start browsing web taxonomy editor from: <a href="http://localhost:3000/table">http://localhost:3000/table</a></p>
 </blockquote>
-<p>This command will print a set of logs including a log like <code>nanobot::serve: listening on 0.0.0.0:3000</code>. This means your web editor is ready, and you can start editing your data.</p>
-<p>5- You can start browsing web taxonomy editor from: <a href="http://localhost:3000/table">http://localhost:3000/table</a></p>
-<h2 id="saving-edited-data">Saving Edited Data</h2>
-<p>Once you complete your editing, you can run the following command to save your online edited data to your local: </p>
-<pre><code>bash ./run.sh make save
-</code></pre>
-<blockquote>
-<p>For Windows: 
-<code>run.bat make save</code></p>
-</blockquote>
-<p>Your data will be saved into <code>curation_tables</code> folder</p>
               
             </div>
           </div><footer>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Intro to Taxonomy Development Tools - Taxonomy Development Tools (TDT)</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Intro to Taxonomy Development Tools";
+        var mkdocs_page_input_path = "Intro_to_TDT.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Taxonomy Development Tools (TDT)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Getting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build/">Install Requirements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../QuickStart/">Quick Start</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NewRepo/">Create a New Repo</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Curation/">Start Curating Taxonomies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../UserInterface/">User Interface</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How-to guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../Update/">Update to a newer TDT version</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Taxonomy Development Tools (TDT)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Intro to Taxonomy Development Tools</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/master/docs/Intro_to_TDT.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="intro-to-taxonomy-development-tools">Intro to Taxonomy Development Tools</h1>
+<h2 id="background">Background</h2>
+<p>Much cell type/class annotation consists simply of names attached to
+individual cells in a cell-by-gene-matrix. Within the Brain Initiative,
+it has become standard to extend this simple annotation by associating
+it with additional information including: hierarchical relationships
+between annotations; synonyms; annotation provenance (who annotated
+what); supporting references; annotation transfer from other taxonomies;
+marker genes; and cell type location, based on dissection and spatial
+transcriptomics (e.g. MerFish).</p>
+<p>Extended annotations have been published as standardized "taxonomies"
+following the common cell type nomenclature standard <a href="https://paperpile.com/c/od1Oz0/WFDT"><u>(Miller et al.
+2020)</u></a> and as unstandardised
+supplementary material {add figure showing examples with refs}. These
+are published separately from the cell-by-gene-matrices to which they
+refer, with the only link between the two being the cell type/class name
+used in annotation (sometimes supplemented by a file mapping cluster to
+cell IDs). These links break easily (if names are changed) and without a
+standard for versioning, taxonomies published in papers often do not
+completely match cell-by-gene-matrices for the same paper published on
+portals like CZ CELLxGENE. It is also difficult for the community to
+make use of these taxonomy documents in combination with matrix files.</p>
+<p>A typical workflow within BICAN starts from an agreed set of clusters.
+Hierarchical annotations (taxonomies) are built on top of these clusters
+by combining them to form a hierarchy of nested cell sets with a fixed
+number of levels (see figure {hierarchical annotation}).</p>
+<p><img src="images/screenshots/media/image1.png"
+style="width:5.83333in;height:2.67984in"
+alt="media/Pasted image 20240312105853.png" /><br />
+<strong><em>Figure {hierarchical annotation}</em></strong>: <em>Hierarchical annotation on an
+Integrated Human Lung Cell Atlas. Panels </em><em>A</em><em> and </em><em>B</em><em> show annotation
+at Levels 2 and 3 of the hierarchy. L2 annotation Airway epithelium
+encompasses L3 annotations, Basal, secretory and Mucilated lineage.
+</em><em>C</em><em> shows the nested relationship between cell sets in this
+hierarchy - all cells in the Goblet cell set are in the secretory cell
+set which are all in the Airway epithelium cell set etc. This can be
+represented as a simple graph or tree as shown in Panel </em><em>D</em><em> - where
+each cell set has only one parent.</em></p>
+<p>These extended annotations are typically developed using informally
+structured spreadsheets, separate from the data being annotated in
+cell-by-gene-matrices. This overcomes the typical limitations of
+cell-by-gene-matrix formats like AnnData, which don't easily support
+anything more than associating names with individual cells. In
+spreadsheets, we can record annotations on a smaller number of sets of
+cells (clusters and combinations of clusters), associating an annotation
+with a rich context of additional information. Spreadsheets are easy to
+share and edit, especially if developed on an online platform that can
+reconcile concurrent edits (e.g. Google Sheets or Microsoft Sharepoint).
+They can also easily be exported to and from CSV, supporting easy
+conversion to DataFrames for programmatic population of content.</p>
+<p>By convention these spreadsheets are structured with one row per
+cluster. Additional columns record membership of the cluster higher
+level cell sets and metadata about clusters (see figure
+{informal_taxonomy})</p>
+<p><img src="images/screenshots/media/image2.png"
+style="width:6.32375in;height:1.27604in"
+alt="media/Pasted image 20240312105438.png" /><br />
+<strong><em>Figure: {Informal Taxonomy}</em></strong> <em>A fragment of an informal taxonomy
+spreadsheet used to annotate a cell-by-gene-matrix of cells from the
+basal ganglion. The first 2 columns contain the IDs and names of
+clusters. The next three columns assign these clusters to progressively
+larger cell set groupings: SubClass, Neighbourhood and Class. These
+become the names of labelsets in CAS/TDT. The proceeding rows record
+additional metadata about clusters including location based on
+dissection, markers, cluster size etc. One disadvantage of this approach
+is that there is no way to record additional metadata about cell sets
+above the cluster level.</em></p>
+<p>This informal method is not without challenges. The connection between
+these spreadsheets and matrices relies on cluster IDs or cell type/class
+names. Researchers use <em>ad hoc</em> methods for synchronizing the two, often
+involving an additional cluster- to-cell-ID mapping file. The structure
+of the file also does not allow for adding metadata about cell sets
+above the cluster level.</p>
+<h3 id="taxonomy-development-tools">Taxonomy Development Tools</h3>
+<p>We have developed an updated standard for representing taxonomies (Cell
+Annotation Schema (CAS) {ref}), a graphical editor (Taxonomy Development
+Tools (TDT)) and a system for publishing, versioning and sharing
+taxonomies. Importantly, this system tightly integrates taxonomies with
+cell-by-gene-matrices in AnnData (h5ad) format. The schema, which was
+developed to support the broader community annotating cell-by-gene
+matrices, contains a slot for linking to an AnnData file. TDT can use
+this to check the associated AnnData file is in-sync with the taxonomy,
+warning about any problems. It can also update the AnnData file when a
+taxonomy changes. Another important feature is that this is an open
+standard: it allows authors to define and edit any additional fields
+that they need on top of the fields standards by CAS (figure).</p>
+<p>TDT takes the typical informal taxonomy spreadsheets used within BICAN
+as input, and with some minimal configuration, converts them into a CAS
+compliant representation and checks this for consistency with a linked
+AnnData file. Configuration includes specification of which columns
+represent levels in the hierarchy and what level (or rank) they
+represent. The name of each of these columns defines a set of
+annotations called a labelset. Taxonomy_labelsets table in TDT supports
+recording additional metadata about each labelset.</p>
+<p>Annotations are represented in a taxonomy_annotations table with one row
+per cell set (clusters and higher level groupings), allowing metadata to
+be recorded for all levels . Each row has both CAS standard columns and
+user-defined columns taken from the original spreadsheet (figure
+{annotation_table C}) . The CAS standard supports taxonomy hierarchy via
+specifying parent cell-set (figure {annotation_table A}). An
+accompanying taxonomy tree view allows users to visualise this hierarchy
+(figure {annotation_table D}). Other CAS columns include slots for cell
+ontology terms mappings, synonyms, marker gene evidence, comments and
+supporting references (figure {annotation_table B}). Editing support
+includes pick-lists and autocomplete for fields including labelset,
+parent cell set and cell ontology term. In future, CAS and TDT will
+expand to include additional fields that are now only supported in user
+defined fields.</p>
+<p>A</p>
+<p><img src="images/screenshots/media/image3.png"
+style="width:5.83333in;height:1.33517in"
+alt="media/Pasted image 20240312122531.png" /><br />
+B<br />
+<img src="images/screenshots/media/image4.png"
+style="width:3.71707in;height:1.27498in"
+alt="media/Pasted image 20240312122701.png" /></p>
+<p>C<br />
+<img src="images/screenshots/media/image5.png"
+style="width:5.83333in;height:1.94444in"
+alt="media/Pasted image 20240312122910.png" /><br />
+D<br />
+<img src="images/screenshots/media/image6.png"
+style="width:2.08333in;height:2.69927in"
+alt="media/Pasted image 20240312135021.png" /><br />
+<strong><em>Figure {annotation_table}</em></strong>: <strong><em>A</em>* Core CAS fields: accession (ID),
+label, hierarchy. </strong>B<strong> Additional CAS fields allow linking to cell
+ontology terms, recording marker gene evidence, synonyms, and
+references. </strong>C<strong> User defined fields from the original spreadsheet
+(shown in figure {Informal Taxonomy}. </strong>D*<em> Visualization of taxonomy
+hierarchy as a tree.</em></p>
+<p>TDT uses GitHub to support concurrent editing by multiple users and to
+control access. It does this in a way that insulates users from GitHub,
+with a simple system for saving and publishing. All that is required of
+users is that they register an account with GitHub and provide their
+GitHub username, the email account they used to register and an access
+token which they can request from GitHub. Saving automatically shares
+edits with other editors. Publishing generates a named version that can
+be shared via a simple URL. This allows for tracking of versions used in
+analysis. The visibility of shared and published taxonomies is
+controlled via access to the GitHub repo. During development of a
+taxonomy, we limit this to a group of editors. Once the project is ready
+to share with the world, the GitHub repo can be made public, allowing
+anyone with the URL to access it.</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/brain-bican/taxonomy-development-tools" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

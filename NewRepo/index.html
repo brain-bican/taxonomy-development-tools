@@ -56,6 +56,8 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#1-download-the-wrapper-script-and-pull-latest-tdt-version">1. Download the wrapper script and pull latest TDT version</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-prepare-your-configuration-file">2. Prepare your configuration file:</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#3-run-the-wrapper-script">3. Run the wrapper script</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#unix-max-linux">Unix (Max, Linux)</a>
@@ -136,6 +138,10 @@ instructions here.</p>
 <p><code>docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest</code></p>
 <p><strong>NOTE:</strong> The very first time you run this it may be slow, while docker downloads necessary images. Don't worry, subsequent runs should be much faster!</p>
 <p><strong>NOTE:</strong> Windows users, occasionally it has been reported that files downloaded on a Windows machine get a wrong file ending, for example <code>seed-via-docker.bat.txt</code> instead of <code>seed-via-docker.bat</code>, or, as we will see later, <code>project.yaml.txt</code> instead of <code>project.yaml</code>. If you have problems, double check your files are named correctly after the download!</p>
+<h2 id="2-prepare-your-configuration-file">2. Prepare your configuration file:</h2>
+<ul>
+<li>[Follow the instructions here].(config.md)</li>
+</ul>
 <h2 id="3-run-the-wrapper-script">3. Run the wrapper script</h2>
 <p>You can pass in a configuration file in YAML format that specifies your taxonomy project setup. You can use <code>dir</code> in your command line on PC to ensure that your wrapper script, .gitconfig, and project.yaml (if you so choose) are all in the correct directory before running the wrapper script.</p>
 <h3 id="unix-max-linux">Unix (Max, Linux)</h3>
