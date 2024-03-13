@@ -6,8 +6,10 @@ Initially, the guide provides instructions on preparing your system and initiati
 
 Subsequently, it delves into the process of curating the CCN2 taxonomies, offering detailed guidance on the necessary steps and considerations.
 
-- [Get Your System Ready](Build.md) 
 - [Quick Start TDT](QuickStart.md)
+- [Intro to TDT](Intro_to_TDT.md) - A general introduction to the Taxonomy Development. What are taxonomies, why are they needed, how Taxonomy Development Tools can help you collaboratively develop and publish them.
+- [Get Your System Ready](Build.md) 
 - [Create a New Repo](NewRepo.md)
 - [Start Curating Taxonomies](Curation.md)
 - [UI Guide](UserInterface.md)
+
