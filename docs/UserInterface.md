@@ -30,7 +30,7 @@ To view the available tables,  navigate to the Tables dropdown menu at the top o
 
 
 <p align="center">
-    <img src="images/screenshots/table_dropdownmenu_AITT.png" alt="Select a table" width="900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_dropdownmenu_AITT.png" alt="Select a table" width="900"/>
 </p>
 
 
@@ -45,7 +45,7 @@ these tables are essential for the internal configuration of the TDT and cannot 
 
 
 <p align="center">
-    <img src="images/screenshots/table_AITT.png" alt="Select a table" width="900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_AITT.png" alt="Select a table" width="900"/>
 </p>
 
 
@@ -55,7 +55,7 @@ these tables are essential for the internal configuration of the TDT and cannot 
 
 
 <p align="center">
-    <img src="images/screenshots/datatype_table_AITT.png" alt="Sort and filter by column" width="900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/datatype_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
 
@@ -65,7 +65,7 @@ these tables are essential for the internal configuration of the TDT and cannot 
 
 
 <p align="center">
-    <img src="images/screenshots/column_table_AITT.png" alt="Sort and filter by column" width="900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/column_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
 
@@ -75,7 +75,7 @@ these tables are essential for the internal configuration of the TDT and cannot 
 
 
 <p align="center">
-    <img src="images/screenshots/message_table_AITT.png" alt="Sort and filter by colummn" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/message_table_AITT.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
 
 
@@ -114,7 +114,7 @@ The user tables are the following:
 
 
 <p align="center">
-    <img src="images/screenshots/AIT115_annotation_sheet_metadata.png" alt="Sort and filter by colummn" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_metadata.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
 
 
@@ -141,7 +141,7 @@ The user tables are the following:
 
 
 <p align="center">
-    <img src="images/screenshots/AIT115_annotation_sheet_labelset.png" alt = "Sort and filter by column" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_labelset.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 
@@ -178,7 +178,7 @@ The `Project specific` columns are transferred from the `original data table`. T
 
 
 <p align="center">
-    <img src="images/screenshots/AIT115_annotation_sheet_annotation.png" alt = "Sort and filter by column" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 
@@ -211,7 +211,7 @@ The table format can be changed by selecting the `Format` button underneath the 
 
 
 <p align="center">
-    <img src="images/screenshots/table_format_AITT.png" alt = "Select dropdown menu" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_format_AITT.png" alt = "Select dropdown menu" width = "900"/>
 </p>
 
 
@@ -223,7 +223,7 @@ By clicking on column names, data sort and filter pop-up widget can be activated
 
 
 <p align="center">
-    <img src="images/screenshots/sort_and_filter.png" alt = "Sort and filter" width = "500" />
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/sort_and_filter.png" alt = "Sort and filter" width = "500" />
 </p>
 
 
@@ -235,7 +235,7 @@ To reset the sorting and filtering of the table select the `Reset` button undern
 
 
 <p align="center">
-    <img src="images/screenshots/reset_button.png" alt = "Select reset button to reset the table order" width = "900"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/reset_button.png" alt = "Select reset button to reset the table order" width = "900"/>
 </p>
 
 
@@ -247,7 +247,7 @@ Annotation tables are equipped to display data in a hierarchical structure, offe
 
 
 <p align="center">
-    <img src="images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
 </p>
 
 
@@ -262,7 +262,7 @@ While in the Taxonomy View, users can visually explore the taxonomy's structure 
 
 
 <p align="center">
-    <img src="images/screenshots/add_row.png" alt="Edit Form" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/add_row.png" alt="Edit Form" width="400"/>
 </p>
 
 
@@ -272,7 +272,7 @@ To know what each option represents, over on the question mark icon near each op
 
 
 <p align="center">
-    <img src="images/screenshots/question_mark.png" alt="Select cell ontology term" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/question_mark.png" alt="Select cell ontology term" width="400"/>
 </p>
 
 
@@ -286,7 +286,7 @@ Users can initiate the editing of records by clicking on the pen icon located at
 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/edit_form.png" alt="Edit Form" width="600"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/edit_form.png" alt="Edit Form" width="600"/>
 </p>
 
 
@@ -297,7 +297,7 @@ Example: In the dataset generated from the `AIT115_annotation_sheet`, by selecti
 
 
 <p align="center">
-    <img src="images/screenshots/label_set_dropdown_menu.png" alt="Edit Form" width="600"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/label_set_dropdown_menu.png" alt="Edit Form" width="600"/>
 </p>
 
 
@@ -307,7 +307,7 @@ Example: When editing the `parent cell set name`, suggested terms will appear as
 
 
 <p align="center">
-    <img src="images/screenshots/parent_cell_set_name.png" alt="Edit Form" width="600"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/parent_cell_set_name.png" alt="Edit Form" width="600"/>
 </p>
 
 
@@ -319,7 +319,7 @@ Example: When changing the `parent cell set name` field, the `parent cell set ac
 
 
 <p align="center">
-    <img src="images/screenshots/parent_cell_set_accession.png" alt="Edit Form" width="600"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/parent_cell_set_accession.png" alt="Edit Form" width="600"/>
 </p>
 
 
@@ -329,7 +329,7 @@ To add a pre-existing [Cell Ontology](https://www.ebi.ac.uk/ols4) term select th
 
 
 <p align="center">
-    <img src="images/screenshots/cell_ontology_term_dropdown_menu.png" alt="Select cell ontology term" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_dropdown_menu.png" alt="Select cell ontology term" width="400"/>
 </p>
 
 
@@ -339,7 +339,7 @@ After selecting the cell ontology term of interest, the `cell ontology term` opt
 
 
 <p align="center">
-    <img src="images/screenshots/cell_ontology_term_ID.png" alt="Select cell ontology term" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_ID.png" alt="Select cell ontology term" width="400"/>
 </p>
  
 
@@ -353,7 +353,7 @@ The `Validate` option will ensure that the terms added in each column follow the
 
 
 <p align="center">
-    <img src="images/screenshots/submit_button.png" alt="Select option" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/submit_button.png" alt="Select option" width="400"/>
 </p>
 
 
@@ -363,7 +363,7 @@ The `Validate` option will ensure that the terms added in each column follow the
 
 
 <p align="center">
-    <img src="images/screenshots/actions.png" alt="Sort and Filter by Column" width="300"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions.png" alt="Sort and Filter by Column" width="300"/>
 </p>
 
 
@@ -378,7 +378,7 @@ In the `Actions` menu, select the `File` dropdown menu. Two options will be disp
 
 
 <p align="center">
-    <img src="images/screenshots/actions_file_save.png" alt="Use the dropdown menu" width="300"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions_file_save.png" alt="Use the dropdown menu" width="300"/>
 </p>
 
 
@@ -388,7 +388,7 @@ Under the `Actions` menu, select the `Export` drowpdown menu. Two options will b
 
 
 <p align="center">
-    <img src="images/screenshots/actions_export.png" alt="Use the dropdown menu" width="300"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions_export.png" alt="Use the dropdown menu" width="300"/>
 </p>
 
 
@@ -413,6 +413,6 @@ This documentation is under development.
 
 
 <p align="center">
-    <img src="images/screenshots/actions_version_control.png" alt="Sort and Filter by Column" width="300"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions_version_control.png" alt="Sort and Filter by Column" width="300"/>
 </p>
 
