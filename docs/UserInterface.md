@@ -2,61 +2,46 @@
 
 Welcome to the Taxonomy Development Tools User Interface Guide. This document is designed to provide comprehensive details on navigating and utilizing the TDT interface efficiently. Whether you are looking to manage data tables, edit information, or leverage advanced features, this guide will assist you in making the most out of TDT.
 
-1. [Tables](#tables)
-   1. [Switch system tables](#switch-system-tables)
-   2.[User tables](#user-tables)
-1. [Table Management](#table-management)
-   1. [Adding new Records](#add-new-records)
-   1. [Editing Existing Data](#editing-existing-data)
-   1. [Sorting and Filtering Data](#sorting-and-filtering-data)
-1. [Actions](#actions)
-   1. [Save](#save)
-   1. [GitHub Controls](#github-controls)
-   1. [Make a Release](#make-a-release)
-   1. [Publish PURL](#publish-purl)
-   1. [Export CAS Json](#export-cas-json)
-   1. [Export to AnnData](#export-to-anndata)
-1. [Views](#views)
-
 ## Tables
 
 At the heart of the Taxonomy Development Tools is a robust internal database designed to streamline the management and curation of taxonomy-related data. Access to this database is facilitated through a user-friendly interface, with tables being a central component.
 
 To view the available tables,  navigate to the Tables dropdown menu at the top of the interface.
 
-![](/Users/aa37/Documents/Documentation_Screenshots_TDT/table_dropdownmenu_AITT.png)
-
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_dropdownmenu.png" alt="Select a table" width="900"/>
+</p>
 
 TDT categorizes tables into two main types, **switch system tables** and **user tables**, each serving distinct purposes:
 
-**Switch system tables:**
+### Switch system tables:
 these tables are essential for the internal configuration of the TDT and cannot be modified by the users.
 
 - `table`: this table lists all the tables present in the TDT and it appears in the default page of the TDT
 
 <p align="center">
-    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/table_AITT.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_AITT.png" alt="Select a table" width="900"/>
 </p>
 
 - `datatype` : this table shows all the datatype columns present in each table.
 
 <p align="center">
-    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/datatype_table_AITT.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/datatype_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
 - `column`: this table contains all the columns present in each table.
 
 <p align="center">
-    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/column_table_AITT.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/column_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
 - `message`: this table contains all the messages present one very row of each table.
 
 <p align="center">
-    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/message_table_AITT.png/">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/message_table_AITT.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
 
-**User tables**
+### User tables
 
 User tables are created when data is uploaded to the TDT using the `load_data` operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema) and organized into multiple interrelated tables. 
 
@@ -82,7 +67,7 @@ The user tables are the following:
 `cellannotation url`: a URL where all cell annotations are published for each dataset.
 
 <p align="center">
-    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/AIT115_annotation_sheet_metadata.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_metadata.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
 
 
@@ -99,7 +84,7 @@ The user tables are the following:
 `automated annotation reference location` : a resolvable URL of the source of the data. 
 	
 <p align="center">
-    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/AIT115_annotation_sheet_labelset.png/">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_labelset.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 
@@ -122,7 +107,7 @@ The user tables are the following:
 
 
 <p align="center">
-    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/AIT115_annotation_sheet_annotation.png/">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 
@@ -133,7 +118,7 @@ For detailed information on table structures and fields, refer to the Cell Annot
 
 
 <p align="center">
-    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/AIT115_annotation_sheet_annotation_transfer.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation_transfer.png" alt = "Sort and filter by column" width = "900"/>
 </p>
 
 
@@ -148,7 +133,7 @@ This section shows how to interact with the Tables within the TDT. In this docum
 The table format can be changed by selecting the `Format` button underneath the table name. This will open a dropdown menu with a series of options to display the data in different format of a `TSV` or a `CSV` table; `Plain Text` or in a `Json` raw or page format (for more information about Json format have a look at [additional resources](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)). In addition to the `Json` raw or page option, the options `Json(raw, pretty)` and `Json(page, pretty)` are available to display the data in a Json format that is easier to read. 
 
 <p align="center">
-    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/table_format_AITT.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_format_AITT.png" alt = "Select dropdown menu" width = "900"/>
 </p>
 
 
@@ -157,7 +142,7 @@ The table format can be changed by selecting the `Format` button underneath the 
 By clicking on column names, data sort and filter pop-up widget can be activated. This widget allows for the alphabetical sorting of data and the application of conditions to filter data accordingly. Icons next to the column header indicate active sorting or filtering, and clicking the column header again lets you update or clear these parameters. 
 
 <p align="center">
-    <img src="/Users/aa37/Documents/Documentation_Screenshots_TDT/sort_and_filter.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/sort_and_filter.png" alt = "Sort and filter" width = "500" />
 </p>
 
 ### Reset Table
@@ -165,7 +150,7 @@ By clicking on column names, data sort and filter pop-up widget can be activated
 To reset the sorting and filtering of the table select the `Reset` button underneath the table name.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/reset_button.png">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/reset_button.png" alt = "Select reset button to reset the table order" width = "900"/>
 </p>
 
 ### Change Table View
@@ -180,13 +165,28 @@ While in the Taxonomy View, users can visually explore the taxonomy's structure 
 
 ### Adding New Records
 
-`Add row` button can be used to add new records to the table.
+`Add row` button can be used to add new records to the table. By selecting `Add row`, a new page will open, start inserting the informations for the new row. The option `cell set accession` will be auto-filled with a new cell set unique identifier.
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/add_row2.png" alt="Edit Form" width="400"/>
 </p>
 
+To know what each option represents, over on the question mark icon near each option. 
 
+> Picture needs to be added once the new release is out
+
+Some options will have a dropdown menu with suggested terms. For instance, by selecting the empty box for the `labelset` option the dropdown options `Class`, `Cluster`, `Neighborhood`, `Subclass` will appear. 
+
+To add a pre-existing [Cell Ontology](https://www.ebi.ac.uk/ols4) term select the `cell ontology term` option and start typing the cell term of interest. A dropdown menu will appear with different options for pre-existing ontology terms.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_dropdown_menu.png" alt="Select cell ontology term" width="400"/>
+</p>
+After selecting the cell ontology term of interest, the `cell ontology term` option and the `cell ontology term ID` will be autofilled. 
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_ID.png" alt="Select cell ontology term" width="400"/>
+</p>
+ 
 
 ### Editing Existing Data
 
@@ -196,6 +196,15 @@ Users can initiate the editing of records by clicking on the pen icon located at
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/edit_form.png" alt="Edit Form" width="600"/>
 </p>
 
+
+### Saving existing or new data
+
+To save the modified or newly added row select `Submit` at the bottom right corner of the page. 
+The `Validate` option will ensure that the terms added in each column follow the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema)
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/submit_button.png" alt="Select option" width="400"/>
+</p>
 
 
 
