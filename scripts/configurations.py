@@ -5,6 +5,9 @@ import subprocess
 from pathlib import Path
 from ruamel.yaml import YAML
 
+GITHUB_TOKEN_ENV = 'GITHUB_AUTH_TOKEN'
+TOKEN_FILE = "mytoken.txt"
+
 
 @click.group()
 def cli():
@@ -40,6 +43,34 @@ def configure_git(root_folder):
         runcmd("git remote set-url origin https://{gh_token}@github.com/{gh_org}/{gh_repo}.git/".format(gh_token=os.getenv("GITHUB_AUTH_TOKEN"), gh_org=github_org, gh_repo=repo))
     else:
         print("WARN: The project has not been pushed to GitHub yet, resulting in incomplete GitHub authentication.")
+
+    purl_folder = os.path.join(Path(root_folder).absolute(), "purl")
+    print(purl_folder)
+    gh_login(purl_folder)
+    cleanup(purl_folder)
+
+
+def gh_login(purl_folder):
+    github_token = os.environ.get(GITHUB_TOKEN_ENV)
+    token_file = os.path.join(purl_folder, TOKEN_FILE)
+    with open(token_file, 'w') as f:
+        f.write(github_token)
+
+    runcmd("git config --global credential.helper store")
+    runcmd("gh auth login --with-token < {}".format(token_file))
+    runcmd("gh auth setup-git")
+
+    return token_file
+
+
+def cleanup(purl_folder):
+    """
+    Cleanups all intermediate file/folders.
+    :param purl_folder: path of the purl folder where intermediate files are added
+    """
+    token_file = os.path.join(purl_folder, TOKEN_FILE)
+    if os.path.exists(token_file):
+        os.remove(token_file)
 
 
 def retrieve_configs(root_folder_path, *properties):

@@ -45,7 +45,7 @@ serve: $(NANOBOTDB)
 	if [ $(AUTO_SYNCH) = true ]; then \
 		python3 $(EXPORT) data $(NANOBOTDB) src/schema/ table column datatype; \
 		python3 $(EXPORT) data $(NANOBOTDB) curation_tables/ $(foreach t,$(wildcard curation_tables/*.tsv), $(basename $(notdir $t))); \
-		git commit --message "Auto-commit on startup."; \
+		git commit -a --message "Auto-commit on startup."; \
 		git pull; \
 		git push; \
 		rm -rf build/; \
