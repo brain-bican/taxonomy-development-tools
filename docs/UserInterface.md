@@ -25,7 +25,7 @@ At the heart of the Taxonomy Development Tools is a robust internal database des
 To view the available tables,  navigate to the Tables dropdown menu at the top of the interface.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_dropdownmenu_AITT.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_dropdownmenu_AITT.png">
 </p>
 
 TDT categorizes tables into two main types, **switch system tables** and **user tables**, each serving distinct purposes:
@@ -36,25 +36,25 @@ these tables are essential for the internal configuration of the TDT and cannot 
 - `table`: this table lists all the tables present in the TDT and it appears in the default page of the TDT
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_AITT.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_AITT.png">
 </p>
 
 - `datatype` : this table shows all the datatype columns present in each table.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/datatype_table_AITT.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/datatype_table_AITT.png">
 </p>
 
 - `column`: this table contains all the columns present in each table.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/column_table_AITT.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/column_table_AITT.png">
 </p>
 
 - `message`: this table contains all the messages present one very row of each table.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/message_table_AITT.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/message_table_AITT.png">
 </p>
 
 **User tables**
@@ -83,7 +83,7 @@ The user tables are the following:
 `cellannotation url`: a URL where all cell annotations are published for each dataset.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_metadata.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_metadata.png">
 </p>
 
 
@@ -100,7 +100,7 @@ The user tables are the following:
 `automated annotation reference location` : a resolvable URL of the source of the data. 
 	
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_labelset.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_labelset.png">
 </p>
 
 
@@ -123,7 +123,7 @@ The user tables are the following:
 
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation.png"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation.png">
 </p>
 
 
