@@ -2,8 +2,7 @@
 
 Welcome to the Taxonomy Development Tools User Interface Guide. This document is designed to provide comprehensive details on navigating and utilizing the TDT interface efficiently. Whether you are looking to manage data tables, edit information, or leverage advanced features, this quick start guide will guide you through the set up of TDT
 
-1. [Install requirements](https://brain-bican.github.io/taxonomy-development-tools/Build/): 
-
+1. [Install requirements](https://brain-bican.github.io/taxonomy-development-tools/Build/):
     - [Install GitHub](https://github.com/brain-bican/taxonomy-development-tools/blob/main/docs/Build.md#git)
     - [Install Docker](https://www.docker.com/products/docker-desktop/)
 
