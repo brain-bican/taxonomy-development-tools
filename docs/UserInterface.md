@@ -37,17 +37,14 @@ The default view when loading TDT is a view of all of the the available tables. 
 
 TDT categorizes tables into two main types, **system tables** and **user tables**, each serving distinct purposes.  
 
-For the purpose of editing taxonomies, our main focus is a set of user tables that reflect taxonomy structure.  **System tables** allow us to inspect the taxonomy schama and to extend the taxonomies with new columns and datatypes.  This is dealt with in the [**Advanced features**](#Advanced_features) section.
+For the purpose of editing taxonomies, our main focus is a set of user tables that reflect taxonomy structure.  **System tables** allow us to inspect the taxonomy schema and to extend it with new columns and datatypes.  This is dealt with in the [Advanced features](#Advanced_features) section.
 
 
 ### User tables
 
-User tables are created when data is uploaded to the TDT using the `load_data` operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema) and organized into multiple interrelated tables. 
+User tables represent the content of the teaxonomy.  The main route by with they are are created is when data is uploaded to the TDT using the `load_data` operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema) and organized into multiple interrelated tables. 
 
 > Example: the [nhp_basal_ganglia_taxonomy](https://github.com/hkir-dev/nhp_basal_ganglia_taxonomy) present an annotation table named `AIT115_annotation_sheet` from this table a series of `user tables` are generated and displayed in the TDT.
-
-
-The user tables are the following: 
 
 #### original data table
 
@@ -83,9 +80,9 @@ Columns:
 
 `cellannotation url` : A URL that can be used to resolve the latest published version of this taxonomy (blank if unpublished).
 
-#### labelset`
+#### labelset
 
-Annotations are organised into `labelsets` -  keys grouping related annotations.  These correspond to cell annotation keys in a cell by gene matrix, for axmple corresponding to `obs` keys in an AnnData file. This table contains the names and descriptions of labelsets used in the annotation and, optionally, details of the methodology used to acquire those labels. Full specifications of the labelset can be found in the Cell annotation schema documentation under the [labelsets](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties) section. 
+Annotations are organised into `labelsets` -  keys grouping related annotations. These correspond to cell annotation keys in a cell by gene matrix, for axmple corresponding to `obs` keys in an AnnData file. This table contains the names and descriptions of labelsets used in the annotation and, optionally, details of the methodology used to acquire those labels. Full specifications of the labelset can be found in the [Cell Annotation Schema documentation]((https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties)) under the `labelsets` section. 
 
 &nbsp;
 &nbsp;
@@ -229,8 +226,7 @@ To know what each option represents, hover on the question mark icon near each o
 
 ### Editing Existing Data
 
-
-Users can initiate the editing of records by clicking on the pen icon located at the start of each row. This action directs the user to a data submission form that supports autofill, allowing for efficient data entry. After validating the entered data, users can finalize their edits by clicking the Submit button.
+Users can edit records by clicking on the pen icon located at the start of each row. This action directs the user to a data submission form that supports autofill, allowing for efficient data entry. After validating the entered data, users can finalize their edits by clicking the Submit button.
 
 &nbsp;
 &nbsp;
@@ -242,8 +238,8 @@ Users can initiate the editing of records by clicking on the pen icon located at
 &nbsp;
 
 
-Some options will have a dropdown menu with suggested terms. 
->Example: In the dataset generated from the `AIT115_annotation_sheet`, by selecting the empty box for the `labelset` option the dropdown options `Class`, `Cluster`, `Neighborhood`, `Subclass` will appear. 
+Some options will have a dropdown menu with suggested terms. For exmaple the annotation.labelset` field has a drop-down list of labelsets defined in the `labelset` table.
+>Example: In the dataset generated from the `AIT115_annotation_sheet`, by selecting the empty box for the `labelset` option the dropdown options are the labelsets `Class`, `Cluster`, `Neighborhood` and `Subclass`.
 
 &nbsp;
 &nbsp;
@@ -382,7 +378,7 @@ Upon initial launch, TDT creates a `tdt_datasets` directory in the user home fol
 
 ### System tables:
 
-System tables allow us to inspect the taxonomy schama and to extend the taxonomies with new columns and datatypes. 
+System tables allow us to inspect the taxonomy schema and to extend it with new columns and datatypes. 
 
 - `table`: This table lists all the tables present in the TDT and it appears in the default page of the TDT.
 
