@@ -27,12 +27,14 @@ At the heart of the Taxonomy Development Tools is a robust internal database des
 
 To view the available tables,  navigate to the Tables dropdown menu at the top of the interface.
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_dropdownmenu_AITT.png" alt="Select a table" width="900"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 TDT categorizes tables into two main types, **switch system tables** and **user tables**, each serving distinct purposes:
@@ -40,44 +42,52 @@ TDT categorizes tables into two main types, **switch system tables** and **user 
 ### Switch system tables:
 these tables are essential for the internal configuration of the TDT and cannot be modified by the users.
 
-- `table`: this table lists all the tables present in the TDT and it appears in the default page of the TDT
+- `table`: This table lists all the tables present in the TDT and it appears in the default page of the TDT.
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_AITT.png" alt="Select a table" width="900"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 - `datatype` : this table shows all the datatype columns present in each table.
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/datatype_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
+&nbsp;
+&nbsp;
 
 
-
-- `column`: this table contains all the columns present in each table.
-
+- `column`: This table contains all the columns present in each table.
+&nbsp;
+&nbsp;
 
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/column_table_AITT.png" alt="Sort and filter by column" width="900"/>
 </p>
 
+&nbsp;
+&nbsp;
 
-
-- `message`: this table contains all the messages present one very row of each table.
-
+- `message`: This table contains all the messages present one very row of each table.
+&nbsp;
+&nbsp;
 
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/message_table_AITT.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 ### User tables
@@ -91,59 +101,63 @@ The user tables are the following:
 
 - `original data table` : This table is provided by the author and contains their original annotations.
 
-> Exp. AIT115_annotation_sheet
+> Example: AIT115_annotation_sheet
 
 
 
-- `metadata`: This table contains all the medatadata related to the taxonomy. For full specifications of the metadata properties, look up the cell annotation schema documentation under the section [properties](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties). The `*_metadata` column names are explained below:
+- `metadata` : This table contains all the medatadata related to the taxonomy. For full specifications of the metadata properties, look up the cell annotation schema documentation under the section [properties](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties). The `metadata` column names are explained below:
 
 `author name` : The name of the first author of the taxonomy.
 
 `author contact` : Author's email.
 
-`author list`: Name of secondary authors.
+`author list` : Name of secondary authors.
 
-`matrix file ID`: A resolvable ID for a cell by gene matrix file. 
+`matrix file ID` : A resolvable ID for a cell by gene matrix file. 
 
-`cellannotation schema version`: The version of the cell annotation schema. 
+`cellannotation schema version` : The version of the cell annotation schema. 
 
-`cellannotation timestamp`: The time (yyyy-mm-dd) of when the cell annotations are published.
+`cellannotation timestamp` : The time (yyyy-mm-dd) of when the cell annotations are published.
 
-`cellannotation url`: A URL where all cell annotations are published for each dataset.
+`cellannotation url` : A URL where all cell annotations are published for each dataset.
 
 
-
+&nbsp;
+&nbsp;
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_metadata.png" alt="Sort and filter by colummn" width = "900"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 
 - `labelset`: This table contains the definition of the labels used in the annotation and the methodology used to acquire those labels. Full specifications of the label set can be found in the Cell annotation schema documentation under the [labelsets](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md#properties) section. 
 
-`name` : The name of the type of annotation key
+`name` : The name of the type of annotation key.
 
-`description` : Description of the annotation key
+`description` : Description of the annotation key.
 
-`rank` : The level of granularity of the annotation with 0 being the most specific 
+`rank` : The level of granularity of the annotation with 0 being the most specific. 
 
-`annotation method` : The method used for the type of annotation, it can either be algorithmic, manual or both 
+`annotation method` : The method used for the type of annotation, it can either be algorithmic, manual or both. 
 
-`automated annotation algorithm name` : The name of the algorithm used for the automated annotation 
+`automated annotation algorithm name` : The name of the algorithm used for the automated annotation.
 
-`automated annotation algorithm verision` : The version used for the algorithm 
+`automated annotation algorithm verision` : The version used for the algorithm.
 
 `automated annotation algorithm repo url` : A resolvable URL of the version control of the algorithm used.
 
 `automated annotation reference location` : A resolvable URL of the source of the data. 
 	
-
+&nbsp;
+&nbsp;
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_labelset.png" alt = "Sort and filter by column" width = "900"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 
@@ -163,41 +177,27 @@ The `Project specific` columns are transferred from the `original data table`. T
 
 `labelset` : The type of cell annotation from the AnnData/Seurat file.
 
-`cell ontology term id` : The ontology term ID that define the cell type. I has to be the closest term matching the `cell label` 
+`cell ontology term id` : The ontology term ID that define the cell type. I has to be the closest term matching the `cell label`.
 
-`cell ontology term` : The ontology term name from the ontology term ID
+`cell ontology term` : The ontology term name from the ontology term ID.
 
 `rationale` : The short name of the publications used to define the `cell ontology term`.
 
-`rationale dois` : The DOI of the paper mentioned in the `rationale`
+`rationale dois` : The DOI of the paper mentioned in the `rationale`.
 
 `maker gene evidence` : List of names of genes whose expression in the cells being annotated is explicitly used as evidence for this cell annotation. Each gene MUST be included in the matrix of the AnnData/Seurat file.
 
 `synonyms` : Synonyms of the `cell label`.
 
-
-
+&nbsp;
+&nbsp;
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/AIT115_annotation_sheet_annotation.png" alt = "Sort and filter by column" width = "900"/>
 </p>
+&nbsp;
+&nbsp;
 
 
-
-
-
-**User tables:** User tables are created when data is uploaded to the TDT using the `load_data` operation (https://brain-bican.github.io/taxonomy-development-tools/Curation/). This data is formatted according to the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema) and organized into multiple interrelated tables. These tables include: 
-
-- `metadata`: Contains metadata related to the taxonomy.
-- `labelset`: Houses definitions of the label sets.
-- `annotation`: Stores annotations for cell types, classes, or states, along with supporting evidence and provenance information. It is designed to be flexible, allowing for additional fields to accommodate user needs or project-specific metadata.
-- `annotation_transfer`: Tracks annotation transfer records.
-For detailed information on table structures and fields, refer to the Cell Annotation Schema [documentation](https://github.com/cellannotation/cell-annotation-schema/blob/main/build/BICAN_schema.md).
-
-**System tables:** System tables are essential for the internal configurations of TDT and are typically not modified by users. These tables include:
-- `table`: Lists all loaded tables and the physical location of the backing files.
-- `column`: Associates table columns with their respective data types.
-- `datatype`: Lists all datatypes existing in the system. Datatypes allow users to define regex patterns for cell values. The datatypes are a hierarchy of types, and when a datatype is provided as a condition, all parent values are also checked.
-- `message`: TDT allows users to load invalid data (invalid datatypes, value not matching with regex etc.) and displays issues on top of each table and column. `messages` table stores the found errors in the data.
 
 
 ## Table Management
@@ -208,48 +208,53 @@ This section shows how to interact with the Tables within the TDT. In this docum
 
 The table format can be changed by selecting the `Format` button underneath the table name. This will open a dropdown menu with a series of options to display the data in different format of a `TSV` or a `CSV` table; `Plain Text` or in a `Json` raw or page format (for more information about Json format have a look at [additional resources](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)). In addition to the `Json` raw or page option, the options `Json(raw, pretty)` and `Json(page, pretty)` are available to display the data in a Json format that is easier to read. 
 
-
-
+&nbsp;
+&nbsp;
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_format_AITT.png" alt = "Select dropdown menu" width = "900"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 ### Sorting and Filtering Data
 
 By clicking on column names, data sort and filter pop-up widget can be activated. This widget allows for the alphabetical sorting of data and the application of conditions to filter data accordingly. Icons next to the column header indicate active sorting or filtering, and clicking the column header again lets you update or clear these parameters. 
 
-
-
+&nbsp;
+&nbsp;
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/sort_and_filter.png" alt = "Sort and filter" width = "500" />
 </p>
-
+&nbsp;
+&nbsp;
 
 
 ### Reset Table
 
 To reset the sorting and filtering of the table select the `Reset` button underneath the table name.
 
-
-
+&nbsp;
+&nbsp;
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/reset_button.png" alt = "Select reset button to reset the table order" width = "900"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 ### Change Table View
 
 Annotation tables are equipped to display data in a hierarchical structure, offering a more intuitive understanding of relationships within the taxonomy. To access this perspective, simply click on the `Taxonomy View` button.
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 While in the Taxonomy View, users can visually explore the taxonomy's structure in a read-only format, providing a clear overview of the hierarchical relationships. To switch back to a more detailed and interactive tabular format, click the `Table View` button.
@@ -259,89 +264,102 @@ While in the Taxonomy View, users can visually explore the taxonomy's structure 
 
 `Add row` button can be used to add new records to the table. By selecting `Add row`, a new page will open, start inserting the informations for the new row. The option `cell set accession` will be auto-filled with a new cell set unique identifier.
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/add_row.png" alt="Edit Form" width="400"/>
 </p>
+&nbsp;
+&nbsp;
 
 
+To know what each option represents, hover on the question mark icon near each option. 
 
-To know what each option represents, over on the question mark icon near each option. 
-
-
-
+&nbsp;
+&nbsp;
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/question_mark.png" alt="Select cell ontology term" width="400"/>
 </p>
-
+&nbsp;
+&nbsp;
 
  
 
 ### Editing Existing Data
 
 
-Users can initiate the editing of records by clicking on the pen icon located at the start of each row. This action directs them to a data submission form that supports auto-completion, allowing for efficient data entry. After validating the entered data, users can finalize their edits by clicking the Submit button.
+Users can initiate the editing of records by clicking on the pen icon located at the start of each row. This action directs the user to a data submission form that supports autofill, allowing for efficient data entry. After validating the entered data, users can finalize their edits by clicking the Submit button.
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/edit_form.png" alt="Edit Form" width="600"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/edit_form.png" alt="Edit Form" width="600"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 Some options will have a dropdown menu with suggested terms. 
-Example: In the dataset generated from the `AIT115_annotation_sheet`, by selecting the empty box for the `labelset` option the dropdown options `Class`, `Cluster`, `Neighborhood`, `Subclass` will appear. 
+>Example: In the dataset generated from the `AIT115_annotation_sheet`, by selecting the empty box for the `labelset` option the dropdown options `Class`, `Cluster`, `Neighborhood`, `Subclass` will appear. 
 
-
-
+&nbsp;
+&nbsp;
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/label_set_dropdown_menu.png" alt="Edit Form" width="600"/>
 </p>
+&nbsp;
+&nbsp;
 
 
+>Example: When editing the `parent cell set name`, suggested terms will appear as a dropdown menu.
 
-Example: When editing the `parent cell set name`, suggested terms will appear as a dropdown menu.
-
-
-
+&nbsp;
+&nbsp;
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/parent_cell_set_name.png" alt="Edit Form" width="600"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 Some options will automatically fill other fields linked to them. 
 
-Example: When changing the `parent cell set name` field, the `parent cell set accession` field will also change. 
+>Example: When changing the `parent cell set name` field, the `parent cell set accession` field will also change. 
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/parent_cell_set_accession.png" alt="Edit Form" width="600"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 To add a pre-existing [Cell Ontology](https://www.ebi.ac.uk/ols4) term select the `cell ontology term` option and start typing the cell term of interest. A dropdown menu will appear with different options for pre-existing ontology terms.
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_dropdown_menu.png" alt="Select cell ontology term" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_dropdown_menu.png" alt="Select cell ontology term" width="600"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 After selecting the cell ontology term of interest, the `cell ontology term` option and the `cell ontology term ID` will be autofilled. 
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_ID.png" alt="Select cell ontology term" width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/cell_ontology_term_ID.png" alt="Select cell ontology term" width="600"/>
 </p>
- 
+ &nbsp;
+&nbsp;
 
 
 
@@ -350,22 +368,27 @@ After selecting the cell ontology term of interest, the `cell ontology term` opt
 To save the modified or newly added row select `Submit` at the bottom right corner of the page. 
 The `Validate` option will ensure that the terms added in each column follow the [Cell Annotation Schema](https://github.com/cellannotation/cell-annotation-schema)
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/submit_button.png" alt="Select option" width="400"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 ## Actions
 
+The following menu includes a series of comands to save and export your data.
 
-
+&nbsp;
+&nbsp;
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions.png" alt="Sort and Filter by Column" width="300"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 
 ### Save
@@ -374,22 +397,32 @@ All user modifications are automatically saved to the internal database. However
 
 In the `Actions` menu, select the `File` dropdown menu. Two options will be displayed `save` and `publish`.
 
+The `save` button allows to save your progress in a syncronised fashion so that other curators of the same taxonomy can see and track the progress. The syncronisation of the saved progress gives the opportunity to multiple users to work collaboratevely on a unified dataset.
 
+The `publish` button allows to create a public release of the taxonomy on GitHub.
+
+&nbsp;
+&nbsp;
 
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions_file_save.png" alt="Use the dropdown menu" width="300"/>
 </p>
-
+&nbsp;
+&nbsp;
 
 ### Export
 
 Under the `Actions` menu, select the `Export` drowpdown menu. Two options will be diplayed `To CAS` and `To AnnData`.
 
+&nbsp;
+&nbsp;
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions_export.png" alt="Use the dropdown menu" width="300"/>
 </p>
+&nbsp;
+&nbsp;
 
 
 ### To CAS
@@ -402,17 +435,20 @@ Apply your modifications directly to the associated AnnData file for the taxonom
 
 The `metadata` table contains a `matrix_file_id` column, representing a resolvable ID for a cell-by-gene matrix file, formatted as `namespace:accession`. For example, `CellXGene_dataset:8e10f1c4-8e98-41e5-b65f-8cd89a887122` (Please refer to the [cell-annotation-schema registry](https://github.com/cellannotation/cell-annotation-schema/blob/main/registry/registry.json) for a list of supported namespaces.)
 
-WUpon initial launch, TDT creates a `tdt_datasets` directory in the user home folder. It attempts to resolve all matrix_file_id references within this directory. The system searches for the corresponding file (e.g., `$HOME/tdt_datasets/8e10f1c4-8e98-41e5-b65f-8cd89a887122.h5ad`) and then initiates a [cas-tools flatten operation](https://github.com/cellannotation/cas-tools/blob/main/docs/cli.md#flatten-onto-anndata). This process, which may vary in duration depending on the taxonomy's size, results in a new AnnData file (`/tdt_datasets/$$TAXONOMY_ID$$.h5ad`) incorporating the user's annotations.
+Upon initial launch, TDT creates a `tdt_datasets` directory in the user home folder. It attempts to resolve all matrix_file_id references within this directory. The system searches for the corresponding file (e.g., `$HOME/tdt_datasets/8e10f1c4-8e98-41e5-b65f-8cd89a887122.h5ad`) and then initiates a [cas-tools flatten operation](https://github.com/cellannotation/cas-tools/blob/main/docs/cli.md#flatten-onto-anndata). This process, which may vary in duration depending on the taxonomy's size, results in a new AnnData file (`/tdt_datasets/$$TAXONOMY_ID$$.h5ad`) incorporating the user's annotations.
 
 
 
 ### Advanced Setting - Version Control
 
-This documentation is under development.
+Under the Action dropdown menu, a version control option is available. The verson control menu is directed for users who are comfortable working with GitHub. For more informations on GitHub have a look at the documentation.
 
-
+&nbsp;
+&nbsp;
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions_version_control.png" alt="Sort and Filter by Column" width="300"/>
 </p>
 
+&nbsp;
+&nbsp;
