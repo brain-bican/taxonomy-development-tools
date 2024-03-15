@@ -3,23 +3,6 @@
 Welcome to the Taxonomy Development Tools User Interface Guide. This document is designed to provide comprehensive details on navigating and utilizing the TDT interface efficiently. Whether you are looking to manage data tables, edit information, or leverage advanced features, this guide will assist you in making the most out of TDT.
 
 
-1. [Tables](#tables)
-1. [Table Management](#table-management)
-   1. [Change Table Format](#change-table-format)
-   1. [Sorting and Filtering Data](#sorting-and-filtering-data)
-   1. [Reset Table](#reset-table)
-   1. [Change Table View](#change-table-view)
-   1. [Adding New Record](#adding-new-records)
-   1. [Editing Existing Data](#editing-existing-data)
-   1. [Saving Existing or New Data](#saving-existing-or-new-data)
-1. [Actions](#actions)
-   1. [Save](#save)
-   1. [Export](#export)
-       1. [to CAS](#to-CAS)
-       1. [to AnnData](#to-anndata)
-   1. [Advanced settings - Version Control](#advanced-settings-version-control)
-
-
 ## Tables
 
 At the heart of the Taxonomy Development Tools is a robust internal database designed to streamline the management and curation of taxonomy-related data. Access to this database is facilitated through a user-friendly interface, with tables being a central component.
