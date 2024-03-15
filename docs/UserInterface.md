@@ -7,7 +7,7 @@ Welcome to the Taxonomy Development Tools User Interface Guide. This document is
 
 At the heart of the Taxonomy Development Tools is a robust internal database designed to streamline the management and curation of taxonomy-related data. Access to this database is facilitated through a user-friendly interface, with tables being a central component.
 
-The default view when loading TDT is a view of all of the the available tables. You can return to this at any time via the 'table` option in the `Tables` dropdown menu at the top of the interface, which can also be used to select specific tables.
+The default view when loading TDT is a view of all of the the available tables. You can return to this at any time via the `table` option in the `Tables` dropdown menu at the top of the interface, which can also be used to select specific tables.
 
 &nbsp;
 &nbsp;
