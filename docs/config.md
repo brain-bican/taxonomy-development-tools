@@ -10,7 +10,7 @@ To start a new project, we need to collect some general metadata. Here, for exam
 id: CS202210140 
 title: Human Brain Cell Atlas v1.0 - non neuronal
 description: "Atlas of human primary motor cortex (M1), developed in collaboration with the BRAIN Initiative Cell Census Network (BICCN), non neuronal cells.
-matrix_file_id: CellXGene_dataset:b165f033-9dec-468a-9248-802fc6902a74  
+matrix_file_id: CellXGene_dataset:b165f033-9dec-468a-9248-802fc6902a74
 github_org: brain-bican
 repo: human-brain-cell-atlas_v1_non-neuronal
 author: https://orcid.org/0000-0001-7620-8973
@@ -19,6 +19,7 @@ citation: DOI:10.1126/science.add7046
 creators:
   - https://orcid.org/0000-0001-7258-9596
   - https://orcid.org/0000-0002-3315-2794
+#datasets_folder: /path/to/tdt_datasets
 ```
 
 * `id`: should specify a unique ID for the taxonomy.  This is used to name files as well as URLs from which the taxonomy can be retrieved.
@@ -28,7 +29,8 @@ creators:
 * `author`: Every taxonomy must have a primary author.  We use ORCID to record this.
 * `accession_id_prefix`: The prefix used to create IDs for new cell sets added to the taxonomy
 * `citation`: DOI of associated paper (where the taxonomy is for a published dataset)
-* creators: ORCIDs or all other authors should be included here
+* `creators`: ORCIDs or all other authors should be included here
+* `datasets_folder`: (Optional) _This property is only support in linux/macOS systems._ The folder where the AnnData files are stored. If not provided, the datasets will be stored in the default location (`$USER_HOME/tdt_datasets`).
 
 ## Configure seeding a new taxonomy from an existing informal taxonomy.
 
