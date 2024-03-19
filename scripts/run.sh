@@ -28,12 +28,21 @@ datasets_dir="$HOME/tdt_datasets"
 
 # read project config to get datasets folder
 project_config_file=$(find $PWD -regex ".*\(_project_config\.yaml\)"); echo "$project_config_file"
-if [ -e $project_config_file ]
+if [ -e "$project_config_file" ]
 then
-    conf_dir=$(grep -A0 'datasets_folder:' $project_config_file | tail -n1); conf_dir=${conf_dir//*datasets_folder: /}
-    if [ ! -z "$conf_dir" ]
+    directory_config=$(grep -A0 'datasets_folder:' $project_config_file | tail -n1)
+    echo "directory_config: $directory_config"
+    # if the directory_config is not a commented out line
+    if [ -n "${directory_config%%#*}" ]
     then
-        datasets_dir=$conf_dir
+        conf_dir=${directory_config//*datasets_folder:/}
+        echo "conf_dir: $conf_dir"
+        # if value not empty
+        if [ -n "$conf_dir" ]
+        then
+            # strip spaces
+            datasets_dir=${conf_dir//[[:blank:]]/}
+        fi
     fi
 fi
 
