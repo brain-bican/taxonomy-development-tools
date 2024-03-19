@@ -43,12 +43,28 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Getting started</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../QuickStart/">Quick Start Guide</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Intro_to_TDT/">Introduction to TDT</a>
+                </li>
+              </ul>
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Install Requirements</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#docker">Docker</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#git">Git</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configure">Configure</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-a-git-access-token">Create a Git access token</a>
+    </li>
+        </ul>
     </li>
     </ul>
                 </li>
@@ -90,7 +106,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Install Requirements</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/master/docs/Build.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/docs/edit/master/docs/Build.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -99,31 +115,110 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="install-requirements">Install Requirements</h1>
+<p>This document contains all the necessary steps to install and cofigure GitHub and Docker.</p>
+<ol>
+<li><a href="#install-requirements">Install Requirements</a></li>
+<li><a href="#table-management">Docker</a></li>
+<li><a href="#git">Git</a></li>
+<li><a href="#sorting-and-filtering-data">Installation</a></li>
+<li><a href="#configure">Configure</a></li>
+<li><a href="#create-a-Git-access-token">Create a Git access token</a></li>
+<li><a href="#Set-a-GH-TOKEN-environment">Set a GH-TOKEN environment</a></li>
+<li><a href="#taxonomy-development-tools-docker-image">Taxonomy Development Tools Docker image</a></li>
+<li><a href="#Manual-download-of-the-taxonomy-development-tools-docker-image">Manual Download of the Taxonomy Development Tools Docker Image</a></li>
+<li><a href="#build-taxonomy-development-tools(optional)">Build Taxonomy Development Tools (Optional)</a></li>
+</ol>
 <h2 id="docker">Docker</h2>
 <ul>
-<li>Install <a href="https://www.docker.com/get-docker">Docker</a> and make sure its runnning properly, for example by typing <code>docker ps</code> in your terminal or command line (CMD). If all is ok, you should be seeing something like:</li>
+<li>Install <a href="https://www.docker.com/get-docker">Docker desktop</a>. To make sure it is running properly, type <code>Docker ps</code> on the command line(CMD) or on the terminal   make sure its runnning properly, for example by typing <code>docker ps</code> in your terminal or command line (CMD). If all is ok, you should be seeing something like:</li>
 </ul>
 <pre><code>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 </code></pre>
 <h2 id="git">Git</h2>
+<p>You can set up Git through the command line or through GitHub desktop. </p>
+<h3 id="installation">Installation</h3>
 <ol>
-<li>
-<p>Make sure you have <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Git installed</a>.</p>
-</li>
-<li>
-<p>Set up your GitHub user configs</p>
-</li>
+<li>Make sure you have <a href="https://github.com/git-guides/install-git">Git installed</a>. Usually, <code>git</code> is already installed as a default option in linux, mac and windows machines, if this is not the case for your machine, simply follow the instructions in this <a href="https://github.com/git-guides/install-git">link</a>.</li>
 </ol>
+<h3 id="configure">Configure</h3>
+<p>You can configure your GitHub account either from the command line or from the Desktop GUI interface. For additional documentation on setting up your GitHub account follow this <a href="https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account">link</a>. </p>
+<p>Set a GitHub account <a href="https://github.com/">online</a> by following the prompts.</p>
+<p>Configure Git using the command line or terminal:</p>
 <pre><code>git config --global user.name &quot;your_github_user&quot;
 git config --global user.email &quot;your_github_email&quot;
 </code></pre>
+<p>Install <a href="https://desktop.github.com/?ref_cta=download+desktop&amp;ref_loc=installing+github+desktop&amp;ref_page=docs">GitHub Desktop</a> (reccomended but not compulsory).</p>
+<p>Sign in with your GitHub account on GitHub Desktop. GitHub desktop will automatically detect the GitHub username and account used to configure your machine. More informations on GitHub, the Desktop app and the machine configuration can be found <a href="https://docs.github.com/en/desktop/configuring-and-customizing-github-desktop/configuring-git-for-github-desktop">here</a>.</p>
+<h3 id="create-a-git-access-token">Create a Git access token</h3>
+<p>To access the TDT you need a <code>personal access token</code> from GitHub. A <code>personal access token</code> is a string of characters that is used to authenticate your account when accessing online resources (i.e. the TDT database) instead of using your password. You should keep your <code>personal access token</code> as a password. Here there are the steps to generate a personal access token. </p>
+<p>What do you need to generate a personal access token:</p>
+<ul>
+<li>A GitHub email account. </li>
+<li>Git configured on your machine. </li>
+<li>A GitHub mobile app for autentication.</li>
+</ul>
+<p>On GitHub there are two type of <code>personal access token</code>: classic and fine-grained. For the TDT you need to generate a fine-grained personal access token. </p>
+<p>Login to the <a href="https://github.com">GitHub</a> webpage and autenticate your e-mail. </p>
+<p>On the top right corner of the dashboard, select your account profile:</p>
+<p>&nbsp;
+&nbsp;</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/GitHub_dashboard.png" alt="Select your account" width="600"/>
+</p>
+<p>&nbsp;
+&nbsp;
+On the side menu select <code>settings</code>. 
+&nbsp;
+&nbsp;</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/GitHub_setting.png" alt="Select settings" width="400"/>
+</p>
+<p>&nbsp;
+&nbsp;
+In the <code>settings</code> menu, at the bottom of the left side bar, select <code>&lt; &gt; Developer settings</code>.
+&nbsp;
+&nbsp;</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/GitHub_developer_tool.png" alt="Select developer settings" width="400"/>
+</p>
+<p>&nbsp;
+&nbsp;
+On the left side bar, select the <code>Personal access tokens</code>, on the dropdown options select <code>Tokens (Classic)</code>.
+&nbsp;
+&nbsp;</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/GitHub_generate_classic_token.png" alt="Select access tokens classic" width="400"/>
+</p>
+<p>&nbsp;
+&nbsp;
+Select <code>Generate a new token</code> and on the dropdown menu select <code>Generate a new token (classic)</code> This step will require autentication with the mobile app.
+&nbsp;
+&nbsp;</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/GitHub_generate_a_new_token.png" alt="Select your account" width="600"/>
+</p>
+<p>&nbsp;
+&nbsp;
+Add a note specifying the use of the token and call it "Taxonomy_development_tool". 
+Under the <code>Expiration</code> dropdown menu select the option <code>no expiration</code>.
+Under the <code>Select scopes</code> list select the option <code>repo</code>.
+&nbsp;
+&nbsp;</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/GitHub_new_personal_token.png" alt="Select your account" width="600"/>
+</p>
+<p>&nbsp;
+&nbsp;
+At the bottom left of the page, select <code>Generate token</code>. Save this token on a text editor and keep it secure. It will be needed for the downstream steps.
+&nbsp;
+&nbsp;</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/GitHub_generate_token.png" alt="Select your account" width="400"/>
+</p>
+<p>&nbsp;
+&nbsp;</p>
 <ol>
-<li>
-<p>Create a GitHub <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic">personal access token</a>.</p>
-</li>
-<li>
-<p>Set <code>GH_TOKEN</code> environment variable. </p>
-</li>
+<li>Set <code>GH_TOKEN</code> environment variable. </li>
 </ol>
 <p><strong><em>For Linux and MacOS:</em></strong></p>
 <ul>
@@ -136,20 +231,28 @@ git config --global user.email &quot;your_github_email&quot;
 <pre><code>nano ~/.zshrc
 </code></pre>
 <ul>
-<li>When the file opens, add the environment variable in a new line:</li>
+<li>This way you would open the 'zshrc' file (in MacOS) or the 'bashrc' (in Linux). When the file opens, add the environment variable in a new line and insert the personal access token generated in the previous steps :</li>
 </ul>
 <pre><code>export GH_TOKEN=my_github_personal_access_token_here`
 </code></pre>
+<p>Save and close the file, if you are using nano press <code>crtl+X</code> to exit and <code>Y</code> to save the file. </p>
 <ul>
 <li>Reinitialize the configuration file to apply the changes to the current session:</li>
 </ul>
-<p><code>source ~/.bashrc</code> or <code>source ~/.zshrc</code></p>
+<p>For bash (Linux):</p>
+<pre><code>source ~/.bashrc
+</code></pre>
+<p>or zshrc (MacOS)</p>
+<pre><code>source ~/.zshrc
+</code></pre>
 <ul>
 <li>Test your new config open a new Terminal and run: </li>
 </ul>
 <pre><code>echo $GH_TOKEN
 </code></pre>
+<p>your GitHub access token should be displayed. </p>
 <p><strong><em>For Windows:</em></strong></p>
+<p>Open the command line and type:</p>
 <pre><code>setx GH_TOKEN my_github_personal_access_token_here
 </code></pre>
 <ul>
@@ -173,7 +276,7 @@ git config --global user.email &quot;your_github_email&quot;
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href=".." class="btn btn-neutral float-left" title="Getting started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Intro_to_TDT/" class="btn btn-neutral float-left" title="Introduction to TDT"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../QuickStart/" class="btn btn-neutral float-right" title="Quick Start">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -197,11 +300,11 @@ git config --global user.email &quot;your_github_email&quot;
   <span class="rst-current-version" data-toggle="rst-current-version">
     
         <span>
-          <a href="https://github.com/brain-bican/taxonomy-development-tools" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/docs" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
         </span>
     
     
-      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Intro_to_TDT/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../QuickStart/" style="color: #fcfcfc">Next &raquo;</a></span>
