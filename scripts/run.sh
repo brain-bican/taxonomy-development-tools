@@ -24,6 +24,29 @@ fi
 GITHUB_USER=$(git config user.name)
 GITHUB_EMAIL=$(git config user.email)
 
-mkdir -p "$HOME/tdt_datasets"
+datasets_dir="$HOME/tdt_datasets"
 
-docker run -v "$PWD:/work" -v "$HOME/tdt_datasets:/tdt_datasets" -w /work --rm -ti -p 3000:3000 -p 8000:8000 -e "GITHUB_AUTH_TOKEN=$GH_TOKEN" --env "GITHUB_USER=$GITHUB_USER" --env "GITHUB_EMAIL=$GITHUB_EMAIL" ghcr.io/brain-bican/$IMAGE $TIMECMD "$@"
+# read project config to get datasets folder
+project_config_file=$(find $PWD -regex ".*\(_project_config\.yaml\)"); echo "$project_config_file"
+if [ -e "$project_config_file" ]
+then
+    directory_config=$(grep -A0 'datasets_folder:' $project_config_file | tail -n1)
+    echo "directory_config: $directory_config"
+    # if the directory_config is not a commented out line
+    if [ -n "${directory_config%%#*}" ]
+    then
+        conf_dir=${directory_config//*datasets_folder:/}
+        echo "conf_dir: $conf_dir"
+        # if value not empty
+        if [ -n "$conf_dir" ]
+        then
+            # strip spaces
+            datasets_dir=${conf_dir//[[:blank:]]/}
+        fi
+    fi
+fi
+
+echo "datasets_dir: $datasets_dir"
+mkdir -p "$datasets_dir"
+
+docker run -v "$PWD:/work" -v "$datasets_dir:/tdt_datasets" -w /work --rm -ti -p 3000:3000 -p 8000:8000 -e "GITHUB_AUTH_TOKEN=$GH_TOKEN" --env "GITHUB_USER=$GITHUB_USER" --env "GITHUB_EMAIL=$GITHUB_EMAIL" ghcr.io/brain-bican/$IMAGE $TIMECMD "$@"
