@@ -23,7 +23,7 @@ We will walk you though the steps to make a new ontology project
 **NOTE:** Windows users, occasionally it has been reported that files downloaded on a Windows machine get a wrong file ending, for example `seed-via-docker.bat.txt` instead of `seed-via-docker.bat`, or, as we will see later, `project.yaml.txt` instead of `project.yaml`. If you have problems, double check your files are named correctly after the download!
 
 ## 2. Prepare your configuration file:
- - [Follow the instructions here].(config.md)
+ - [Follow the instructions here](https://brain-bican.github.io/taxonomy-development-tools/config/)
 
 ## 3. Run the wrapper script
 
