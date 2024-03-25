@@ -14,7 +14,7 @@ IMAGE=${IMAGE:-taxonomy-development-tools}
 TDT_DEBUG=${TDT_DEBUG:-no}
 
 TIMECMD=
-if [ x$TDT_DEBUG = xyes ]; then
+if [ $TDT_DEBUG = yes ]; then
     # If you wish to change the format string, take care of using
     # non-breaking spaces (U+00A0) instead of normal spaces, to
     # prevent the shell from tokenizing the format string.
@@ -31,7 +31,6 @@ project_config_file=$(find $PWD -regex ".*\(_project_config\.yaml\)"); echo "$pr
 if [ -e "$project_config_file" ]
 then
     directory_config=$(grep -A0 'datasets_folder:' $project_config_file | tail -n1)
-    echo "directory_config: $directory_config"
     # if the directory_config is not a commented out line
     if [ -n "${directory_config%%#*}" ]
     then
