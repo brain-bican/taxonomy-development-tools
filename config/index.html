@@ -103,7 +103,7 @@
 <pre><code class="language-yaml">id: CS202210140 
 title: Human Brain Cell Atlas v1.0 - non neuronal
 description: &quot;Atlas of human primary motor cortex (M1), developed in collaboration with the BRAIN Initiative Cell Census Network (BICCN), non neuronal cells.
-matrix_file_id: CellXGene_dataset:b165f033-9dec-468a-9248-802fc6902a74  
+matrix_file_id: CellXGene_dataset:b165f033-9dec-468a-9248-802fc6902a74
 github_org: brain-bican
 repo: human-brain-cell-atlas_v1_non-neuronal
 author: https://orcid.org/0000-0001-7620-8973
@@ -112,6 +112,7 @@ citation: DOI:10.1126/science.add7046
 creators:
   - https://orcid.org/0000-0001-7258-9596
   - https://orcid.org/0000-0002-3315-2794
+#datasets_folder: /path/to/tdt_datasets
 </code></pre>
 <ul>
 <li><code>id</code>: should specify a unique ID for the taxonomy.  This is used to name files as well as URLs from which the taxonomy can be retrieved.</li>
@@ -121,7 +122,8 @@ creators:
 <li><code>author</code>: Every taxonomy must have a primary author.  We use ORCID to record this.</li>
 <li><code>accession_id_prefix</code>: The prefix used to create IDs for new cell sets added to the taxonomy</li>
 <li><code>citation</code>: DOI of associated paper (where the taxonomy is for a published dataset)</li>
-<li>creators: ORCIDs or all other authors should be included here</li>
+<li><code>creators</code>: ORCIDs or all other authors should be included here</li>
+<li><code>datasets_folder</code>: (Optional) <em>This property is only support in linux/macOS systems.</em> The folder where the AnnData files are stored. If not provided, the datasets will be stored in the default location (<code>$USER_HOME/tdt_datasets</code>). Please note that using a network drive will slow down the AnnData related actions such as <code>Export &gt; To CAS</code> and <code>Export &gt; To AnnData</code>.</li>
 </ul>
 <h2 id="configure-seeding-a-new-taxonomy-from-an-existing-informal-taxonomy">Configure seeding a new taxonomy from an existing informal taxonomy.</h2>
 <p>TDT supports seeding of new taxonomies from existing informal taxonomy spreadsheets. The entire content of these spreadsheets is preserved and editable within the TDT annotation table. A simple configuration file supports mapping of relevant content into the  content in  Cell Annotation Schema (CAS) Taxonomy standard.</p>
