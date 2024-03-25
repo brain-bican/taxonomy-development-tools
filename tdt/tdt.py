@@ -218,7 +218,7 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_folder(outdir, "curation_tables", tgts, "Curation Tables", "CCN2 taxonomy curation tables.")
     create_folder(outdir, "purl", tgts, "PURL Configuration", "BICAN Permanent URLs sample configuration file. "
                                                               "Please make a pull request to place this file in [BICAN PURLs taxonomy configuration folder]"
-                                                              "(https://github.com/hkir-dev/purl.bican.org/tree/main/config/taxonomy) via TDT 'Publish PURL' action.")
+                                                              "(https://github.com/hkir-dev/purl.brain-bican.org/tree/main/config/taxonomy) via TDT 'Publish PURL' action.")
     create_folder(outdir, "src/assets", tgts)
     create_folder(outdir, "src/resources", tgts)
     create_folder(outdir, "src/schema", tgts)
