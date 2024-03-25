@@ -57,12 +57,12 @@ def import_data(input, schema, curation_tables):
 
     # provide either json or tsv + yaml
     if user_cas_path:
-        print("Using the provided cas data file: " + user_cas_path)
+        print("Loading data from CAS data file: " + user_cas_path)
         user_file_name = os.path.splitext(os.path.basename(user_cas_path))[0]
         std_data = read_cas_json_file(user_cas_path)
     else:
         if user_data_path:
-            print("Using the provided annotation file: " + user_data_path)
+            print("Loading data from annotation file: " + user_data_path)
         else:
             raise Exception("Couldn't find the cell type annotation config file (with yaml or yml extension) in folder: " + input)
 
