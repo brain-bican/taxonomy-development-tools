@@ -14,3 +14,4 @@ nav:
   - How-to guides:
     -  Update to a newer TDT version: Update.md
 repo_url: https://github.com/brain-bican/taxonomy-development-tools/
+edit_uri: edit/main/docs/
