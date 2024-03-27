@@ -13,4 +13,4 @@ nav:
   - User Interface: UserInterface.md
   - How-to guides:
     -  Update to a newer TDT version: Update.md
-repo_url: https://github.com/brain-bican/taxonomy-development-tools/tree/main/docs
+repo_url: https://github.com/brain-bican/taxonomy-development-tools/
