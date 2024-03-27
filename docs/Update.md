@@ -48,6 +48,8 @@ Update the repository with the following command in the root directory:
 bash run.sh make upgrade
 ```
 
+This command needs to be run for two times since the first time it will update the repository (runner scripts as well) and the second time it will update the TDT.
+
 After upgrading, launch TDT, review the changes, and save them if they meet your expectations (`Actions` > `File` > `Save`). Inform your team about the updates and guide them through the update process as described in Steps 1-3.
 
 ## Encountering Issues?

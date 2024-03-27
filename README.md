@@ -6,21 +6,18 @@ TDT is a graphical editor that converts informal taxonomies used within BICAN in
 With TDT you can:
 
 - Create a repository to manage your taxonomies.
-- Convert your data to Cell Type Annotation Standard representation.
+- Convert your data to Cell Annotation Schema representation.
 - Run interactive web editors to curate your data with ontology search and data validation support.
 
 # Where to get help
 
-
-- To install and launch existing taxonomy use the [Quick Start TDT](QuickStart.md) 
-- To have an overview of Taxonomy Development read the [Intro to TDT](Intro_to_TDT.md)
-- For a more detailed guide to set up have a look at the [Get Your System Ready](Build.md) documentation.
-- To create a repository for a new taxonomy have a look at the [New repository](NewRepo.md) documentation.
-- To review an existing informal taxonomy follow the [Curation](Curation.md) documentation.
-- To learn how to use the user interface follow the [UI guide](UserInterface.md).
-- To use the latest version of TDT read the [Update](Update.md) documentation.
-Tools for building and curating [CCN2](https://github.com/obophenotype/CCN2) taxonomies. With TDT you can:
-
+- To install and launch existing taxonomy use the [Quick Start TDT](https://brain-bican.github.io/taxonomy-development-tools/QuickStart/) 
+- To have an overview of Taxonomy Development read the [Intro to TDT](https://brain-bican.github.io/taxonomy-development-tools/Intro_to_TDT/)
+- For a more detailed guide to set up have a look at the [Get Your System Ready](https://brain-bican.github.io/taxonomy-development-tools/Build/) documentation.
+- To create a repository for a new taxonomy have a look at the [New repository](https://brain-bican.github.io/taxonomy-development-tools/NewRepo/) documentation.
+- To review an existing informal taxonomy follow the [Curation](https://brain-bican.github.io/taxonomy-development-tools/Curation/) documentation.
+- To learn how to use the user interface follow the [UI guide](https://brain-bican.github.io/taxonomy-development-tools/UserInterface/).
+- To use the latest version of TDT read the [Update](https://brain-bican.github.io/taxonomy-development-tools/Update/) documentation. 
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/table_AITT.png" alt="Taxonomy Editor" width="700"/>

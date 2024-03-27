@@ -1,4 +1,4 @@
-# PURL configuration for https://purl.bican.org/taxonomy/$$TAXONOMY_ID$$
+# PURL configuration for https://purl.brain-bican.org/taxonomy/$$TAXONOMY_ID$$
 
 idspace: $$TAXONOMY_ID$$
 base_url: /taxonomy/$$TAXONOMY_ID$$
@@ -10,11 +10,11 @@ base_redirect: https://github.com/$$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$
 
 entries:
 
-# https://purl.bican.org/taxonomy/$$TAXONOMY_ID$$/$$TAXONOMY_ID$$.json
+# https://purl.brain-bican.org/taxonomy/$$TAXONOMY_ID$$/$$TAXONOMY_ID$$.json
 - exact: /$$TAXONOMY_ID$$.json
   replacement: https://raw.githubusercontent.com/$$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$/main/$$TAXONOMY_ID$$.json
 
-# https://purl.bican.org/taxonomy/$$TAXONOMY_ID$$/releases/2023-09-24/$$TAXONOMY_ID$$.json
+# https://purl.brain-bican.org/taxonomy/$$TAXONOMY_ID$$/releases/2023-09-24/$$TAXONOMY_ID$$.json
 - prefix: /releases/
   replacement: https://raw.githubusercontent.com/$$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$/v
   tests:
