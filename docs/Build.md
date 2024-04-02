@@ -6,13 +6,13 @@ This document contains all the necessary steps to install and cofigure GitHub an
 1. [Install Requirements](#install-requirements)
 1. [Docker](#table-management)
 1. [Git](#git)
-   1. [Installation](#sorting-and-filtering-data)
-   1. [Configure](#configure)
-   1. [Create a Git access token](#create-a-Git-access-token)
-   1. [Set a GH-TOKEN environment](#Set-a-GH-TOKEN-environment)
+    1. [Installation](#installation)
+    1. [Configure](#configure)
+    1. [Create a Git access token](#create-a-git-access-token)
+    1. [Set a GH-TOKEN environment](#set-gh-token-environment-variable)
 1. [Taxonomy Development Tools Docker image](#taxonomy-development-tools-docker-image)
-   1. [Manual Download of the Taxonomy Development Tools Docker Image](#Manual-download-of-the-taxonomy-development-tools-docker-image)
-   1. [Build Taxonomy Development Tools (Optional)](#build-taxonomy-development-tools(optional))
+    1. [Manual Download of the Taxonomy Development Tools Docker Image](#manual-download-of-the-taxonomy-development-tools-docker-image)
+    1. [Build Taxonomy Development Tools (Optional)](#build-taxonomy-development-tools-optional)
 
 
 ## Docker
@@ -27,9 +27,9 @@ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 You can set up Git through the command line or through GitHub desktop. 
 
-### Installation 
+### Installation
 
-1. Make sure you have [Git installed](https://github.com/git-guides/install-git). Usually, `git` is already installed as a default option in linux, mac and windows machines, if this is not the case for your machine, simply follow the instructions in this [link](https://github.com/git-guides/install-git).
+Make sure you have [Git installed](https://github.com/git-guides/install-git). Usually, `git` is already installed as a default option in linux, mac and windows machines, if this is not the case for your machine, simply follow the instructions in this [link](https://github.com/git-guides/install-git).
 
 ### Configure
 
@@ -63,7 +63,7 @@ On GitHub there are two type of `personal access token`: classic and fine-graine
 
 Login to the [GitHub](https://github.com) webpage and autenticate your e-mail. 
 
-On the top right corner of the dashboard, select your account profile:
+In the top right corner of the dashboard, select your account profile:
 
 &nbsp;
 &nbsp;
@@ -88,7 +88,7 @@ In the `settings` menu, at the bottom of the left side bar, select `< > Develope
 </p>
 &nbsp;
 &nbsp;
-On the left side bar, select the `Personal access tokens`, on the dropdown options select `Tokens (Classic)`.
+On the left sidebar, select the `Personal access tokens`, on the dropdown options select `Tokens (Classic)`.
 &nbsp;
 &nbsp;
 <p align="center">
@@ -106,7 +106,7 @@ Select `Generate a new token` and on the dropdown menu select `Generate a new to
 &nbsp;
 Add a note specifying the use of the token and call it "Taxonomy_development_tool". 
 Under the `Expiration` dropdown menu select the option `no expiration`.
-Under the `Select scopes` list select the option `repo`.
+Under the `Select scopes` list select the option `repo` and `read:org`.
 &nbsp;
 &nbsp;
 <p align="center">
@@ -122,12 +122,13 @@ At the bottom left of the page, select `Generate token`. Save this token on a te
 </p>
 &nbsp;
 &nbsp;
+Once you've created the new token, it may be necessary to execute the command `git credential-cache exit` to clear the old token, preventing any potential conflicts.
 
+### Set GH-TOKEN environment variable
 
+To configure the `GH_TOKEN` environment variable, please follow the instructions specific to your operating system.
 
-4. Set `GH_TOKEN` environment variable. 
-
-**_For Linux and MacOS:_**
+**_For Linux and macOS:_**
 
 - You can use `nano` or any other editor to edit the files.
 
