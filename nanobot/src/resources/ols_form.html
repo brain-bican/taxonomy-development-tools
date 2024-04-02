@@ -153,25 +153,48 @@
     return accession_prefix + (max_id + 1);
   }
 
-  $.getJSON(table_json_url, function (table_data) {
-    // var form_data = table_data[parseInt(row_number) - 1]
+  var api_results = {}; // final object containing consolidated api result
+  $.when(
+      $.getJSON(table_json_url, function (data) {
+        api_results["annotations"] = data;
+      }),
 
-    // console.log("Form data ", form_data);
-    // console.log("All data ", table_data);
+      $.getJSON(labelset_json_url, function (labelset_data) {
+        var labelset_ranks = [];
+        for (index in labelset_data) {
+          labelset = labelset_data[index];
+          labelset_ranks[labelset.name] = parseInt(labelset.rank);
+        }
+        api_results["labelsets"] = labelset_ranks;
+      })
+  ).done(function() {
+    table_data = api_results["annotations"]
+    labelset_ranks = api_results["labelsets"]
+    var parents = table_data;
+
+    // console.log("All data: ", table_data);
     // sort highest rank first but ordered by accession_id if same rank. Then filter higher ranks only
     // table_data.sort((a, b) => (a.rank > b.rank) ? -1 : (a.rank === b.rank) ? ((a.cell_set_accession > b.cell_set_accession) ? 1 : -1) : 1 );
-    // var parents = table_data.filter(function (el) {
-    //   return parseInt(el.rank) > parseInt(form_data.rank);
-    // });
-    // console.log("Table data ", parents);
 
-    configure_autocomplete("parent_cell_set_name", table_data);
+    if (! is_new_row) {
+      // filter higher ranks only as parents while editing
+      form_data = table_data[parseInt(row_number) - 1];
+      // console.log("Form data: ", form_data);
+      parents = table_data.filter(function (el) {
+        return labelset_ranks[el.labelset] > labelset_ranks[form_data.labelset];
+      });
+    }
+
+    // parent autocomplete
+    configure_autocomplete("parent_cell_set_name", parents);
+
+    // auto assign incremental accession
     if (is_new_row) {
       accession_prefix = get_accession_prefix(table_data);
       console.log("accession_prefix:", accession_prefix);
-      // auto assign incremental accession
       $("*[name='cell_set_accession']").first()[0].value = get_new_accession(table_data, accession_prefix);
     }
+
   });
 
   $("*[name='parent_cell_set_name']").first().on('change', function(evt, item) {
