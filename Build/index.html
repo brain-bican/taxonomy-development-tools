@@ -64,6 +64,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#create-a-git-access-token">Create a Git access token</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#set-gh-token-environment-variable">Set GH-TOKEN environment variable</a>
+    </li>
         </ul>
     </li>
     </ul>
@@ -83,6 +85,8 @@
               </ul>
               <p class="caption"><span class="caption-text">How-to guides</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Configuring a new project</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../Update/">Update to a newer TDT version</a>
                   </li>
               </ul>
@@ -115,14 +119,18 @@
 <ol>
 <li><a href="#install-requirements">Install Requirements</a></li>
 <li><a href="#table-management">Docker</a></li>
-<li><a href="#git">Git</a></li>
-<li><a href="#sorting-and-filtering-data">Installation</a></li>
+<li><a href="#git">Git</a><ol>
+<li><a href="#installation">Installation</a></li>
 <li><a href="#configure">Configure</a></li>
-<li><a href="#create-a-Git-access-token">Create a Git access token</a></li>
-<li><a href="#Set-a-GH-TOKEN-environment">Set a GH-TOKEN environment</a></li>
-<li><a href="#taxonomy-development-tools-docker-image">Taxonomy Development Tools Docker image</a></li>
-<li><a href="#Manual-download-of-the-taxonomy-development-tools-docker-image">Manual Download of the Taxonomy Development Tools Docker Image</a></li>
-<li><a href="#build-taxonomy-development-tools(optional)">Build Taxonomy Development Tools (Optional)</a></li>
+<li><a href="#create-a-git-access-token">Create a Git access token</a></li>
+<li><a href="#set-gh-token-environment-variable">Set a GH-TOKEN environment</a></li>
+</ol>
+</li>
+<li><a href="#taxonomy-development-tools-docker-image">Taxonomy Development Tools Docker image</a><ol>
+<li><a href="#manual-download-of-the-taxonomy-development-tools-docker-image">Manual Download of the Taxonomy Development Tools Docker Image</a></li>
+<li><a href="#build-taxonomy-development-tools-optional">Build Taxonomy Development Tools (Optional)</a></li>
+</ol>
+</li>
 </ol>
 <h2 id="docker">Docker</h2>
 <ul>
@@ -133,9 +141,7 @@
 <h2 id="git">Git</h2>
 <p>You can set up Git through the command line or through GitHub desktop. </p>
 <h3 id="installation">Installation</h3>
-<ol>
-<li>Make sure you have <a href="https://github.com/git-guides/install-git">Git installed</a>. Usually, <code>git</code> is already installed as a default option in linux, mac and windows machines, if this is not the case for your machine, simply follow the instructions in this <a href="https://github.com/git-guides/install-git">link</a>.</li>
-</ol>
+<p>Make sure you have <a href="https://github.com/git-guides/install-git">Git installed</a>. Usually, <code>git</code> is already installed as a default option in linux, mac and windows machines, if this is not the case for your machine, simply follow the instructions in this <a href="https://github.com/git-guides/install-git">link</a>.</p>
 <h3 id="configure">Configure</h3>
 <p>You can configure your GitHub account either from the command line or from the Desktop GUI interface. For additional documentation on setting up your GitHub account follow this <a href="https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account">link</a>. </p>
 <p>Set a GitHub account <a href="https://github.com/">online</a> by following the prompts.</p>
@@ -155,7 +161,7 @@ git config --global user.email &quot;your_github_email&quot;
 </ul>
 <p>On GitHub there are two type of <code>personal access token</code>: classic and fine-grained. For the TDT you need to generate a fine-grained personal access token. </p>
 <p>Login to the <a href="https://github.com">GitHub</a> webpage and autenticate your e-mail. </p>
-<p>On the top right corner of the dashboard, select your account profile:</p>
+<p>In the top right corner of the dashboard, select your account profile:</p>
 <p>&nbsp;
 &nbsp;</p>
 <p align="center">
@@ -179,7 +185,7 @@ In the <code>settings</code> menu, at the bottom of the left side bar, select <c
 </p>
 <p>&nbsp;
 &nbsp;
-On the left side bar, select the <code>Personal access tokens</code>, on the dropdown options select <code>Tokens (Classic)</code>.
+On the left sidebar, select the <code>Personal access tokens</code>, on the dropdown options select <code>Tokens (Classic)</code>.
 &nbsp;
 &nbsp;</p>
 <p align="center">
@@ -197,7 +203,7 @@ Select <code>Generate a new token</code> and on the dropdown menu select <code>G
 &nbsp;
 Add a note specifying the use of the token and call it "Taxonomy_development_tool". 
 Under the <code>Expiration</code> dropdown menu select the option <code>no expiration</code>.
-Under the <code>Select scopes</code> list select the option <code>repo</code>.
+Under the <code>Select scopes</code> list select the option <code>repo</code> and <code>read:org</code>.
 &nbsp;
 &nbsp;</p>
 <p align="center">
@@ -212,11 +218,11 @@ At the bottom left of the page, select <code>Generate token</code>. Save this to
     <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/GitHub_generate_token.png" alt="Select your account" width="400"/>
 </p>
 <p>&nbsp;
-&nbsp;</p>
-<ol>
-<li>Set <code>GH_TOKEN</code> environment variable. </li>
-</ol>
-<p><strong><em>For Linux and MacOS:</em></strong></p>
+&nbsp;
+Once you've created the new token, it may be necessary to execute the command <code>git credential-cache exit</code> to clear the old token, preventing any potential conflicts.</p>
+<h3 id="set-gh-token-environment-variable">Set GH-TOKEN environment variable</h3>
+<p>To configure the <code>GH_TOKEN</code> environment variable, please follow the instructions specific to your operating system.</p>
+<p><strong><em>For Linux and macOS:</em></strong></p>
 <ul>
 <li>You can use <code>nano</code> or any other editor to edit the files.</li>
 </ul>
