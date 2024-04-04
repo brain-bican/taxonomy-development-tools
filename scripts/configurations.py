@@ -39,8 +39,8 @@ def configure_git(root_folder):
 
     remotes = runcmd("git remote -v")
 
-    if "origin" in remotes and os.getenv("GITHUB_AUTH_TOKEN", default=None):
-        runcmd("git remote set-url origin https://{gh_token}@github.com/{gh_org}/{gh_repo}.git/".format(gh_token=os.getenv("GITHUB_AUTH_TOKEN"), gh_org=github_org, gh_repo=repo))
+    if "origin" in remotes and os.getenv(GITHUB_TOKEN_ENV, default=None):
+        runcmd("git remote set-url origin https://{gh_token}@github.com/{gh_org}/{gh_repo}.git/".format(gh_token=os.getenv(GITHUB_TOKEN_ENV), gh_org=github_org, gh_repo=repo))
     else:
         print("WARN: The project has not been pushed to GitHub yet, resulting in incomplete GitHub authentication.")
 
@@ -51,14 +51,17 @@ def configure_git(root_folder):
 
 
 def gh_login(purl_folder):
-    github_token = os.environ.get(GITHUB_TOKEN_ENV)
+    github_token = os.getenv(GITHUB_TOKEN_ENV, default=None)
     token_file = os.path.join(purl_folder, TOKEN_FILE)
-    with open(token_file, 'w') as f:
-        f.write(github_token)
+    if github_token:
+        with open(token_file, 'w') as f:
+            f.write(github_token)
 
-    runcmd("git config --global credential.helper store")
-    runcmd("gh auth login --with-token < {}".format(token_file))
-    runcmd("gh auth setup-git")
+        runcmd("git config --global credential.helper store")
+        runcmd("gh auth login --with-token < {}".format(token_file))
+        runcmd("gh auth setup-git")
+    else:
+        print("WARN: GitHub token not found in environment variables. Some actions may fail.")
 
     return token_file
 
