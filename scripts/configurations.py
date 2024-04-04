@@ -61,7 +61,7 @@ def gh_login(purl_folder):
         runcmd("gh auth login --with-token < {}".format(token_file))
         runcmd("gh auth setup-git")
     else:
-        print("WARN: GitHub token not found in environment variables. Some actions may fail.")
+        print("WARN: GitHub token not found in environment variables. Some actions may fail. Follow: https://brain-bican.github.io/taxonomy-development-tools/Build/#set-gh-token-environment-variable")
 
     return token_file
 
