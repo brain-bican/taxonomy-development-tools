@@ -140,7 +140,7 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
                 if header == "cell_set_accession":
                     fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
                              header.replace("_", " ").strip() + "\t\ttext\tprimary\t" + get_column_description(cas_schema, user_table_name, header))
-                elif index == 0 and "cell_set_accession" not in user_headers:
+                elif index == 0 and "cell_set_accession" not in user_headers and user_table_name != "review":
                     fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
                              header.strip() + "\t\ttext\tprimary\t" + get_column_description(cas_schema, user_table_name, "cell_set_accession"))
                 elif header == "cell_ontology_term_id":
