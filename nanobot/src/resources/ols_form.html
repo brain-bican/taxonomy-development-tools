@@ -3,6 +3,9 @@
 {% block head_end %}
 <link rel="stylesheet" href="{{ page.root }}assets/styles.css" />
 <link rel="stylesheet" href="{{ page.root }}assets/ols-autocomplete.css" />
+<style>
+  .link-grey { color: #aaa; } .link-grey:hover { color: #00913b; }
+</style>
 {% endblock %}
 
 {% block body_end %}
@@ -117,17 +120,20 @@
   }// end configure_autocomplete
 
   var table_json_url = "";
-  var row_number = 0;
-  var is_new_row = false;
+  var labelset_json_url = "";
+  var row_number = null;
+  var is_new_row = false;  // flag to check if new row or edit row
   if (String(window.location.href).includes("/row/")) {
     // for edit row
     table_json_url = String(window.location.href).split("/row")[0] + ".json?limit=100000&shape=value_rows";
     row_number =  String(window.location.href).split("?")[0].split("/row/")[1]
     is_new_row = false;
+    labelset_json_url = String(window.location.href).split("/annotation")[0] + "/labelset.json?limit=100000&shape=value_rows";
   } else {
     // for add new row
     table_json_url = String(window.location.href).split("?view=")[0] + ".json?limit=100000&shape=value_rows";
     is_new_row = true;
+    labelset_json_url = String(window.location.href).split("/annotation")[0] + "/labelset.json?limit=100000&shape=value_rows";
   }
 
   function get_accession_prefix(records) {
@@ -203,5 +209,161 @@
       $("*[name='parent_cell_set_accession']").first()[0].value = "";
     }
   });
+
+  // REVIEW COMMENTS
+  var user_name = "";
+  user_json_url = "http://127.0.0.1:5000/user_info";
+  $.getJSON(user_json_url).done(function(user_data) {
+    user_name = user_data["user_name"];
+
+    // autofill user-name in review modal
+    var reviewModal = document.getElementById('reviewModal');
+    reviewModal.addEventListener('show.bs.modal', function (event) {
+      // Update the modal's content.
+      var user_name_input = reviewModal.querySelector('#modal-user-name');
+      user_name_input.value = user_name;
+    });
+  });
+
+  function update_reviews_section(records, accession_prefix) {
+    comments_json_url = "http://127.0.0.1:5000/reviews?accession_id=" + $("*[name='cell_set_accession']").first()[0].value;
+    $.getJSON(comments_json_url).done(function(review_data) {
+      review_data.sort(function(a,b){
+        return new Date(a.time) - new Date(b.time);  // sort old to new
+      });
+      console.log("Review data: ", review_data);
+
+      document.getElementById('review-title').innerHTML = `Reviews (${review_data.length})`;
+      const container = document.getElementById('review-container');
+      $("#review-container").empty();
+
+      review_data.forEach((result, idx) => {
+        review_style = "text-success";
+        if (result.review == "Disagree") {
+          review_style = "text-danger";
+        }
+        review_date = new Date(result.time);
+        const content = `
+        <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex flex-start">
+                <i class="bi bi-chat-dots ${review_style} me-3 mt-3 h2"></i>
+                <div class="w-100">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="text-primary fw-bold mb-0">
+                      ${result.name}
+                      <span class="text-dark ms-2 fw-normal">${result.explanation}</span>
+                    </h6>
+                    <p class="mb-0">${review_date.toLocaleString()}</p>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="small mb-0" style="color: #aaa;">
+                      <a href="#!" class="link-grey">Remove</a> •
+                      <a href="#!" class="link-grey">Edit</a>
+                    </p>
+                    <div class="d-flex flex-row">
+                      <i class="fas fa-star text-warning me-2"></i>
+                      <i class="far fa-check-circle" style="color: #aaa;"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        // Append newyly created card element to the container
+        container.innerHTML += content;
+      })
+    }); // end getJSON
+  } // end update_reviews_section
+
+  update_reviews_section();
+
+  // Add review
+  $(document).ready(function(){
+    $('#add-comment-submit').click(function(e){
+      e.preventDefault();
+      modal_data = {
+        "name": $("#modal-user-name").val(),
+        "review": $("#modal-review").val(),
+        "explanation": $("#modal-explanation").val(),
+        "time": new Date().toISOString(),
+        "target_node_accession": $("*[name='cell_set_accession']").first()[0].value
+      };
+      $.ajax({
+          url: "http://127.0.0.1:5000/reviews",
+          type: "POST",
+          data: JSON.stringify(modal_data),
+          dataType: 'json',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          success: function(data){
+            console.log("Successfully submitted.")
+            update_reviews_section();
+          }
+      });
+    });
+  });
+
 </script>
+
+<p>
+<hr>
+
+<section style="background-color: #f7f6f6;">
+  <div class="container mb-2 py-3 text-dark">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 id="review-title" class="text-dark mb-0">Reviews (2)</h4>
+          <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#reviewModal">Add Review</button>
+          </div>
+        </div>
+
+        <div id="review-container">
+          <!-- review cards will be appended here -->
+        </div> <!-- review-container -->
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reviewModalLabel">Review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="add-review-form">
+          <div class="mb-3">
+            <label for="user-name" class="col-form-label">Reviewer:</label>
+            <input type="text" class="form-control" id="modal-user-name" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="review" class="col-form-label">Review:</label>
+            <select class="form-select" aria-label="review" id="modal-review">
+              <option value="Agree" selected>Agree</option>
+              <option value="Disagree">Disagree</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="explanation" class="col-form-label">Explanation:</label>
+            <textarea class="form-control" id="modal-explanation" required="required"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="add-comment-submit" value="Submit">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

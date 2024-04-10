@@ -53,6 +53,7 @@ serve: $(NANOBOTDB)
 		rm -rf build/; \
 		$(NANOBOT) init; \
 	fi
+	python3 $(WORKSPACE)/tdt_api.py &
 	$(NANOBOT) serve
 
 .PHONY: clean

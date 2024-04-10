@@ -281,26 +281,29 @@
     <tr>
       <th />
       {% for name, value in column|items -%}
-      <th>
-        <a class="" data-bs-toggle="modal" href="#{{ name|id }}Modal" role="button">
-          {{ value.label or name }}
-        </a>
-        {% if value.filtered_operator %}
-        <i class="bi bi-filter-circle-fill"></i>
-        {% elif value.sorted == "asc" %}
-        <i class="bi bi-sort-up"></i>
-        {% elif value.sorted == "desc" %}
-        <i class="bi bi-sort-down"></i>
-        {% endif %}
-      </th>
+        <th>
+          <a class="" data-bs-toggle="modal" href="#{{ name|id }}Modal" role="button">
+            {{ value.label or name }}
+          </a>
+          {% if value.filtered_operator %}
+          <i class="bi bi-filter-circle-fill"></i>
+          {% elif value.sorted == "asc" %}
+          <i class="bi bi-sort-up"></i>
+          {% elif value.sorted == "desc" %}
+          <i class="bi bi-sort-down"></i>
+          {% endif %}
+        </th>
       {% endfor %}
     </tr>
   </thead>
   <tbody>
     {% for r in row -%}
     <!-- extend-start -->
-    <!-- only display user tables in the column table -->
-    {% if table.table != "column" or ("table" in r and r["table"]["value"] in ["annotation", "metadata", "labelset", "annotation_transfer"]) %}
+    {% if table.table == "column" and ("table" in r and r["table"]["value"] not in ["annotation", "metadata", "labelset", "annotation_transfer"]) %}
+    <!-- skip non user tables in the column table -->
+    {% elif table.table == "table" and ("table" in r and r["table"]["value"] in ["review"]) %}
+    <!-- don't show review table in the table table -->
+    {% else %}
     <!-- extend-end -->
     <tr>
       {% for col, cell in r|items -%}

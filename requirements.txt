@@ -11,8 +11,10 @@ openpyxl
 # git+https://github.com/ontodev/axle.git
 urlp
 mkdocs
-cas-tools==0.0.1.dev36
+# cas-tools==0.0.1.dev36
 cell-annotation-schema==0.2b0
 tdta==0.1.0.dev5
 pandas
 pyarrow
+flask
+flask-cors
