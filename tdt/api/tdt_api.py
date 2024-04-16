@@ -11,16 +11,16 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 
-@app.route('/')
-@cross_origin()
-def joke():
-    return "I haven't slept for three days, because that would be too long"
-
-
 @app.route('/user_info', methods=['GET'])
 @cross_origin()
 def get_user_info():
     return jsonify(user_info.get_user_info())
+
+
+@app.route('/all_reviews', methods=['GET'])
+@cross_origin()
+def get_all_reviews():
+    return jsonify(review.get_all_reviews())
 
 
 @app.route('/reviews', methods=['GET'])
@@ -45,6 +45,14 @@ def update_reviews():
     data = request.json
     print(data)
     return jsonify(review.update_reviews(data))
+
+
+@app.route('/reviews', methods=['DELETE'])
+@cross_origin()
+def delete_review():
+    data = request.json
+    print(data)
+    return jsonify(review.delete_review(data))
 
 
 if __name__ == '__main__':

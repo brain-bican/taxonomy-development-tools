@@ -6,6 +6,31 @@ sqlite_db = "/work/build/nanobot.db"
 TABLE_NAME = "review"
 
 
+def get_all_reviews():
+    """
+    Gets the type ('Agree'/'Disagree') of the latest reviews for each target_node_accession.
+    :return: list of reviews
+    """
+    reviews = dict()
+    with closing(sqlite3.connect(sqlite_db)) as connection:
+        with closing(connection.cursor()) as cursor:
+            # get the latest reviews for each target node accession
+            query = """
+                    SELECT review.target_node_accession as node, review.review as type
+                    FROM review
+                    INNER JOIN
+                        (SELECT target_node_accession, MAX(time) AS latestReviewDate
+                        FROM review
+                        GROUP BY target_node_accession) grouped_review 
+                    ON review.target_node_accession = grouped_review.target_node_accession 
+                    AND review.time = grouped_review.latestReviewDate
+                    """
+            rows = cursor.execute(query.format(TABLE_NAME)).fetchall()
+            for row in rows:
+                reviews[row[0]] = row[1]
+    return reviews
+
+
 def get_reviews(target_node_accession: str):
     """
     Gets all reviews about a given target node accession.
@@ -47,27 +72,38 @@ def add_review(review: dict):
     return True
 
 
-def update_reviews(reviews: list):
+def update_reviews(review: dict):
     """
-    Assumes all reviews are related with the same accession. Removes all reviews related with the accession and adds
-    the new ones.
-    :param reviews: list of reviews
+    Updates the given reviews in the database.
+    :param review: review to update
     """
-    keys = list(reviews[0].keys())
-    # keys.extend(["message", "history"])
-    columns = "({})".format(", ".join(keys))
-    target_node_accession = reviews[0]["target_node_accession"]
-
     with closing(sqlite3.connect(sqlite_db)) as connection:
         with closing(connection.cursor()) as cursor:
-            cursor.execute("DELETE  FROM {} WHERE target_node_accession='{}'".format(TABLE_NAME, target_node_accession))
+            cursor.execute("UPDATE {} SET review='{}', explanation='{}'  WHERE target_node_accession='{}' and name='{}' and time='{}'".
+                           format(TABLE_NAME,
+                                  review.get("review", ""),
+                                  review.get("explanation", ""),
+                                  review.get("target_node_accession", ""),
+                                  review.get("name", ""),
+                                  review.get("time", "")))
             connection.commit()
 
-            for review in reviews:
-                vals = list(review.values())
-                # vals.extend(["", ""])
-                values = "('{}')".format("', '".join(vals))
-                cursor.execute("INSERT INTO FROM {} {} VALUES {}".format(TABLE_NAME, columns, values))
+    return True
+
+
+def delete_review(review: dict):
+    """
+    Deletes a new review from the database.
+    :param review: review object
+    :return: True if the operation is successful
+    """
+    with closing(sqlite3.connect(sqlite_db)) as connection:
+        with closing(connection.cursor()) as cursor:
+            cursor.execute("DELETE FROM {} WHERE target_node_accession='{}' and name='{}' and time='{}'".
+                           format(TABLE_NAME,
+                                  review.get("target_node_accession", ""),
+                                  review.get("name", ""),
+                                  review.get("time", "")))
             connection.commit()
 
     return True
