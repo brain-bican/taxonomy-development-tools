@@ -11,19 +11,19 @@ Here's how you can utilize the commenting system:
 1- Navigate to the annotation you wish to review and click the edit or comment icon.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_main_table.png" alt="Main table review icons." width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_main_table.png" alt="Main table review icons." width="500"/>
 </p>
 
 2- Scroll to the bottom of the annotation editing page to find the review section. Here, you can add, update, or delete comments.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_section.png" alt="Review annotation section." width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_section.png" alt="Review annotation section." width="500"/>
 </p>
 
 3-  Click on the `Add Review` button to open a pop-up window where you can write your comment.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_add.png" alt="Add review pop-up." width="200"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_add.png" alt="Add review pop-up." width="300"/>
 </p>
 
 4- In the `Reviewer` field, your username (GitHub handle) will be pre-filled. In the `Review` field, select whether you `Agree` or `Disagree` with the annotation. Use the `Explanation` field to elaborate on your opinion.
@@ -41,7 +41,7 @@ You can quickly see if there are reviews on any annotations from the annotation 
 * A grey comment icon means there are no comments.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_main_table.png" alt="Main table review icons." width="400"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_main_table.png" alt="Main table review icons." width="500"/>
 </p>
 
 Click on the comment icon to see the latest comment details.
