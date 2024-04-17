@@ -280,27 +280,36 @@
   <thead>
     <tr>
       <th />
+      <!-- extend-start -->
+      {% if table.table == "annotation" %}
+      <!-- review icon column -->
+      <th />
+      {% endif %}
+      <!-- extend-start -->
       {% for name, value in column|items -%}
-      <th>
-        <a class="" data-bs-toggle="modal" href="#{{ name|id }}Modal" role="button">
-          {{ value.label or name }}
-        </a>
-        {% if value.filtered_operator %}
-        <i class="bi bi-filter-circle-fill"></i>
-        {% elif value.sorted == "asc" %}
-        <i class="bi bi-sort-up"></i>
-        {% elif value.sorted == "desc" %}
-        <i class="bi bi-sort-down"></i>
-        {% endif %}
-      </th>
+        <th>
+          <a class="" data-bs-toggle="modal" href="#{{ name|id }}Modal" role="button">
+            {{ value.label or name }}
+          </a>
+          {% if value.filtered_operator %}
+          <i class="bi bi-filter-circle-fill"></i>
+          {% elif value.sorted == "asc" %}
+          <i class="bi bi-sort-up"></i>
+          {% elif value.sorted == "desc" %}
+          <i class="bi bi-sort-down"></i>
+          {% endif %}
+        </th>
       {% endfor %}
     </tr>
   </thead>
   <tbody>
     {% for r in row -%}
     <!-- extend-start -->
-    <!-- only display user tables in the column table -->
-    {% if table.table != "column" or ("table" in r and r["table"]["value"] in ["annotation", "metadata", "labelset", "annotation_transfer"]) %}
+    {% if table.table == "column" and ("table" in r and r["table"]["value"] not in ["annotation", "metadata", "labelset", "annotation_transfer"]) %}
+    <!-- skip non user tables in the column table -->
+    {% elif table.table == "table" and ("table" in r and r["table"]["value"] in ["review"]) %}
+    <!-- don't show review table in the table table -->
+    {% else %}
     <!-- extend-end -->
     <tr>
       {% for col, cell in r|items -%}
@@ -310,6 +319,11 @@
         <a class="btn btn-sm" {% if table.table not in ["column", "datatype", "annotation", "metadata", "labelset", "annotation_transfer"] %} hidden="true" {% endif %} href="{{ table.href }}/row/{{ cell.value }}?view={{ table.edit_view or 'form' }}"><i
             class="bi-pencil" style="color: #adb5bd;"></i></a>
       </td>
+      {% if table.table == "annotation" %}
+      <td>
+        <a class="btn btn-sm" href="{{ table.href }}/row/{{ cell.value }}?view={{ table.edit_view or 'form' }}#reviews"><i class="bi-chat-dots" style="color: #adb5bd;" name="{{ r['cell_set_accession'].value }}" ></i></a>
+      </td>
+      {% endif %}
       <!-- extend-end -->
       {% elif col == "message_id" %}
       {% else %}
@@ -445,7 +459,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
 
-// auto place wildcards to ilike fo convenience
+// auto place wildcards to ilike for convenience
 $("form[id$='Modal']").each(function (i, el) {
   $("#" + el.id + "").submit(function(e){
     e.preventDefault();
@@ -456,6 +470,22 @@ $("form[id$='Modal']").each(function (i, el) {
       form.find("*[name='nb.constraint']")[0].value = "*" + filter_contraint + "*"
     }
     this.submit();
+  });
+});
+
+// add review icon styles to annotation table
+$(document).ready(function(){
+  $.getJSON("http://127.0.0.1:5000/all_reviews").done(function(review_data) {
+    $.each(review_data, (key, val) => {
+      var review_icon = $("i[name='" + key + "']");
+      if (review_icon) {
+        if (val == "Agree") {
+          review_icon.addClass("text-success");
+        } else {
+          review_icon.addClass("text-danger");
+        }
+      }
+    });
   });
 });
 

@@ -3,6 +3,9 @@
 {% block head_end %}
 <link rel="stylesheet" href="{{ page.root }}assets/styles.css" />
 <link rel="stylesheet" href="{{ page.root }}assets/ols-autocomplete.css" />
+<style>
+  .link-grey { color: #aaa; } .link-grey:hover { color: #00913b; }
+</style>
 {% endblock %}
 
 {% block body_end %}
@@ -117,17 +120,20 @@
   }// end configure_autocomplete
 
   var table_json_url = "";
-  var row_number = 0;
-  var is_new_row = false;
+  var labelset_json_url = "";
+  var row_number = null;
+  var is_new_row = false;  // flag to check if new row or edit row
   if (String(window.location.href).includes("/row/")) {
     // for edit row
     table_json_url = String(window.location.href).split("/row")[0] + ".json?limit=100000&shape=value_rows";
     row_number =  String(window.location.href).split("?")[0].split("/row/")[1]
     is_new_row = false;
+    labelset_json_url = String(window.location.href).split("/annotation")[0] + "/labelset.json?limit=100000&shape=value_rows";
   } else {
     // for add new row
     table_json_url = String(window.location.href).split("?view=")[0] + ".json?limit=100000&shape=value_rows";
     is_new_row = true;
+    labelset_json_url = String(window.location.href).split("/annotation")[0] + "/labelset.json?limit=100000&shape=value_rows";
   }
 
   function get_accession_prefix(records) {
@@ -203,5 +209,9 @@
       $("*[name='parent_cell_set_accession']").first()[0].value = "";
     }
   });
+
 </script>
+
+{% include 'review.html' %}
+
 {% endblock %}

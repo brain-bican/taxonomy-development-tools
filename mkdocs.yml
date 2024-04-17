@@ -14,5 +14,6 @@ nav:
   - How-to guides:
     - Configuring a new project: config.md
     - Update to a newer TDT version: Update.md
+    - Reviewing annotations: Review.md
 repo_url: https://github.com/brain-bican/taxonomy-development-tools/
 edit_uri: edit/main/docs/

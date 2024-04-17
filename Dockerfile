@@ -7,6 +7,8 @@ RUN mkdir $WORKSPACE/scripts
 RUN mkdir $WORKSPACE/resources
 
 ENV DEBIAN_FRONTEND=noninteractive
+# for cellxgene-census
+ENV VCPKG_FORCE_SYSTEM_BINARIES=1
 
 RUN apt-get update &&  \
     apt-get install -y --no-install-recommends \
@@ -23,7 +25,12 @@ RUN apt-get update &&  \
     openssl \
     r-base  \
     leiningen \
-    gpg
+    gpg \
+    pkg-config \
+    zip \
+    unzip \
+    tar \
+    ninja-build
 
 # to speedup R package installations (try apt-cache search r-cran-remotes) https://datawookie.dev/blog/2019/01/docker-images-for-r-r-base-versus-r-apt/
 #RUN apt-get update && \
@@ -46,6 +53,9 @@ ADD resources/repo_README.md $WORKSPACE/resources
 ADD resources/repo_PURL_config.yml $WORKSPACE/resources
 ADD requirements.txt $WORKSPACE
 ADD tdt/tdt.py $WORKSPACE
+ADD tdt/api/tdt_api.py $WORKSPACE
+ADD tdt/api/review.py $WORKSPACE
+ADD tdt/api/user_info.py $WORKSPACE
 ADD dendR/nomenclature_builder.R $WORKSPACE/dendR
 ADD dendR/install_packages.R $WORKSPACE/dendR
 ADD dendR/required_scripts.R $WORKSPACE/dendR
@@ -58,7 +68,22 @@ ADD scripts/upgrade.py $WORKSPACE/scripts
 ADD scripts/.gitignore $WORKSPACE/scripts
 
 RUN python3 -m pip install  -r $WORKSPACE/requirements.txt
+
+# install cas-tools and its dependencies seperately to avoid cellxgene-census installation issues
+RUN python3 -m pip install anndata==0.10.3
+RUN python3 -m pip install ruamel.yaml==0.18.6
+RUN python3 -m pip install jsonschema==4.4.0
+RUN python3 -m pip install ordered-set==4.1.0
+RUN python3 -m pip install deepmerge==1.1.0
+RUN python3 -m pip install numpy==1.26.4
+RUN python3 -m pip install marshmallow==3.21.1
+RUN python3 -m pip install python-dateutil==2.9.0
+RUN python3 -m pip install --no-deps cas-tools==0.0.1.dev38
+RUN python3 -m pip install --no-deps tdta==0.1.0.dev5
 #RUN Rscript $WORKSPACE/dendR/install_packages.R
+
+
+#RUN pip install --index-url https://test.pypi.org/pypi/ --extra-index-url https://pypi.org/simple cas-tools==0.0.1.dev42
 
 WORKDIR $WORKSPACE
 
@@ -82,6 +107,7 @@ ADD nanobot/src/resources/ols_form.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/taxonomy_view.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/table.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/page.html $WORKSPACE/nanobot/src/resources
+ADD nanobot/src/resources/review.html $WORKSPACE/nanobot/src/resources
 
 # GH cli on linux is old (2.4.0), get the latest
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
