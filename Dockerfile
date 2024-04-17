@@ -23,7 +23,8 @@ RUN apt-get update &&  \
     openssl \
     r-base  \
     leiningen \
-    gpg
+    gpg \
+    pkg-config
 
 # to speedup R package installations (try apt-cache search r-cran-remotes) https://datawookie.dev/blog/2019/01/docker-images-for-r-r-base-versus-r-apt/
 #RUN apt-get update && \
@@ -46,6 +47,9 @@ ADD resources/repo_README.md $WORKSPACE/resources
 ADD resources/repo_PURL_config.yml $WORKSPACE/resources
 ADD requirements.txt $WORKSPACE
 ADD tdt/tdt.py $WORKSPACE
+ADD tdt/api/tdt_api.py $WORKSPACE
+ADD tdt/api/review.py $WORKSPACE
+ADD tdt/api/user_info.py $WORKSPACE
 ADD dendR/nomenclature_builder.R $WORKSPACE/dendR
 ADD dendR/install_packages.R $WORKSPACE/dendR
 ADD dendR/required_scripts.R $WORKSPACE/dendR
@@ -59,6 +63,9 @@ ADD scripts/.gitignore $WORKSPACE/scripts
 
 RUN python3 -m pip install  -r $WORKSPACE/requirements.txt
 #RUN Rscript $WORKSPACE/dendR/install_packages.R
+
+
+#RUN pip install --index-url https://test.pypi.org/pypi/ --extra-index-url https://pypi.org/simple cas-tools==0.0.1.dev42
 
 WORKDIR $WORKSPACE
 
@@ -82,6 +89,7 @@ ADD nanobot/src/resources/ols_form.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/taxonomy_view.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/table.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/page.html $WORKSPACE/nanobot/src/resources
+ADD nanobot/src/resources/review.html $WORKSPACE/nanobot/src/resources
 
 # GH cli on linux is old (2.4.0), get the latest
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
