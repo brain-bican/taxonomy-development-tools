@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Start Curating Taxonomies - Taxonomy Development Tools (TDT)</title>
+    <title>Reviewing annotations - Taxonomy Development Tools (TDT)</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Start Curating Taxonomies";
-        var mkdocs_page_input_path = "Curation.md";
+        var mkdocs_page_name = "Reviewing annotations";
+        var mkdocs_page_input_path = "Review.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -59,10 +59,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="../NewRepo/">Create a New Repo</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Start Curating Taxonomies</a>
-    <ul class="current">
-    </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Curation/">Start Curating Taxonomies</a>
                 </li>
               </ul>
               <ul>
@@ -70,12 +68,18 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">How-to guides</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../config/">Configuring a new project</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../Update/">Update to a newer TDT version</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Review/">Reviewing annotations</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Reviewing annotations</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#posting-a-comment">Posting a Comment</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#viewing-reviews">Viewing Reviews</a>
+    </li>
+    </ul>
                   </li>
               </ul>
       </div>
@@ -92,9 +96,10 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Start Curating Taxonomies</li>
+          <li class="breadcrumb-item">How-to guides</li>
+      <li class="breadcrumb-item active">Reviewing annotations</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/main/docs/Curation.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/main/docs/Review.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -102,34 +107,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="seed-your-taxonomy-from-a-spreadsheet">Seed your taxonomy from a spreadsheet</h1>
-<ol>
-<li>Pull the latest TDT docker image via following the steps defined in the project <a href="https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/taxonomy-development-tools">GitHub Container Registry</a>: <code>docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest</code></li>
-<li>Follow <a href="../config/#configure-seeding-a-new-taxonomy-from-an-existing-informal-taxonomy">instructions here</a> to prepare your ingest config file</li>
-<li>Save config file and informal spreadsheet taxonomy (as tsv) into your project's <code>input_data</code> folder.  (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/AIT115_annotation_sheet.tsv">AIT115_annotation_sheet.tsv</a>) and configuration file (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/ingestion_config.yaml">test_config.yaml</a>)  </li>
-<li>In the project root folder, run following command to ingest your data files:</li>
-</ol>
-<pre><code>bash ./run.sh make load_data
-</code></pre>
-<blockquote>
-<p>For Windows: 
-<code>run.bat make load_data</code>
-5. Launch TDT:</p>
-</blockquote>
-<pre><code>bash ./run.sh make serve
-</code></pre>
-<blockquote>
-<p>For Windows: 
-<code>run.bat make serve</code>
-This command will print a set of logs including a log like <code>nanobot::serve: listening on 0.0.0.0:3000</code>. This means your web editor is ready, and you can start editing your data.
-6.  You can start browsing web taxonomy editor from: <a href="http://localhost:3000/table">http://localhost:3000/table</a></p>
-</blockquote>
+                <h1 id="reviewing-annotations-in-tdt">Reviewing Annotations in TDT</h1>
+<p>The Taxonomy Development Tools (TDT) platform includes a commenting system designed to facilitate the review and discussion of annotations made by users. This feature is useful for peer review and quality assurance purposes. </p>
+<p><strong>Important:</strong> To ensure that your reviews are visible to other users, please remember to commit and push your changes (using git commit &amp; push). Similarly, others must pull the latest changes to view your reviews.</p>
+<p>Here's how you can utilize the commenting system:</p>
+<h2 id="posting-a-comment">Posting a Comment</h2>
+<p>1- Navigate to the annotation you wish to review and click the edit or comment icon.</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_main_table.png" alt="Main table review icons." width="400"/>
+</p>
+
+<p>2- Scroll to the bottom of the annotation editing page to find the review section. Here, you can add, update, or delete comments.</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_section.png" alt="Review annotation section." width="400"/>
+</p>
+
+<p>3-  Click on the <code>Add Review</code> button to open a pop-up window where you can write your comment.</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_add.png" alt="Add review pop-up." width="200"/>
+</p>
+
+<p>4- In the <code>Reviewer</code> field, your username (GitHub handle) will be pre-filled. In the <code>Review</code> field, select whether you <code>Agree</code> or <code>Disagree</code> with the annotation. Use the <code>Explanation</code> field to elaborate on your opinion.</p>
+<p>5- After composing your comment, click <code>Save</code> to add it to the system.</p>
+<p>To update or delete a comment, use the <code>Edit</code> or <code>Remove</code> buttons respectively.</p>
+<h2 id="viewing-reviews">Viewing Reviews</h2>
+<p>You can quickly see if there are reviews on any annotations from the annotation table view:</p>
+<ul>
+<li>A green comment icon indicates the latest comment agrees with the annotation.</li>
+<li>A red comment icon shows disagreement.</li>
+<li>A grey comment icon means there are no comments.</li>
+</ul>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_main_table.png" alt="Main table review icons." width="400"/>
+</p>
+
+<p>Click on the comment icon to see the latest comment details.</p>
+<p>This system not only supports collaboration and feedback but also helps maintain the integrity and accuracy of the annotations in TDT.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../NewRepo/" class="btn btn-neutral float-left" title="Create a New Repo"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../UserInterface/" class="btn btn-neutral float-right" title="User Interface">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Update/" class="btn btn-neutral float-left" title="Update to a newer TDT version"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -156,10 +174,8 @@ This command will print a set of logs including a log like <code>nanobot::serve:
         </span>
     
     
-      <span><a href="../NewRepo/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Update/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-    
-      <span><a href="../UserInterface/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
