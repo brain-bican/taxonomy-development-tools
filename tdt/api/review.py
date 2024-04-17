@@ -40,7 +40,11 @@ def get_reviews(target_node_accession: str):
     reviews = []
     with closing(sqlite3.connect(sqlite_db)) as connection:
         with closing(connection.cursor()) as cursor:
-            rows = cursor.execute("SELECT * FROM {} WHERE target_node_accession='{}'".format(TABLE_NAME, target_node_accession)).fetchall()
+            rows = cursor.execute(
+                "SELECT * FROM {} WHERE target_node_accession='{}'".format(
+                    TABLE_NAME, target_node_accession
+                )
+            ).fetchall()
             columns = list(map(lambda x: x[0], cursor.description))
             # columns = [column for column in columns if column not in ["message", "history"]]
             for row in rows:
@@ -66,7 +70,9 @@ def add_review(review: dict):
 
     with closing(sqlite3.connect(sqlite_db)) as connection:
         with closing(connection.cursor()) as cursor:
-            cursor.execute("INSERT INTO {} {} VALUES {}".format(TABLE_NAME, columns, values))
+            cursor.execute(
+                "INSERT INTO {} {} VALUES {}".format(TABLE_NAME, columns, values)
+            )
             connection.commit()
 
     return True
@@ -79,13 +85,16 @@ def update_reviews(review: dict):
     """
     with closing(sqlite3.connect(sqlite_db)) as connection:
         with closing(connection.cursor()) as cursor:
-            cursor.execute("UPDATE {} SET review='{}', explanation='{}'  WHERE target_node_accession='{}' and name='{}' and time='{}'".
-                           format(TABLE_NAME,
-                                  review.get("review", ""),
-                                  review.get("explanation", ""),
-                                  review.get("target_node_accession", ""),
-                                  review.get("name", ""),
-                                  review.get("time", "")))
+            cursor.execute(
+                "UPDATE {} SET review='{}', explanation='{}'  WHERE target_node_accession='{}' and name='{}' and time='{}'".format(
+                    TABLE_NAME,
+                    review.get("review", ""),
+                    review.get("explanation", ""),
+                    review.get("target_node_accession", ""),
+                    review.get("name", ""),
+                    review.get("time", ""),
+                )
+            )
             connection.commit()
 
     return True
@@ -99,11 +108,14 @@ def delete_review(review: dict):
     """
     with closing(sqlite3.connect(sqlite_db)) as connection:
         with closing(connection.cursor()) as cursor:
-            cursor.execute("DELETE FROM {} WHERE target_node_accession='{}' and name='{}' and time='{}'".
-                           format(TABLE_NAME,
-                                  review.get("target_node_accession", ""),
-                                  review.get("name", ""),
-                                  review.get("time", "")))
+            cursor.execute(
+                "DELETE FROM {} WHERE target_node_accession='{}' and name='{}' and time='{}'".format(
+                    TABLE_NAME,
+                    review.get("target_node_accession", ""),
+                    review.get("name", ""),
+                    review.get("time", ""),
+                )
+            )
             connection.commit()
 
     return True

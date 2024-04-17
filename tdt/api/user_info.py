@@ -7,5 +7,7 @@ def get_user_info():
     :return: user name and email
     """
     user_name = subprocess.check_output(["git", "config", "user.name"]).strip().decode()
-    user_email = subprocess.check_output(["git", "config", "user.email"]).strip().decode()
+    user_email = (
+        subprocess.check_output(["git", "config", "user.email"]).strip().decode()
+    )
     return {"user_name": user_name, "user_email": user_email}
