@@ -1,5 +1,9 @@
 FROM ubuntu:22.04
 
+ENV GITHUB_AUTH_TOKEN=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
+ENV GITHUB_USER=bicantester
+ENV GITHUB_EMAIL=bicantester@gmail.com
+
 ENV WORKSPACE=/tools
 RUN mkdir $WORKSPACE
 RUN mkdir $WORKSPACE/dendR
@@ -118,8 +122,9 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/g
 RUN apt-get update &&  \
     apt-get install -y aha \
     sqlite3 \
-    python3-psycopg2 \
-    gh
+    python3-psycopg2
+
+RUN apt-get install gh --allow-unauthenticated
 
 # restore WORKDIR
 WORKDIR /tools
