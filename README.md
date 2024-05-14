@@ -1,4 +1,4 @@
-***Note:  This is a specialized pre-configured version of the Taxonomy Development Tools (TDT) for testing purposes. For the general-purpose version, please refer to the [original repository](https://github.com/brain-bican/taxonomy-development-tools). ***
+***Note:  This is a specialized pre-configured version of the Taxonomy Development Tools (TDT) for testing purposes. For the general-purpose version, please refer to the [original repository](https://github.com/brain-bican/taxonomy-development-tools).***
 
 # How to Test TDT
 
