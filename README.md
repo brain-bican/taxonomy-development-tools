@@ -1,3 +1,32 @@
+__*Note:  This is a specialized pre-configured version of the Taxonomy Development Tools (TDT) for testing purposes. For the general-purpose version, please refer to the [original repository](https://github.com/brain-bican/taxonomy-development-tools). *__
+
+# How to Test TDT
+
+1. **Build the Test Docker Image**
+Buils the pre-configured docker image using the following command
+```
+docker build --no-cache -t "ghcr.io/brain-bican/taxonomy-development-tools:tester" .
+```
+
+2. **Clone the Test Taxonomy Repository**
+Download the test taxonomy from GitHub:
+```
+git clone https://github.com/bicantester/human-brain-cell-atlas_v1_neurons.git
+```
+
+3. **Launch TDT**
+Navigate to the repository directory and start TDT:
+```
+cd human-brain-cell-atlas_v1_neurons
+bash ./run.sh make serve
+```
+
+4. **Verify Server Execution**
+Upon successful execution, you should observe a log stating `listening on 0.0.0.0:3000` in the terminal and then be able to browse TDT from [http://localhost:3000/table](http://localhost:3000/table)
+
+5. **Learn More About the User Interface**
+For detailed information on the TDT user interface, please see the [User Interface Guide](https://brain-bican.github.io/taxonomy-development-tools/UserInterface/).
+
 # Taxonomy Development Tools
 
 The Taxonomy Development Tools (TDT) is a taxonomy management tool for building, curating and publishing BICAN taxonomies in a collaborative fashion. 
