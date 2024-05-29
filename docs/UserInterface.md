@@ -144,13 +144,14 @@ Annotation tables are equipped to display data in a hierarchical structure, offe
 &nbsp;
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="500"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/tree_view.png" alt="Sort and Filter by Column" width="1000"/>
 </p>
 &nbsp;
 &nbsp;
 
+While in the Taxonomy View, users can visually explore the taxonomy's structure in a read-only format, providing a clear overview of the hierarchical relationships. To switch back to a more detailed and interactive tabular format, click the `Table View` button. Alternatively, users can use `Browse in table` to jump to the node in the table view.
 
-While in the Taxonomy View, users can visually explore the taxonomy's structure in a read-only format, providing a clear overview of the hierarchical relationships. To switch back to a more detailed and interactive tabular format, click the `Table View` button.
+Search functionality is available in the Taxonomy View, allowing users to quickly locate specific nodes within the taxonomy. By entering a search term in the search bar, users can reveal the term in the taxonomy tree.
 
 ## Table Management
 

@@ -17,12 +17,12 @@
 
     update_reviews_section();
   });
-  
+
   function update_reviews_section(records, accession_prefix) {
     comments_json_url = "http://127.0.0.1:5000/reviews?accession_id=" + $("*[name='cell_set_accession']").first()[0].value;
     $.getJSON(comments_json_url).done(function(review_data) {
       review_data.sort(function(a,b){
-        return new Date(a.time) - new Date(b.time);  // sort old to new
+        return new Date(a.datestamp) - new Date(b.datestamp);  // sort old to new
       });
       // console.log("Review data: ", review_data);
 
@@ -34,12 +34,12 @@
         review_style = "text-success";
         if (result.review == "Disagree") {
           review_style = "text-danger";
-        } 
+        }
         editable = "visible";
-        if (result.name != user_name) {
+        if (result.reviewer != user_name) {
           editable = "hidden";
         }
-        review_date = new Date(result.time);
+        review_date = new Date(result.datestamp);
         const content = `
         <div class="card mb-3" name="review-card">
             <div class="card-body">
@@ -49,16 +49,16 @@
                 <div class="w-100">
                   <div class="d-flex justify-content-between align-items-center mb-3">
                     <h6 class="text-primary fw-bold mb-0">
-                      <div name="reviewer" style="display: inline;">${result.name}</div>
+                      <div name="reviewer" style="display: inline;">${result.reviewer}</div>
                       <span class="text-dark ms-2 fw-normal" name="review-explanation">${result.explanation}</span>
                     </h6>
                     <p class="mb-0">${review_date.toLocaleString()}</p>
-                    <p class="mb-0" name="review-time" hidden>${result.time}</p>
+                    <p class="mb-0" name="review-time" hidden>${result.datestamp}</p>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <p class="small mb-0" style="color: #aaa; visibility: ${editable}">
                       <a href="#!" class="link-grey" name="delete-comment">Remove</a> •
-                      <a href="#!" class="link-grey" name="edit-comment">Edit</a> 
+                      <a href="#!" class="link-grey" name="edit-comment">Edit</a>
                     </p>
                   </div>
                 </div>
@@ -78,10 +78,10 @@
     $('#add-comment-submit').click(function(e){
       e.preventDefault();
       modal_data = {
-        "name": $("#modal-user-name").val(),
+        "reviewer": $("#modal-user-name").val(),
         "review": $("#modal-review").val(),
         "explanation": $("#modal-explanation").val(),
-        "time": new Date().toISOString(),
+        "datestamp": new Date().toISOString(),
         "target_node_accession": $("*[name='cell_set_accession']").first()[0].value
       };
       $.ajax({
@@ -89,9 +89,9 @@
           type: "POST",
           data: JSON.stringify(modal_data),
           dataType: 'json',
-          headers: { 
+          headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json' 
+            'Content-Type': 'application/json'
           },
           success: function(data){
             console.log("Successfully submitted.")
@@ -99,29 +99,29 @@
             $('#addReviewModal').modal('toggle');
           }
       });
-    }); 
+    });
   });
 
   review_card_to_delete = null;
   // Delete review action
-  $(document).ready(function(){ 
+  $(document).ready(function(){
     $(document).on('click', 'a[name="delete-comment"]', function(e){
       e.preventDefault();
       review_card_to_delete = $(this).closest('div[name="review-card"]');
       $('#deleteReviewModal').modal('show'); // Show delete modal box.
-    }); 
+    });
   });
 
   // Delete review confirm action
-  $(document).ready(function(){ 
+  $(document).ready(function(){
     $('#delete-comment-submit').click(function(e){
       e.preventDefault();
       if (review_card_to_delete != null) {
         var review_time = review_card_to_delete.find('p[name="review-time"]').first().text();
         var reviewer = review_card_to_delete.find('div[name="reviewer"]').first().text();
         var review_data = {
-          "time": review_time,
-          "name": reviewer,
+          "datestamp": review_time,
+          "reviwer": reviewer,
           "target_node_accession": $("*[name='cell_set_accession']").first()[0].value,
         };
         console.log("Review data: ", review_data);
@@ -130,9 +130,9 @@
             type: "DELETE",
             data: JSON.stringify(review_data),
             dataType: 'json',
-            headers: { 
+            headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json' 
+              'Content-Type': 'application/json'
             },
             success: function(data){
               console.log("Successfully submitted.")
@@ -142,11 +142,11 @@
             }
         });
       }
-    }); 
+    });
   });
 
   // Update review action
-  $(document).ready(function(){ 
+  $(document).ready(function(){
     $(document).on('click', 'a[name="edit-comment"]', function(e){
       e.preventDefault();
       review_card_to_update = $(this).closest('div[name="review-card"]');
@@ -155,14 +155,14 @@
       var explanation = review_card_to_update.find('span[name="review-explanation"]').first().text();
       var review_type = review_card_to_update.find('p[name="review-review"]').first().text();
       console.log("Review data: ", review_time, reviewer, explanation, review_type);
-      
+
       var updateReviewModal = document.getElementById('updateReviewModal');
       updateReviewModal.querySelector('#update-modal-user-name').value=reviewer;
       updateReviewModal.querySelector('#update-modal-explanation').value=explanation;
       updateReviewModal.querySelector('#update-modal-time').value=review_time;
       updateReviewModal.querySelector('#update-modal-review').options[["Agree", "Disagree"].indexOf(review_type)].selected = true;
-      $('#updateReviewModal').modal('show'); 
-    }); 
+      $('#updateReviewModal').modal('show');
+    });
   });
 
     // Update review submit action
@@ -170,10 +170,10 @@
     $('#update-comment-submit').click(function(e){
       e.preventDefault();
       modal_data = {
-        "name": $("#update-modal-user-name").val(),
+        "reviewer": $("#update-modal-user-name").val(),
         "review": $("#update-modal-review").val(),
         "explanation": $("#update-modal-explanation").val(),
-        "time": $("#update-modal-time").val(),
+        "datestamp": $("#update-modal-time").val(),
         "target_node_accession": $("*[name='cell_set_accession']").first()[0].value
       };
       $.ajax({
@@ -181,9 +181,9 @@
           type: "PUT",
           data: JSON.stringify(modal_data),
           dataType: 'json',
-          headers: { 
+          headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json' 
+            'Content-Type': 'application/json'
           },
           success: function(data){
             console.log("Successfully submitted.")
@@ -191,7 +191,7 @@
             $('#updateReviewModal').modal('toggle');
           }
       });
-    }); 
+    });
   });
 
 </script>
@@ -208,7 +208,7 @@
             <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#addReviewModal">Add Review</button>
             </div>
         </div>
-        
+
         <div id="review-container">
             <!-- review cards will be appended here -->
         </div> <!-- review-container -->
