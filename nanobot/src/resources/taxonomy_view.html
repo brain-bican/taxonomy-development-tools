@@ -9,20 +9,38 @@
 
 {% block content %}
 <div style="margin-top: 15px; margin-bottom: 15px;" class="container-fluid">
-    <h2 style="display:inline-block;">{{ table_name }} Taxonomy</h2>
+    <h2 style="display:inline-block;">Taxonomy View</h2>
 
     <a class="float-end btn btn-outline-primary" href="/{{ table_name }}">Table View</a>
 </div>
 
-<div id="source-treeview" class="col" style="overflow-y:auto; height: 800px; border: 1px solid #ccc ;"></div>
+
+<div class="row mb-2" style="margin-top: 25px;">
+    <label  style="margin-left: 10px; width:10%;">Cellset Name  :</label>
+    <div id="cellsetSearchDiv"  class="col-5">
+        <input id="cellsetName" name="cellsetName" class="typeahead col-6" style="margin-left:10px; border-radius: .375rem; border: 1px solid #ced4da;" type="text" value="" placeholder="Search"/>
+    </div>
+</div>
+<div class="row">
+  <div id="source-treeview" class="col-8" style="overflow-y:auto; height: 800px; border: 1px solid #ccc ;"></div>
+  <div class="col-4" style="padding-left: 50px; ">
+    <h3 id="info-box-title" class="row"></h3>
+    <div id="info-box" class="row" style="padding-left: 30px; "></div>
+  </div>
+</div>
+
 
 {% endblock %}
 
 {% block body_end %}
 <script src="{{ page.root }}assets/bstreeview.js"></script>
 <script>
+  var $sourceTree = null;
+  var table_data = null;
   table_json_url = String(window.location.href).split("?")[0] + ".json?limit=100000&shape=value_rows";
   $.getJSON(table_json_url, function (data) {
+    // clone a global variable before sorting
+    table_data = data.slice()
     // sort highest rank first but ordered by accession_id if same rank
     // data.sort((a, b) => (a.rank > b.rank) ? -1 : (a.rank === b.rank) ? ((a.cell_set_accession > b.cell_set_accession) ? 1 : -1) : 1 );
     data.sort((a, b) => (parseInt(a.cell_set_accession.split("_")[-1]) > parseInt(b.cell_set_accession.split("_"))[-1]) ? 1 : -1 );
@@ -42,12 +60,12 @@
       if (parent_cell_set_accession == null) {
         parent_cell_set_accession = "All Cells";
       }
-      console.log(parent_cell_set_accession);
+      // console.log(parent_cell_set_accession);
       parents[parent_cell_set_accession]["nodes"].push(record_node);
     }
 
-    console.log("Setting up source-treeview", root_node);
-    var $sourceTree = $('#source-treeview').bstreeview({
+    // console.log("Setting up source-treeview", root_node);
+    $sourceTree = $('#source-treeview').bstreeview({
       data: [root_node],
       color: "#428bca",
       levels: 5,
@@ -59,15 +77,116 @@
       return false;
     });
 
-    $('#source-treeview').find('div').click(function (event) {
+    register_treeview_clicks(data);
+
+    // cellset search autocomplete
+    configure_autocomplete("cellsetName", data);
+  });
+
+  function register_treeview_clicks(data) {
+      $('#source-treeview').find('div').click(function (event) {
       event.stopPropagation();
       if (event.target.id) {
         selected_id = event.target.id;
-        $('*[name="cell_set_accession"]')[0].value = selected_id;
-        div_text = $(event.target).text();
-        $('*[name="cell_type_name"]')[0].value = div_text.substring(0, div_text.indexOf("[" + selected_id)).trim();
+        // console.log("Handler for `click` called: " + selected_id);
+        display_in_info_box(data.find(x => x.cell_set_accession === selected_id));
+        // remove search highlight
+        let x = document.getElementsByClassName("search-result");
+        if(x.length > 0) { x[0].classList.remove("search-result"); }
       }
     });
-  });
+  }
+
+  function configure_autocomplete(inputName, records) {
+    my_obj_tokenizer = getObjTokenizer();
+    // constructs the suggestion engine
+    var typeaheadBH = new Bloodhound({
+      // datumTokenizer: Bloodhound.tokenizers.obj.nonword(['cell_label', 'cell_set_accession']),
+      datumTokenizer: my_obj_tokenizer(['cell_label', 'cell_set_accession']),
+      queryTokenizer: Bloodhound.tokenizers.nonword,
+      local: records
+    });
+    typeaheadBH.initialize();
+
+    $("*[name='" + inputName + "']").first().typeahead({
+      hint: false,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      name: 'autocomplete',
+      source: typeaheadBH,
+      limit: 10,
+      display: function(selection){
+          return selection['cell_label'];
+      },
+      templates: {
+        suggestion: function(data) {
+            return '<p>' + data.cell_label + ' [' + data.cell_set_accession + '] </p>';
+        }
+      }
+    });
+
+    $("*[name='" + inputName + "']").first().on('typeahead:selected', function(evt, item) {
+      $("*[name='" + inputName + "']").first()[0].value = item['cell_set_accession'];
+      if ($sourceTree !== null) {
+        display_in_info_box(item);
+        treeview_focus_node(item, $sourceTree, 'source-treeview');
+      }
+    });
+  }// end configure_autocomplete
+
+  // custom tokenizer that tokenizes with underscore char as well
+  function getObjTokenizer() {
+    return function setKey(keys) {
+      keys = Array.isArray(keys) ? keys : [].slice.call(arguments, 0);
+
+      return function tokenize(o) {
+        var tokens = [];
+
+        keys.forEach(function(k) {
+          tokens = tokens.concat(custom_nonword_tokenizer(String(o[k])));
+        });
+
+        return tokens;
+      };
+    };
+  }
+
+  function custom_nonword_tokenizer(str) {
+    str = String(str);
+    return str ? str.split(/[^a-zA-Z0-9]+/) : [];
+  }
+
+  // search node in the treeview and focus
+  function treeview_focus_node(node, treeview, treeview_id) {
+    if (treeview !== null) {
+        var tree_label = "";
+        if (node.cell_label !== null) {
+          // be careful about spaces here
+          tree_label = node.cell_label + ' [' + node.cell_set_accession + ']';
+        } else {
+          tree_label = node.cell_set_accession;
+        }
+        treeview.data("plugin_bstreeview").search( tree_label );
+        // $('#source-treeview').scrollTop($('#source-treeview')[0].scrollHeight);
+        $('#' + treeview_id).scrollTop($('.search-result')[0].offsetTop);
+        // don't know why but event needs to be re-registered
+        register_treeview_clicks(table_data)
+    }
+  }
+
+  function display_in_info_box(node) {
+    var info = "";
+    $.each(node, function(i, n){
+      info += "<div><b>" + i + ":</b>   " + n + "</div>\n";
+    });
+    info += "<p></p>";
+    info += "<p></p>";
+    link = "/{{ table_name }}?offset=" + table_data.findIndex(x => x.cell_set_accession === node.cell_set_accession);
+    info += "<a href=\"" + link + "\" > Browse in table </a>";
+    $('#info-box-title').text(node.cell_label);
+    $('#info-box').html(info);
+  }
 </script>
 {% endblock %}

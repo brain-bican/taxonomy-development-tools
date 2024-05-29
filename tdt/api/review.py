@@ -19,11 +19,11 @@ def get_all_reviews():
                     SELECT review.target_node_accession as node, review.review as type
                     FROM review
                     INNER JOIN
-                        (SELECT target_node_accession, MAX(time) AS latestReviewDate
+                        (SELECT target_node_accession, MAX(datestamp) AS latestReviewDate
                         FROM review
                         GROUP BY target_node_accession) grouped_review 
                     ON review.target_node_accession = grouped_review.target_node_accession 
-                    AND review.time = grouped_review.latestReviewDate
+                    AND review.datestamp = grouped_review.latestReviewDate
                     """
             rows = cursor.execute(query.format(TABLE_NAME)).fetchall()
             for row in rows:
