@@ -37,6 +37,7 @@ def configure_git(root_folder):
 
     runcmd("git config --global credential.helper store")
 
+    runcmd("git config --global --add safe.directory '{dir}'".format(dir="/work"))
     remotes = runcmd("git remote -v")
 
     if "origin" in remotes and os.getenv(GITHUB_TOKEN_ENV, default=None):
