@@ -86,13 +86,13 @@ def update_reviews(review: dict):
     with closing(sqlite3.connect(sqlite_db)) as connection:
         with closing(connection.cursor()) as cursor:
             cursor.execute(
-                "UPDATE {} SET review='{}', explanation='{}'  WHERE target_node_accession='{}' and name='{}' and time='{}'".format(
+                "UPDATE {} SET review='{}', explanation='{}'  WHERE target_node_accession='{}' and reviewer='{}' and datestamp='{}'".format(
                     TABLE_NAME,
                     review.get("review", ""),
                     review.get("explanation", ""),
                     review.get("target_node_accession", ""),
-                    review.get("name", ""),
-                    review.get("time", ""),
+                    review.get("reviewer", ""),
+                    review.get("datestamp", ""),
                 )
             )
             connection.commit()
@@ -109,11 +109,11 @@ def delete_review(review: dict):
     with closing(sqlite3.connect(sqlite_db)) as connection:
         with closing(connection.cursor()) as cursor:
             cursor.execute(
-                "DELETE FROM {} WHERE target_node_accession='{}' and name='{}' and time='{}'".format(
+                "DELETE FROM {} WHERE target_node_accession='{}' and reviewer='{}' and datestamp='{}'".format(
                     TABLE_NAME,
                     review.get("target_node_accession", ""),
-                    review.get("name", ""),
-                    review.get("time", ""),
+                    review.get("reviewer", ""),
+                    review.get("datestamp", ""),
                 )
             )
             connection.commit()
