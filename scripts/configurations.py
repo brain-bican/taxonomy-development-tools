@@ -45,7 +45,7 @@ def configure_git(root_folder):
         token = os.getenv(GITHUB_TOKEN_ENV)
         if token.startswith("base_"):
             token = token.replace("base_", "")
-            token = base64.b64decode(token)
+            token = base64.b64decode(token).decode('utf-8')
         runcmd("git remote set-url origin https://{gh_token}@github.com/{gh_org}/{gh_repo}.git/".format(gh_token=token, gh_org=github_org, gh_repo=repo))
     else:
         print("WARN: The project has not been pushed to GitHub yet, resulting in incomplete GitHub authentication.")
@@ -62,7 +62,7 @@ def gh_login(purl_folder):
     if github_token:
         if github_token.startswith("base_"):
             github_token = github_token.replace("base_", "")
-            github_token = base64.b64decode(github_token)
+            github_token = base64.b64decode(github_token).decode('utf-8')
         with open(token_file, 'w') as f:
             f.write(github_token)
 
