@@ -4,6 +4,7 @@ import logging
 import subprocess
 from pathlib import Path
 from ruamel.yaml import YAML
+import base64
 
 GITHUB_TOKEN_ENV = 'GITHUB_AUTH_TOKEN'
 TOKEN_FILE = "mytoken.txt"
@@ -41,7 +42,11 @@ def configure_git(root_folder):
     remotes = runcmd("git remote -v")
 
     if "origin" in remotes and os.getenv(GITHUB_TOKEN_ENV, default=None):
-        runcmd("git remote set-url origin https://{gh_token}@github.com/{gh_org}/{gh_repo}.git/".format(gh_token=os.getenv(GITHUB_TOKEN_ENV), gh_org=github_org, gh_repo=repo))
+        token = os.getenv(GITHUB_TOKEN_ENV)
+        if token.startswith("base_"):
+            token = token.replace("base_", "")
+            token = base64.b64decode(token)
+        runcmd("git remote set-url origin https://{gh_token}@github.com/{gh_org}/{gh_repo}.git/".format(gh_token=token, gh_org=github_org, gh_repo=repo))
     else:
         print("WARN: The project has not been pushed to GitHub yet, resulting in incomplete GitHub authentication.")
 
@@ -55,6 +60,9 @@ def gh_login(purl_folder):
     github_token = os.getenv(GITHUB_TOKEN_ENV, default=None)
     token_file = os.path.join(purl_folder, TOKEN_FILE)
     if github_token:
+        if github_token.startswith("base_"):
+            github_token = github_token.replace("base_", "")
+            github_token = base64.b64decode(github_token)
         with open(token_file, 'w') as f:
             f.write(github_token)
 
