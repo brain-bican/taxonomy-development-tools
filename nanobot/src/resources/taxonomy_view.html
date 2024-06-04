@@ -38,12 +38,37 @@
   var $sourceTree = null;
   var table_data = null;
   table_json_url = String(window.location.href).split("?")[0] + ".json?limit=100000&shape=value_rows";
-  $.getJSON(table_json_url, function (data) {
+  labelset_json_url = String(window.location.href).split("/annotation")[0] + "/labelset.json?limit=100000&shape=value_rows";
+  var api_results = {}; // final object containing consolidated api result
+  $.when(
+      $.getJSON(table_json_url, function (data) {
+        api_results["annotations"] = data;
+      }),
+
+      $.getJSON(labelset_json_url, function (labelset_data) {
+        var labelset_ranks = [];
+        for (index in labelset_data) {
+          labelset = labelset_data[index];
+          console.log(labelset);
+          if (labelset.rank) {
+            labelset_ranks[labelset.name] = parseInt(labelset.rank);
+          } else {
+            labelset_ranks[labelset.name] = null;
+          }
+        }
+        api_results["labelsets"] = labelset_ranks;
+      })
+  ).done(function() {
+    data = api_results["annotations"]
+    labelset_ranks = api_results["labelsets"]
     // clone a global variable before sorting
     table_data = data.slice()
+
+    // filter whose labelset rank is none (non-hierarchical labelsets such as neurotransmitter)
+    data = data.filter(x => labelset_ranks[x.labelset] !== null);
     // sort highest rank first but ordered by accession_id if same rank
-    // data.sort((a, b) => (a.rank > b.rank) ? -1 : (a.rank === b.rank) ? ((a.cell_set_accession > b.cell_set_accession) ? 1 : -1) : 1 );
-    data.sort((a, b) => (parseInt(a.cell_set_accession.split("_")[-1]) > parseInt(b.cell_set_accession.split("_"))[-1]) ? 1 : -1 );
+    data.sort((a, b) => (labelset_ranks[a.labelset] > labelset_ranks[b.labelset]) ? -1 : (labelset_ranks[a.labelset] === labelset_ranks[b.labelset]) ? ((parseInt(a.cell_set_accession.split("_")[-1]) > parseInt(b.cell_set_accession.split("_"))[-1]) ? 1 : -1) : 1 );
+    // data.sort((a, b) => (parseInt(a.cell_set_accession.split("_")[-1]) > parseInt(b.cell_set_accession.split("_"))[-1]) ? 1 : -1 );
 
     var root_node = {"expanded":true, "id":"All Cells", "text": "All Cells","nodes": []};
     parents = {"All Cells": root_node};
@@ -81,7 +106,7 @@
 
     // cellset search autocomplete
     configure_autocomplete("cellsetName", data);
-  });
+  }); // end api call
 
   function register_treeview_clicks(data) {
       $('#source-treeview').find('div').click(function (event) {
