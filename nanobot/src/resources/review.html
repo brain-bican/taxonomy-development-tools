@@ -1,7 +1,7 @@
 <script>
   // REVIEW COMMENTS
   var user_name = "";
-  user_json_url = "http://127.0.0.1:5000/user_info";
+  user_json_url = String(window.location.href).split("3000")[0] + "5000/user_info";
   $.getJSON(user_json_url).done(function(user_data) {
     user_name = user_data["user_name"];
 
@@ -19,7 +19,7 @@
   });
 
   function update_reviews_section(records, accession_prefix) {
-    comments_json_url = "http://127.0.0.1:5000/reviews?accession_id=" + $("*[name='cell_set_accession']").first()[0].value;
+    comments_json_url = String(window.location.href).split("3000")[0] + "5000/reviews?accession_id=" + $("*[name='cell_set_accession']").first()[0].value;
     $.getJSON(comments_json_url).done(function(review_data) {
       review_data.sort(function(a,b){
         return new Date(a.datestamp) - new Date(b.datestamp);  // sort old to new
@@ -85,7 +85,7 @@
         "target_node_accession": $("*[name='cell_set_accession']").first()[0].value
       };
       $.ajax({
-          url: "http://127.0.0.1:5000/reviews",
+          url: String(window.location.href).split("3000")[0] + "5000/reviews",
           type: "POST",
           data: JSON.stringify(modal_data),
           dataType: 'json',
@@ -126,7 +126,7 @@
         };
         console.log("Review data: ", review_data);
         $.ajax({
-            url: "http://127.0.0.1:5000/reviews",
+            url: String(window.location.href).split("3000")[0] + "5000/reviews",
             type: "DELETE",
             data: JSON.stringify(review_data),
             dataType: 'json',
@@ -177,7 +177,7 @@
         "target_node_accession": $("*[name='cell_set_accession']").first()[0].value
       };
       $.ajax({
-          url: "http://127.0.0.1:5000/reviews",
+          url: String(window.location.href).split("3000")[0] + "5000/reviews",
           type: "PUT",
           data: JSON.stringify(modal_data),
           dataType: 'json',

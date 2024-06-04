@@ -475,7 +475,7 @@ $("form[id$='Modal']").each(function (i, el) {
 
 // add review icon styles to annotation table
 $(document).ready(function(){
-  $.getJSON("http://127.0.0.1:5000/all_reviews").done(function(review_data) {
+  $.getJSON(String(window.location.href).split("3000")[0] + "5000/all_reviews").done(function(review_data) {
     $.each(review_data, (key, val) => {
       var review_icon = $("i[name='" + key + "']");
       if (review_icon) {
