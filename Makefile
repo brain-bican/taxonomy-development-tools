@@ -53,8 +53,7 @@ serve: $(NANOBOTDB)
 		rm -rf build/; \
 		$(NANOBOT) init; \
 	fi
-	python3 $(WORKSPACE)/tdt_api.py &
-	$(NANOBOT) serve
+	/usr/bin/supervisord -n -c /etc/supervisor/conf.d/supervisord.conf
 
 .PHONY: clean
 clean:
