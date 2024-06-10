@@ -30,7 +30,12 @@ RUN apt-get update &&  \
     zip \
     unzip \
     tar \
-    ninja-build
+    ninja-build \
+    supervisor
+
+# setup supervisord
+RUN mkdir -p /var/log/supervisor
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # to speedup R package installations (try apt-cache search r-cran-remotes) https://datawookie.dev/blog/2019/01/docker-images-for-r-r-base-versus-r-apt/
 #RUN apt-get update && \
