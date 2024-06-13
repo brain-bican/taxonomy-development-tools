@@ -23,9 +23,9 @@ RUN apt-get update &&  \
     wget  \
     libcurl4-openssl-dev  \
     openssl \
-    r-base  \
-    leiningen \
-    gpg \
+#    r-base  \
+#    leiningen \
+#    gpg \
     pkg-config \
     zip \
     unzip \
@@ -61,6 +61,8 @@ ADD tdt/tdt.py $WORKSPACE
 ADD tdt/api/tdt_api.py $WORKSPACE
 ADD tdt/api/review.py $WORKSPACE
 ADD tdt/api/user_info.py $WORKSPACE
+ADD tdt/api/tdt_info.py $WORKSPACE
+ADD tdt/tdt_info.yaml $WORKSPACE
 ADD dendR/nomenclature_builder.R $WORKSPACE/dendR
 ADD dendR/install_packages.R $WORKSPACE/dendR
 ADD dendR/required_scripts.R $WORKSPACE/dendR

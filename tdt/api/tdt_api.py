@@ -1,7 +1,9 @@
 import flask
 import review
 import user_info
+import tdt_info
 
+from flask_caching import Cache
 from flask import request, jsonify
 from flask_cors import CORS, cross_origin
 
@@ -9,12 +11,21 @@ from flask_cors import CORS, cross_origin
 app = flask.Flask(__name__)
 cors = CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 
 @app.route("/user_info", methods=["GET"])
 @cross_origin()
+@cache.cached(timeout=3600)
 def get_user_info():
     return jsonify(user_info.get_user_info())
+
+
+@app.route("/tdt_info", methods=["GET"])
+@cross_origin()
+@cache.cached(timeout=36000)
+def get_tdt_info():
+    return jsonify(tdt_info.get_tdt_info())
 
 
 @app.route("/all_reviews", methods=["GET"])

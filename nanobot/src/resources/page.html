@@ -130,6 +130,9 @@
     <div class="container-fluid">
       <!--   extend-start   -->
       <a class="navbar-brand" href="/">Taxonomy Development Tools</a>
+      {% with tdt_version="" %}
+      {% if tdt_version %}<div style="font-size:10px;color:#0000008C;margin-left:-8px;">v{{ tdt_version }}</div>{% endif %}
+      {% endwith %}
       <!--   extend-end   -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
