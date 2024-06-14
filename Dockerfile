@@ -23,9 +23,9 @@ RUN apt-get update &&  \
     wget  \
     libcurl4-openssl-dev  \
     openssl \
-    r-base  \
-    leiningen \
-    gpg \
+#    r-base  \
+#    leiningen \
+#    gpg \
     pkg-config \
     zip \
     unzip \
@@ -61,6 +61,8 @@ ADD tdt/tdt.py $WORKSPACE
 ADD tdt/api/tdt_api.py $WORKSPACE
 ADD tdt/api/review.py $WORKSPACE
 ADD tdt/api/user_info.py $WORKSPACE
+ADD tdt/api/tdt_info.py $WORKSPACE
+ADD tdt/tdt_info.yaml $WORKSPACE
 ADD dendR/nomenclature_builder.R $WORKSPACE/dendR
 ADD dendR/install_packages.R $WORKSPACE/dendR
 ADD dendR/required_scripts.R $WORKSPACE/dendR
@@ -83,12 +85,13 @@ RUN python3 -m pip install deepmerge==1.1.0
 RUN python3 -m pip install numpy==1.26.4
 RUN python3 -m pip install marshmallow==3.21.1
 RUN python3 -m pip install python-dateutil==2.9.0
-RUN python3 -m pip install --no-deps cas-tools==0.0.1.dev43
-RUN python3 -m pip install --no-deps tdta==0.1.0.dev12
+RUN python3 -m pip install --no-deps cas-tools==0.0.1.dev44
+RUN python3 -m pip install --no-deps tdta==0.1.0.dev13
+
 #RUN Rscript $WORKSPACE/dendR/install_packages.R
 
 
-#RUN pip install --index-url https://test.pypi.org/pypi/ --extra-index-url https://pypi.org/simple cas-tools==0.0.1.dev42
+#RUN python3 -m pip install --no-deps --index-url https://test.pypi.org/pypi/ --extra-index-url https://pypi.org/simple cas-tools==0.0.1.dev44
 
 WORKDIR $WORKSPACE
 

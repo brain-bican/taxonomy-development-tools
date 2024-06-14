@@ -325,7 +325,6 @@ def retrieve_project_config(root_folder_path):
         root_folder_path: path of the project root folder.
     Returns: Accession id prefix defined in the project configuration.
     """
-    project_config = dict()
     for filename in os.listdir(root_folder_path):
         f = os.path.join(root_folder_path, filename)
         if os.path.isfile(f):
@@ -339,15 +338,13 @@ def retrieve_project_config(root_folder_path):
                             prefix = str(data["accession_id_prefix"]).strip()
                             if not prefix.endswith("_"):
                                 prefix = prefix + "_"
-                            project_config["accession_id_prefix"] = prefix
+                            data["accession_id_prefix"] = prefix
                         else:
-                            project_config["accession_id_prefix"] = str(data["id"]).strip() + "_"
+                            data["accession_id_prefix"] = str(data["id"]).strip() + "_"
 
-                        project_config["matrix_file_id"] = data.get("matrix_file_id", "")
-                        project_config["author"] = data.get("author", "")
                     except Exception as e:
                         raise Exception("Yaml read failed:" + f + " " + str(e))
-    return project_config
+    return data
 
 
 def read_cas_schema():

@@ -130,6 +130,9 @@
     <div class="container-fluid">
       <!--   extend-start   -->
       <a class="navbar-brand" href="/">Taxonomy Development Tools</a>
+      {% with tdt_version="" %}
+      {% if tdt_version %}<div style="font-size:10px;color:#0000008C;margin-left:-8px;">v{{ tdt_version }}</div>{% endif %}
+      {% endwith %}
       <!--   extend-end   -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -200,6 +203,7 @@
         </ul>
       </div>
       {# extend-start #}
+      <div id="taxonomy-name" style="float:right;"></div>
       <a style="float:right;" class="btn" href="https://brain-bican.github.io/taxonomy-development-tools/UserInterface/" target="_blank"><i
         class="bi-info-square"></i> Help</a>
       {# extend-end #}
@@ -295,6 +299,26 @@
       }
     }
     $('.typeahead').each(function () {configure_typeahead_form(this, "{{ table_name }}");});
+
+    tdt_info_json_url = String(window.location.href).split("3000")[0] + "5000/tdt_info";
+    metadata_json_url = String(window.location.href).split("3000")[0] + "3000/metadata.json?limit=100000&shape=value_rows";
+    var api_results = {}; // final object containing consolidated api result
+    $.when(
+        $.getJSON(tdt_info_json_url, function (data) {
+          api_results["tdt_info"] = data;
+        }),
+
+        $.getJSON(metadata_json_url, function (metadata) {
+          api_results["metadata"] = metadata;
+        })
+    ).done(function() {
+      // get taxonomy-name div and create a link to the taxonomy
+      tdt_info = api_results["tdt_info"];
+      metadata = api_results["metadata"][0];
+      if ("title" in metadata) {
+        document.getElementById('taxonomy-name').innerHTML = `<a style="color:var(--bs-navbar-brand-color);" href="${tdt_info["repo_url"]}" target="_blank">${metadata["title"]}</a>`;
+      }
+    });
   </script>
   {% block body_end %}{% endblock %}
 </body>
