@@ -194,6 +194,54 @@
     });
   });
 
+  // Request review action
+  $(document).ready(function(){
+    $('#request_review').change(function(){
+      accession_id = $("*[name='cell_set_accession']").first()[0].value;
+      request_flag = "request_review";
+
+      if ($('#request_review').is(':checked')) {
+        $.ajax({
+          url: String(window.location.href).split("3000")[0] + "5000/flags",
+          type: "POST",
+          data: JSON.stringify({"accession_id": accession_id, "flag": request_flag}),
+          dataType: 'json',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          success: function(data){
+            console.log("Review request registered.");
+          }
+        });
+      } else {
+        $.ajax({
+          url: String(window.location.href).split("3000")[0] + "5000/flags",
+          type: "DELETE",
+          data: JSON.stringify({"accession_id": accession_id, "flag": request_flag}),
+          dataType: 'json',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          success: function(data){
+            console.log("Review request registered.");
+          }
+        });
+      }
+    });
+
+    flags_json_url = String(window.location.href).split("3000")[0] + "5000/flags?accession_id=" + $("*[name='cell_set_accession']").first()[0].value;
+    $.getJSON(flags_json_url).done(function(flags) {
+      if (flags.includes("request_review")) {
+        $('#request_review').prop('checked', true);
+      } else {
+        $('#request_review').prop('checked', false);
+      }
+    });
+
+  });
+
 </script>
 
 <p>
@@ -203,10 +251,16 @@
     <div class="container mb-2 py-3 text-dark">
     <div class="row d-flex justify-content-center" id="reviews">
         <div class="col-md-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 id="review-title" class="text-dark mb-0">Reviews (2)</h4>
-            <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#addReviewModal">Add Review</button>
-            </div>
+          <div class="d-flex justify-content-between align-items-center mb-4">
+              <h4 id="review-title" class="text-dark mb-0 col-2">Reviews (0)</h4>
+              <div class="form-check form-switch col-2" >
+                <input class="form-check-input" type="checkbox" id="request_review">
+                <i class="bi bi-person-raised-hand"></i>
+                <label class="form-check-label" for="request_review">Request review</label>
+              </div>
+              <div class="col-8 float-end">
+                <button type="button" class="btn btn-outline-success btn-sm float-end" data-bs-toggle="modal" data-bs-target="#addReviewModal">Add Review</button>
+              </div>
         </div>
 
         <div id="review-container">

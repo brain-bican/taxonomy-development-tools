@@ -307,7 +307,7 @@
     <!-- extend-start -->
     {% if table.table == "column" and ("table" in r and r["table"]["value"] not in ["annotation", "metadata", "labelset", "annotation_transfer"]) %}
     <!-- skip non user tables in the column table -->
-    {% elif table.table == "table" and ("table" in r and r["table"]["value"] in ["review"]) %}
+    {% elif table.table == "table" and ("table" in r and r["table"]["value"] in ["review", "flags"]) %}
     <!-- don't show review table in the table table -->
     {% else %}
     <!-- extend-end -->
@@ -475,8 +475,20 @@ $("form[id$='Modal']").each(function (i, el) {
 
 // add review icon styles to annotation table
 $(document).ready(function(){
-  $.getJSON(String(window.location.href).split("3000")[0] + "5000/all_reviews").done(function(review_data) {
-    $.each(review_data, (key, val) => {
+  var api_results = {}; // final object containing consolidated api result
+  $.when(
+      $.getJSON(String(window.location.href).split("3000")[0] + "5000/all_flags", function (data) {
+        api_results["all_flags"] = data;
+      }),
+
+      $.getJSON(String(window.location.href).split("3000")[0] + "5000/all_reviews", function (metadata) {
+        api_results["all_reviews"] = metadata;
+      })
+  ).done(function() {
+    // get taxonomy-name div and create a link to the taxonomy
+    all_flags = api_results["all_flags"];
+    all_reviews = api_results["all_reviews"];
+    $.each(all_reviews, (key, val) => {
       var review_icon = $("i[name='" + key + "']");
       if (review_icon) {
         if (val == "Agree") {
@@ -486,7 +498,18 @@ $(document).ready(function(){
         }
       }
     });
+    $.each(all_flags, (key, val) => {
+      var review_icon = $("i[name='" + key + "']");
+      if (review_icon) {
+        if (val == "request_review") {
+          review_icon.removeClass('bi-chat-dots');
+          review_icon.addClass('bi-person-raised-hand');
+          review_icon.addClass("text-danger");
+        }
+      }
+    });
   });
+
 });
 
 </script>

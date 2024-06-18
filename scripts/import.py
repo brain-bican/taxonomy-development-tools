@@ -6,6 +6,7 @@ import logging
 import subprocess
 import shutil
 import pandas as pd
+from dataclasses import asdict
 
 from importlib import resources
 from pathlib import Path
@@ -78,6 +79,8 @@ def import_data(input, schema, curation_tables):
 
     project_config = retrieve_project_config(Path(input).parent.absolute())
     std_tables = serialize_to_tables(std_data, user_file_name, input, project_config)
+    tdt_tables = generate_tdt_tables(std_data, input)
+    std_tables.extend(tdt_tables)
 
     cas_schema = read_cas_schema()
     for table_path in std_tables:
@@ -262,7 +265,7 @@ def read_tsv_to_dict(tsv_path, id_column=0, generated_ids=False):
     """
     Reads tsv file content into a dict. Key is the first column value and the value is dict representation of the
     row values (each header is a key and column value is the value).
-    Args:
+    Parameters:
         tsv_path: Path of the TSV file
         id_column: Id column becomes the key of the dict. This column should be unique. Default value is first column.
         generated_ids: If 'True', uses row number as the key of the dict. Initial key is 0.
@@ -277,7 +280,7 @@ def read_csv_to_dict(csv_path, id_column=0, id_column_name="", delimiter=",", id
     """
     Reads tsv file content into a dict. Key is the first column value and the value is dict representation of the
     row values (each header is a key and column value is the value).
-    Args:
+    Parameters:
         csv_path: Path of the CSV file
         id_column: Id column becomes the keys of the dict. This column should be unique. Default is the first column.
         id_column_name: Alternative to the numeric id_column, id_column_name specifies id_column by its header string.
@@ -321,7 +324,7 @@ def read_csv_to_dict(csv_path, id_column=0, id_column_name="", delimiter=",", id
 def retrieve_project_config(root_folder_path):
     """
     Reads project configuration from the root folder and returns the accession prefix.
-    Params:
+    Parameters:
         root_folder_path: path of the project root folder.
     Returns: Accession id prefix defined in the project configuration.
     """
@@ -345,6 +348,34 @@ def retrieve_project_config(root_folder_path):
                     except Exception as e:
                         raise Exception("Yaml read failed:" + f + " " + str(e))
     return data
+
+
+def generate_tdt_tables(cas_data, output_folder):
+    """
+    Along with the CAS standard tables, TDT has some tables required for its execution. This function generates these.
+    Parameters:
+        cas_data: CAS data
+        output_folder: output folder path
+    Returns: List of TDT tables
+    """
+    tdt_tables = list()
+    tdt_tables.append(generate_flags_table(output_folder))
+    return tdt_tables
+
+
+def generate_flags_table(out_folder):
+    """
+    Generates annotation flags (requires review etc.) table.
+
+    Parameters:
+        out_folder: output folder path.
+    """
+    table_path = str(os.path.join(out_folder + "flags.tsv"))
+    row = ["accession_id", "flag"]
+    with open(table_path, "w") as f_output:
+        tsv_output = csv.writer(f_output, delimiter="\t")
+        tsv_output.writerow(row)
+    return table_path
 
 
 def read_cas_schema():

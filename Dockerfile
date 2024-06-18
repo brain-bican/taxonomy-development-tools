@@ -63,6 +63,7 @@ ADD tdt/api/review.py $WORKSPACE
 ADD tdt/api/user_info.py $WORKSPACE
 ADD tdt/api/tdt_info.py $WORKSPACE
 ADD tdt/tdt_info.yaml $WORKSPACE
+ADD tdt/api/flags.py $WORKSPACE
 ADD dendR/nomenclature_builder.R $WORKSPACE/dendR
 ADD dendR/install_packages.R $WORKSPACE/dendR
 ADD dendR/required_scripts.R $WORKSPACE/dendR
