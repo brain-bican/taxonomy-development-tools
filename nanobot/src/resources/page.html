@@ -146,7 +146,7 @@
             </a>
             <ul class="dropdown-menu">
               {% for table, href in page.tables|items %}
-                {% if table not in ["review", "message"] %}
+                {% if table not in ["review", "message", "flags"] %}
                   <li><a class="dropdown-item" href="{{ page.root }}{{ href }}">{{ table }}</a></li>
                 {% endif %}
               {% endfor %}

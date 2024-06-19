@@ -20,9 +20,15 @@ build/nanobot: | build/
 build_nomenclature_tables:
 	Rscript $(WORKSPACE)/dendR/nomenclature_builder.R
 
+# For first time data loading. Skips table creation if tables already exist.
 .PHONY: load_data
 load_data:
 	python3 $(IMPORT) import-data --input input_data/ --schema src/schema/ --curation_tables curation_tables/
+
+# Forcefully loads data. Drops and recreates tables.
+.PHONY: reload_data
+reload_data: clean
+	python3 $(IMPORT) import-data --input input_data/ --schema src/schema/ --curation_tables curation_tables/ --force
 
 .PHONY: runR
 runR:

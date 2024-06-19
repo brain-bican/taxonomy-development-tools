@@ -8,7 +8,7 @@
 # The assumption is that you are working in the project root folder;
 # we therefore map the whole repo (../..) to a docker volume.
 #
-# See README-editors.md for more details.
+# See README.md for more details.
 
 IMAGE=${IMAGE:-taxonomy-development-tools}
 TDT_DEBUG=${TDT_DEBUG:-no}

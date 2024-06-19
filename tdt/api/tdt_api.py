@@ -2,6 +2,7 @@ import flask
 import review
 import user_info
 import tdt_info
+import flags
 
 from flask_caching import Cache
 from flask import request, jsonify
@@ -64,6 +65,36 @@ def delete_review():
     data = request.json
     print(data)
     return jsonify(review.delete_review(data))
+
+
+@app.route("/all_flags", methods=["GET"])
+@cross_origin()
+def get_all_flags():
+    return jsonify(flags.get_all_flags())
+
+
+@app.route("/flags", methods=["GET"])
+@cross_origin()
+def get_flags():
+    accession_id = request.args.get("accession_id")
+    print(accession_id)
+    return jsonify(flags.get_flags(accession_id))
+
+
+@app.route("/flags", methods=["POST"])
+@cross_origin()
+def add_flag():
+    data = request.json
+    print(data)
+    return jsonify(flags.add_flag(data["accession_id"], data["flag"]))
+
+
+@app.route("/flags", methods=["DELETE"])
+@cross_origin()
+def delete_flag():
+    data = request.json
+    print(data)
+    return jsonify(flags.remove_flag(data["accession_id"], data["flag"]))
 
 
 if __name__ == "__main__":

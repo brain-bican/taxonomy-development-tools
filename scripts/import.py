@@ -6,6 +6,7 @@ import logging
 import subprocess
 import shutil
 import pandas as pd
+from dataclasses import asdict
 
 from importlib import resources
 from pathlib import Path
@@ -15,6 +16,9 @@ from cas.ingest.ingest_user_table import ingest_user_data
 from cas.flatten_data_to_tables import serialize_to_tables
 from cas.file_utils import read_cas_json_file
 from cas_schema import schemas
+
+# see Dockerfile
+WORKSPACE = "/tools"
 
 
 @click.group()
@@ -26,13 +30,15 @@ def cli():
 @click.option('-i', '--input', type=click.Path(exists=True), help='Data folder path.')
 @click.option('-s', '--schema', type=click.Path(exists=True), help='Nanobot schema folder path.')
 @click.option('-ct', '--curation_tables', type=click.Path(exists=True), help='TDT curation tables folder path.')
-def import_data(input, schema, curation_tables):
+@click.option('--force', '-f', is_flag=True, default=False, help="Forcefully drops and recreates tables.")
+def import_data(input, schema, curation_tables, force):
     """
     Imports user data to the system
     Parameters:
         input (str): Path to the input data folder
         schema: Nanobot schema folder path.
         curation_tables: TDT curation tables folder path.
+        force: Forcefully drops and recreates tables.
     """
     global last_accession_id, accession_ids
     last_accession_id = 0
@@ -78,10 +84,14 @@ def import_data(input, schema, curation_tables):
 
     project_config = retrieve_project_config(Path(input).parent.absolute())
     std_tables = serialize_to_tables(std_data, user_file_name, input, project_config)
+    tdt_tables = generate_tdt_tables(std_data, input)
+    std_tables.extend(tdt_tables)
 
+    if force:
+        clean_nanobot_tables(schema)
     cas_schema = read_cas_schema()
     for table_path in std_tables:
-        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables, cas_schema, True)
+        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables, cas_schema, True, force)
         if user_data_ct_path:
             new_files.append(user_data_ct_path)
 
@@ -105,13 +115,13 @@ def add_new_files_to_git(project_folder, new_files):
                   files=" ".join([t.replace(project_folder, ".", 1) for t in new_files])))
 
 
-def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema, delete_source=False):
+def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema, delete_source=False, force=False):
     """
     Adds user data to the nanobot. Adds user table to the curation tables folder and updates the nanobot table schema.
     """
     # update nanobot table.tsv
     user_data_ct_path = os.path.join(curation_tables_folder, Path(user_data_path).name)
-    if os.path.isfile(user_data_ct_path) is False or os.path.getsize(user_data_ct_path) == 0:
+    if os.path.isfile(user_data_ct_path) is False or os.path.getsize(user_data_ct_path) == 0 or force:
         user_data_ct_path = copy_file(user_data_path, curation_tables_folder)
 
     user_table_name = os.path.splitext(os.path.basename(user_data_ct_path))[0]
@@ -262,7 +272,7 @@ def read_tsv_to_dict(tsv_path, id_column=0, generated_ids=False):
     """
     Reads tsv file content into a dict. Key is the first column value and the value is dict representation of the
     row values (each header is a key and column value is the value).
-    Args:
+    Parameters:
         tsv_path: Path of the TSV file
         id_column: Id column becomes the key of the dict. This column should be unique. Default value is first column.
         generated_ids: If 'True', uses row number as the key of the dict. Initial key is 0.
@@ -277,7 +287,7 @@ def read_csv_to_dict(csv_path, id_column=0, id_column_name="", delimiter=",", id
     """
     Reads tsv file content into a dict. Key is the first column value and the value is dict representation of the
     row values (each header is a key and column value is the value).
-    Args:
+    Parameters:
         csv_path: Path of the CSV file
         id_column: Id column becomes the keys of the dict. This column should be unique. Default is the first column.
         id_column_name: Alternative to the numeric id_column, id_column_name specifies id_column by its header string.
@@ -321,7 +331,7 @@ def read_csv_to_dict(csv_path, id_column=0, id_column_name="", delimiter=",", id
 def retrieve_project_config(root_folder_path):
     """
     Reads project configuration from the root folder and returns the accession prefix.
-    Params:
+    Parameters:
         root_folder_path: path of the project root folder.
     Returns: Accession id prefix defined in the project configuration.
     """
@@ -347,10 +357,57 @@ def retrieve_project_config(root_folder_path):
     return data
 
 
+def generate_tdt_tables(cas_data, output_folder):
+    """
+    Along with the CAS standard tables, TDT has some tables required for its execution. This function generates these.
+    Parameters:
+        cas_data: CAS data
+        output_folder: output folder path
+    Returns: List of TDT tables
+    """
+    tdt_tables = list()
+    tdt_tables.append(generate_flags_table(output_folder))
+    return tdt_tables
+
+
+def generate_flags_table(out_folder):
+    """
+    Generates annotation flags (requires review etc.) table.
+
+    Parameters:
+        out_folder: output folder path.
+    """
+    table_path = str(os.path.join(out_folder + "flags.tsv"))
+    row = ["accession_id", "flag"]
+    with open(table_path, "w") as f_output:
+        tsv_output = csv.writer(f_output, delimiter="\t")
+        tsv_output.writerow(row)
+    return table_path
+
+
 def read_cas_schema():
     schema_file = (resources.files(schemas) / "BICAN_schema.json")
     with schema_file.open("rt") as f:
         return json.loads(f.read())
+
+
+def clean_nanobot_tables(schema_folder):
+    """
+    Cleans nanobot tables by reloading default tables from the Docker image.
+    Parameters:
+        schema_folder: Nanobot schema folder path.
+    """
+    table_source = WORKSPACE + "/nanobot/src/schema/table.tsv"
+    with open(table_source, "r") as f:
+        content = f.read()
+    with open(os.path.join(schema_folder, "table.tsv"), "w") as f:
+        f.write(content)
+
+    table_source = WORKSPACE + "/nanobot/src/schema/column.tsv"
+    with open(table_source, "r") as f:
+        content = f.read()
+    with open(os.path.join(schema_folder, "column.tsv"), "w") as f:
+        f.write(content)
 
 
 def runcmd(cmd):

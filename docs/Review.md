@@ -46,4 +46,12 @@ You can quickly see if there are reviews on any annotations from the annotation 
 
 Click on the comment icon to see the latest comment details.
 
-This system not only supports collaboration and feedback but also helps maintain the integrity and accuracy of the annotations in TDT.
+## Requesting Reviews
+
+If you would like other users to review your annotations, you can request a review by clicking the `Request Review` switch on the annotation editing page. At the home page, users will see an icon indicating review is requested for the annotation.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/review_request.png" alt="Request review." width="300"/>    
+</p>
+
+This review system not only supports collaboration and feedback but also helps maintain the integrity and accuracy of the annotations in TDT.
