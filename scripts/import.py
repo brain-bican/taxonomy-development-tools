@@ -17,6 +17,9 @@ from cas.flatten_data_to_tables import serialize_to_tables
 from cas.file_utils import read_cas_json_file
 from cas_schema import schemas
 
+# see Dockerfile
+WORKSPACE = "/tools"
+
 
 @click.group()
 def cli():
@@ -27,13 +30,15 @@ def cli():
 @click.option('-i', '--input', type=click.Path(exists=True), help='Data folder path.')
 @click.option('-s', '--schema', type=click.Path(exists=True), help='Nanobot schema folder path.')
 @click.option('-ct', '--curation_tables', type=click.Path(exists=True), help='TDT curation tables folder path.')
-def import_data(input, schema, curation_tables):
+@click.option('--force', '-f', is_flag=True, default=False, help="Forcefully drops and recreates tables.")
+def import_data(input, schema, curation_tables, force):
     """
     Imports user data to the system
     Parameters:
         input (str): Path to the input data folder
         schema: Nanobot schema folder path.
         curation_tables: TDT curation tables folder path.
+        force: Forcefully drops and recreates tables.
     """
     global last_accession_id, accession_ids
     last_accession_id = 0
@@ -82,9 +87,11 @@ def import_data(input, schema, curation_tables):
     tdt_tables = generate_tdt_tables(std_data, input)
     std_tables.extend(tdt_tables)
 
+    if force:
+        clean_nanobot_tables(schema)
     cas_schema = read_cas_schema()
     for table_path in std_tables:
-        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables, cas_schema, True)
+        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables, cas_schema, True, force)
         if user_data_ct_path:
             new_files.append(user_data_ct_path)
 
@@ -108,13 +115,13 @@ def add_new_files_to_git(project_folder, new_files):
                   files=" ".join([t.replace(project_folder, ".", 1) for t in new_files])))
 
 
-def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema, delete_source=False):
+def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema, delete_source=False, force=False):
     """
     Adds user data to the nanobot. Adds user table to the curation tables folder and updates the nanobot table schema.
     """
     # update nanobot table.tsv
     user_data_ct_path = os.path.join(curation_tables_folder, Path(user_data_path).name)
-    if os.path.isfile(user_data_ct_path) is False or os.path.getsize(user_data_ct_path) == 0:
+    if os.path.isfile(user_data_ct_path) is False or os.path.getsize(user_data_ct_path) == 0 or force:
         user_data_ct_path = copy_file(user_data_path, curation_tables_folder)
 
     user_table_name = os.path.splitext(os.path.basename(user_data_ct_path))[0]
@@ -382,6 +389,25 @@ def read_cas_schema():
     schema_file = (resources.files(schemas) / "BICAN_schema.json")
     with schema_file.open("rt") as f:
         return json.loads(f.read())
+
+
+def clean_nanobot_tables(schema_folder):
+    """
+    Cleans nanobot tables by reloading default tables from the Docker image.
+    Parameters:
+        schema_folder: Nanobot schema folder path.
+    """
+    table_source = WORKSPACE + "/nanobot/src/schema/table.tsv"
+    with open(table_source, "r") as f:
+        content = f.read()
+    with open(os.path.join(schema_folder, "table.tsv"), "w") as f:
+        f.write(content)
+
+    table_source = WORKSPACE + "/nanobot/src/schema/column.tsv"
+    with open(table_source, "r") as f:
+        content = f.read()
+    with open(os.path.join(schema_folder, "column.tsv"), "w") as f:
+        f.write(content)
 
 
 def runcmd(cmd):
