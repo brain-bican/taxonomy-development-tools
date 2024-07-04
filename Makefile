@@ -53,13 +53,15 @@ serve: $(NANOBOTDB)
 	if [ $(AUTO_SYNCH) = true ]; then \
 		python3 $(EXPORT) data $(NANOBOTDB) src/schema/ table column datatype; \
 		python3 $(EXPORT) data $(NANOBOTDB) curation_tables/ $(foreach t,$(wildcard curation_tables/*.tsv), $(basename $(notdir $t))); \
-		git commit -a --message "Auto-commit on startup."; \
-		git pull; \
-		git push; \
-		rm -rf build/; \
+		tdta merge -p ./ -m "Auto-commit on startup."; \
+		rm -f build/nanobot.db; \
 		$(NANOBOT) init; \
 	fi
 	/usr/bin/supervisord -n -c /etc/supervisor/conf.d/supervisord.conf
+
+.PHONY: init
+init: $(NANOBOTDB)
+	$(NANOBOT) init
 
 .PHONY: clean
 clean:

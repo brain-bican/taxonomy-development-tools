@@ -342,6 +342,10 @@ def create_ontodev_static_files(outdir, tgts):
     tgts.append(file_target)
     copy(WORKSPACE + "/nanobot/src/resources/review.html", file_target)
 
+    file_target = "{}/src/resources/edit_annotation_transfer.html".format(outdir)
+    tgts.append(file_target)
+    copy(WORKSPACE + "/nanobot/src/resources/edit_annotation_transfer.html", file_target)
+
 
 def create_nanobot_toml(outdir, project, tgts):
     nanobot_source = WORKSPACE + "/nanobot/nanobot.toml"
