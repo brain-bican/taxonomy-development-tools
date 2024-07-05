@@ -285,7 +285,7 @@
       <!-- review icon column -->
       <th />
       {% endif %}
-      <!-- extend-start -->
+      <!-- extend-end -->
       {% for name, value in column|items -%}
         <th>
           <a class="" data-bs-toggle="modal" href="#{{ name|id }}Modal" role="button">
@@ -300,6 +300,13 @@
           {% endif %}
         </th>
       {% endfor %}
+        <!-- extend-start -->
+        {% if table.table == "annotation" %}
+        <th>
+          <a class="" role="button" style="text-decoration:none">Transferred Annotations</a>
+        </th>
+        {% endif %}
+        <!-- extend-end -->
     </tr>
   </thead>
   <tbody>
@@ -449,6 +456,15 @@
       {% endif %}
       {# extend-end #}
       {% endfor %}
+      <!-- extend-start -->
+      {% if table.table == "annotation" %}
+      <!-- annotation transfer cell -->
+      <td class="nanobot-cell" ">
+        <a class="text-body" href="#" aria-expanded="true" name="at_{{ r['cell_set_accession'].value }}">
+        </a>
+      </td>
+      {% endif %}
+      <!-- extend-end -->
     </tr>
     {% endif %}
     {% endfor %}
@@ -473,6 +489,7 @@ $("form[id$='Modal']").each(function (i, el) {
   });
 });
 
+{% if table.table == "annotation" %}
 // add review icon styles to annotation table
 $(document).ready(function(){
   var api_results = {}; // final object containing consolidated api result
@@ -511,6 +528,33 @@ $(document).ready(function(){
   });
 
 });
+
+// add annotation transfer column values to the annotation table
+$(document).ready(function(){
+  var api_results = {}; // final object containing consolidated api result
+  host = String(window.location.href).split("3000")[0];
+  ann_transfer_json_url = host + "3000/annotation_transfer.json?limit=10000&shape=value_rows";
+  $.getJSON(ann_transfer_json_url).done(function(at_data) {
+    var all_ats = {};
+    // generate at string per accession and store in all_ats
+    for (var row_index in at_data) {
+      var row = at_data[row_index];
+      source_taxonomy = row["source_taxonomy"].split("/").at(-1).split(".")[0];
+      transferred_cell_label = row["transferred_cell_label"];
+      ats = all_ats[row["target_node_accession"]] || [];
+      ats.push(source_taxonomy + ": " + transferred_cell_label);
+      all_ats[row["target_node_accession"]] = ats;
+    }
+    $.each(all_ats, (key, val) => {
+      var at_cell = $("a[name='at_" + key + "']");
+      if (at_cell) {
+        at_cell.text(val.join(" | "));
+      }
+    });
+  });
+
+});
+{% endif %}
 
 </script>
 {# extend-end #}
