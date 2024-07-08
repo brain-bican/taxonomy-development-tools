@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Start Curating Taxonomies - Taxonomy Development Tools (TDT)</title>
+    <title>Collaborative working with TDT - Taxonomy Development Tools (TDT)</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Start Curating Taxonomies";
-        var mkdocs_page_input_path = "Curation.md";
+        var mkdocs_page_name = "Collaborative working with TDT";
+        var mkdocs_page_input_path = "Collaboration.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -59,16 +59,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="../NewRepo/">Create a New Repo</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">Start Curating Taxonomies</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#problems">Problems?</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#ports-are-not-available">Ports are not available</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Curation/">Start Curating Taxonomies</a>
                 </li>
               </ul>
               <ul>
@@ -100,9 +92,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Start Curating Taxonomies</li>
+      <li class="breadcrumb-item active">Collaborative working with TDT</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/main/docs/Curation.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/main/docs/Collaboration.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -110,57 +102,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="seed-your-taxonomy-from-a-spreadsheet">Seed your taxonomy from a spreadsheet</h1>
-<ol>
-<li>Pull the latest TDT docker image via following the steps defined in the project <a href="https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/taxonomy-development-tools">GitHub Container Registry</a>: <code>docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest</code></li>
-<li>Follow <a href="../config/#configure-seeding-a-new-taxonomy-from-an-existing-informal-taxonomy">instructions here</a> to prepare your ingest config file</li>
-<li>Save config file and informal spreadsheet taxonomy (as tsv) into your project's <code>input_data</code> folder.  (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/AIT115_annotation_sheet.tsv">AIT115_annotation_sheet.tsv</a>) and configuration file (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/ingestion_config.yaml">test_config.yaml</a>)  </li>
-<li>In the project root folder, run following command to ingest your data files:</li>
-</ol>
-<pre><code>bash ./run.sh make load_data
-</code></pre>
-<blockquote>
-<p>For Windows: 
-<code>run.bat make load_data</code>
-5. Launch TDT:</p>
-</blockquote>
-<pre><code>bash ./run.sh make serve
-</code></pre>
-<blockquote>
-<p>For Windows: 
-<code>run.bat make serve</code>
-This command will print a set of logs including a log like <code>nanobot::serve: listening on 0.0.0.0:3000</code>. This means your web editor is ready, and you can start editing your data.
-6.  You can start browsing web taxonomy editor from: <a href="http://localhost:3000/table">http://localhost:3000/table</a></p>
-</blockquote>
-<h3 id="problems">Problems?</h3>
-<p>There are three frequently encountered problems at this stage:</p>
-<ol>
-<li>Ports are not available</li>
-</ol>
-<h4 id="ports-are-not-available">Ports are not available</h4>
-<p>You may get an <code>Ports are not available</code> error if the ports used by TDT (3000, 5132) are already in use</p>
-<pre><code>docker: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:XXXX -&gt; 0.0.0.0:0: listen tcp 0.0.0.0:XXXX: bind: address already in use.
-</code></pre>
-<p>Generally main reason for this error is that another instance of the TDT is already running. You can find the running instance on the Docker Desktop and stop it. Alternatively, you can run the following command to get the container id of the running instance:</p>
-<pre><code>docker ps -a -q --filter ancestor=ghcr.io/brain-bican/taxonomy-development-tools
-</code></pre>
-<p>copy the container id and stop the container using the following command:</p>
-<pre><code>docker stop &lt;container_id&gt;
-</code></pre>
-<p>If this error is not caused by an already running TDT instance, we need to find and stop the service using the port. To identify the service using the port, run the following command:</p>
-<pre><code>lsof -i -P | grep LISTEN | grep :$PORT
-</code></pre>
-<p>then stop the service using the port:</p>
-<pre><code>kill -9 &lt;PID&gt;
-</code></pre>
-<p>where <code>&lt;PID&gt;</code> is the process id of the service using the port.</p>
+                <h1 id="collaborative-working-with-tdt">Collaborative working with TDT</h1>
+<p>The Taxonomy Development Tools (TDT) platform is designed to facilitate collaborative working on taxonomy projects. This guide explains how to work with TDT in a team environment, including how to save, share, and review annotations.</p>
+<p>TDT is not an online tool, but a local application that runs on your machine. To collaborate with others, TDT use a version control system (Git) and a remote repository on GitHub in the background. This way, you can share your work with others, review their annotations, and keep track of changes.</p>
+<h2 id="saving-your-work">Saving Your Work</h2>
+<p>You can use the TDT interface to save your work at any time. To save your progress, use action <code>Actions &gt; File &gt; Save</code>. </p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/actions_file_save.png" alt="Save your progress" width="300"/>
+</p>
+
+<p>This action will:
+- Save your progress to the local filesystem <em>(local files can be found at <code>curation_tables</code> directory)</em>.
+- Gets the latest changes from the remote repository.
+- Automatically merges the changes with your local changes.
+- If there are any conflicts that couldn't be automatically resolved, you will be prompted to resolve them. Please see <a href="#manually-resolve-coonflicts">Manually Resolve Conflicts</a>
+- Pushes the merged changes to the remote repository.</p>
+<h2 id="manually-resolve-conflicts">Manually Resolve Conflicts</h2>
+<p>In some cases git may not be able to automatically resolve conflicts. If this happens, you will need to manually resolve the conflicts. TDT will provide you the list of files that have conflicts. You can use any text editor to resolve the conflicts. Once you have resolved the conflicts, you can re-run <code>Actions &gt; File &gt; Save</code> to push the changes to the remote repository.</p>
+<p>Git highlights the conflicts in the files with the <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> markers. For example:</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/conflict.png" alt="Git conflict" width="300"/>
+</p>
+
+<p>In this example the conflict is in the annotation of <code>Mono_3</code>. Section starting with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> to <code>=======</code> is the remote version of the file, and the section starting with <code>=======</code> to <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> is the local version of the file. You need to resolve the conflict by choosing which version to keep or by combining the two versions.</p>
+<p>Once you have resolved the conflicts manually (there are no <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> tagged lines in the file), you can re-run <code>Actions &gt; File &gt; Save</code> to push the changes to the remote repository.</p>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../NewRepo/" class="btn btn-neutral float-left" title="Create a New Repo"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../UserInterface/" class="btn btn-neutral float-right" title="User Interface">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -186,10 +154,6 @@ This command will print a set of logs including a log like <code>nanobot::serve:
         </span>
     
     
-      <span><a href="../NewRepo/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../UserInterface/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
