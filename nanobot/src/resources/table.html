@@ -494,11 +494,11 @@ $("form[id$='Modal']").each(function (i, el) {
 $(document).ready(function(){
   var api_results = {}; // final object containing consolidated api result
   $.when(
-      $.getJSON(String(window.location.href).split("3000")[0] + "5000/all_flags", function (data) {
+      $.getJSON(String(window.location.href).split("3000")[0] + "5132/all_flags", function (data) {
         api_results["all_flags"] = data;
       }),
 
-      $.getJSON(String(window.location.href).split("3000")[0] + "5000/all_reviews", function (metadata) {
+      $.getJSON(String(window.location.href).split("3000")[0] + "5132/all_reviews", function (metadata) {
         api_results["all_reviews"] = metadata;
       })
   ).done(function() {

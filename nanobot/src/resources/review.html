@@ -1,7 +1,7 @@
 <script>
   // REVIEW COMMENTS
   var user_name = "";
-  user_json_url = String(window.location.href).split("3000")[0] + "5000/user_info";
+  user_json_url = String(window.location.href).split("3000")[0] + "5132/user_info";
   $.getJSON(user_json_url).done(function(user_data) {
     user_name = user_data["user_name"];
 
@@ -19,7 +19,7 @@
   });
 
   function update_reviews_section(records, accession_prefix) {
-    comments_json_url = String(window.location.href).split("3000")[0] + "5000/reviews?accession_id=" + $("*[name='cell_set_accession']").first()[0].value;
+    comments_json_url = String(window.location.href).split("3000")[0] + "5132/reviews?accession_id=" + $("*[name='cell_set_accession']").first()[0].value;
     $.getJSON(comments_json_url).done(function(review_data) {
       review_data.sort(function(a,b){
         return new Date(a.datestamp) - new Date(b.datestamp);  // sort old to new
@@ -85,7 +85,7 @@
         "target_node_accession": $("*[name='cell_set_accession']").first()[0].value
       };
       $.ajax({
-          url: String(window.location.href).split("3000")[0] + "5000/reviews",
+          url: String(window.location.href).split("3000")[0] + "5132/reviews",
           type: "POST",
           data: JSON.stringify(modal_data),
           dataType: 'json',
@@ -126,7 +126,7 @@
         };
         console.log("Review data: ", review_data);
         $.ajax({
-            url: String(window.location.href).split("3000")[0] + "5000/reviews",
+            url: String(window.location.href).split("3000")[0] + "5132/reviews",
             type: "DELETE",
             data: JSON.stringify(review_data),
             dataType: 'json',
@@ -177,7 +177,7 @@
         "target_node_accession": $("*[name='cell_set_accession']").first()[0].value
       };
       $.ajax({
-          url: String(window.location.href).split("3000")[0] + "5000/reviews",
+          url: String(window.location.href).split("3000")[0] + "5132/reviews",
           type: "PUT",
           data: JSON.stringify(modal_data),
           dataType: 'json',
@@ -202,7 +202,7 @@
 
       if ($('#request_review').is(':checked')) {
         $.ajax({
-          url: String(window.location.href).split("3000")[0] + "5000/flags",
+          url: String(window.location.href).split("3000")[0] + "5132/flags",
           type: "POST",
           data: JSON.stringify({"accession_id": accession_id, "flag": request_flag}),
           dataType: 'json',
@@ -216,7 +216,7 @@
         });
       } else {
         $.ajax({
-          url: String(window.location.href).split("3000")[0] + "5000/flags",
+          url: String(window.location.href).split("3000")[0] + "5132/flags",
           type: "DELETE",
           data: JSON.stringify({"accession_id": accession_id, "flag": request_flag}),
           dataType: 'json',
@@ -231,7 +231,7 @@
       }
     });
 
-    flags_json_url = String(window.location.href).split("3000")[0] + "5000/flags?accession_id=" + $("*[name='cell_set_accession']").first()[0].value;
+    flags_json_url = String(window.location.href).split("3000")[0] + "5132/flags?accession_id=" + $("*[name='cell_set_accession']").first()[0].value;
     $.getJSON(flags_json_url).done(function(flags) {
       if (flags.includes("request_review")) {
         $('#request_review').prop('checked', true);
