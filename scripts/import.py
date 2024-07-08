@@ -4,6 +4,7 @@ import json
 import click
 import logging
 import subprocess
+import zipfile
 import shutil
 import pandas as pd
 from dataclasses import asdict
@@ -19,6 +20,7 @@ from cas_schema import schemas
 
 # see Dockerfile
 WORKSPACE = "/tools"
+GITHUB_SIZE_LIMIT = 50 * 1000 * 1000  # 50 MB
 
 
 @click.group()
@@ -48,6 +50,7 @@ def import_data(input, schema, curation_tables, force):
     user_data_path = None
     user_config_path = None
     user_cas_path = None
+    unzip_files_in_folder(input)
     for filename in os.listdir(input):
         f = os.path.join(input, filename)
         if os.path.isfile(f):
@@ -110,9 +113,44 @@ def add_new_files_to_git(project_folder, new_files):
         project_folder: project folder path
         new_files: imported/created file paths to add to the version control
     """
+    for file_path in new_files:
+        if os.path.getsize(file_path) > GITHUB_SIZE_LIMIT:
+            zip_path = zip_file(file_path)
+            new_files.remove(file_path)
+            runcmd("cd {dir} && git add {zip_path}".format(dir=project_folder, zip_path=zip_path))
+            runcmd("cd {dir} && git reset {file_path}".format(dir=project_folder, file_path=file_path))
+
     runcmd("cd {dir} && git add {files}".
            format(dir=project_folder,
                   files=" ".join([t.replace(project_folder, ".", 1) for t in new_files])))
+
+
+def unzip_files_in_folder(folder_path):
+    files_in_folder = os.listdir(folder_path)
+    for file_name in files_in_folder:
+        if file_name.endswith('.zip'):
+            zip_path = os.path.join(folder_path, file_name)
+            with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+                zip_ref.extractall(folder_path)
+            print(f"Extracted '{zip_path}'.")
+
+
+def zip_file(file_path):
+    """
+    Zips the file if it exceeds the GitHub size limit.
+    Parameters:
+        file_path: file path to zip
+    Returns: zipped file path
+    """
+    folder = os.path.dirname(file_path)
+    base_name = os.path.basename(file_path)
+    zip_base = os.path.splitext(base_name)[0]
+
+    single_zip_path = os.path.join(folder, f"{zip_base}.zip")
+    with zipfile.ZipFile(single_zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        zipf.write(file_path, base_name)
+
+    return single_zip_path
 
 
 def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema, delete_source=False, force=False):
