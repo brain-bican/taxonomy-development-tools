@@ -30,7 +30,7 @@ There are three frequently encountered problems at this stage:
 
 #### Ports are not available
 
-You may get an `Ports are not available` error if the ports used by TDT (3000, 5000, 8000) are already in use
+You may get an `Ports are not available` error if the ports used by TDT (3000, 5132) are already in use
 ```
 docker: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:XXXX -> 0.0.0.0:0: listen tcp 0.0.0.0:XXXX: bind: address already in use.
 ```
