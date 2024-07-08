@@ -28,9 +28,9 @@ inputs = [
 ]
 commands = [
   ["make", "save"],
-  ["git", "commit", "-a", "--message", "'{message}'"],
-  ["git", "pull"],
-  ["git", "push"]
+  ["tdta", "merge", "-p", "./", "-m", "{message}"],
+  ["git", "push"],
+  ["make", "init"]
 ]
 
 [actions.sub_file_publish]
@@ -40,11 +40,11 @@ inputs = [
 ]
 commands = [
   ["make", "save"],
-  ["git", "commit", "-a", "--allow-empty", "--message", "'Auto commit'"],
-  ["git", "pull"],
+  ["tdta", "merge", "-p", "./", "-m", "{message}"],
   ["git", "push"],
   ["gh", "release", "create", "{tag}"],
-  ["tdta", "purl-publish", "-i", "./", "-t", "$$TAXONOMY_ID$$", "-u", "'{username}'"]
+  ["tdta", "purl-publish", "-i", "./", "-t", "AIT117", "-u", "'{username}'"],
+  ["make", "init"]
 ]
 
 [actions.export]

@@ -86,8 +86,8 @@ RUN python3 -m pip install deepmerge==1.1.0
 RUN python3 -m pip install numpy==1.26.4
 RUN python3 -m pip install marshmallow==3.21.1
 RUN python3 -m pip install python-dateutil==2.9.0
-RUN python3 -m pip install --no-deps cas-tools==0.0.1.dev44
-RUN python3 -m pip install --no-deps tdta==0.1.0.dev14
+RUN python3 -m pip install --no-deps cas-tools==0.0.1.dev47
+RUN python3 -m pip install --no-deps tdta==0.1.0.dev15
 
 #RUN Rscript $WORKSPACE/dendR/install_packages.R
 
@@ -117,6 +117,7 @@ ADD nanobot/src/resources/taxonomy_view.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/table.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/page.html $WORKSPACE/nanobot/src/resources
 ADD nanobot/src/resources/review.html $WORKSPACE/nanobot/src/resources
+ADD nanobot/src/resources/edit_annotation_transfer.html $WORKSPACE/nanobot/src/resources
 
 # GH cli on linux is old (2.4.0), get the latest
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
