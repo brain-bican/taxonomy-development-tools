@@ -12,7 +12,7 @@ openpyxl
 urlp
 mkdocs
 # installed from Dockerfile
-# cas-tools==0.0.1.dev38
+# cas-tools==1.0.7
 # tdta==0.1.0.dev5
 cell-annotation-schema==0.2b0
 pandas
