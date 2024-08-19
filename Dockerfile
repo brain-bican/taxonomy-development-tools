@@ -86,7 +86,8 @@ RUN python3 -m pip install deepmerge==1.1.0
 RUN python3 -m pip install numpy==1.26.4
 RUN python3 -m pip install marshmallow==3.21.1
 RUN python3 -m pip install python-dateutil==2.9.0
-RUN python3 -m pip install --no-deps cas-tools==1.0.3
+RUN python3 -m pip install cap-anndata==0.2.1
+RUN python3 -m pip install --no-deps cas-tools==1.0.7
 RUN python3 -m pip install --no-deps tdta==0.1.0.dev17
 
 #RUN Rscript $WORKSPACE/dendR/install_packages.R

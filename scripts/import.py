@@ -32,8 +32,9 @@ def cli():
 @click.option('-i', '--input', type=click.Path(exists=True), help='Data folder path.')
 @click.option('-s', '--schema', type=click.Path(exists=True), help='Nanobot schema folder path.')
 @click.option('-ct', '--curation_tables', type=click.Path(exists=True), help='TDT curation tables folder path.')
-@click.option('--force', '-f', is_flag=True, default=False, help="Forcefully drops and recreates tables.")
-def import_data(input, schema, curation_tables, force):
+@click.option('-f', '--force', is_flag=True, default=False, help="Forcefully drops and recreates tables.")
+@click.option('-p', '--preserve', is_flag=True, default=False, help='Preserve existing annotations.')
+def import_data(input, schema, curation_tables, force, preserve):
     """
     Imports user data to the system
     Parameters:
@@ -41,6 +42,7 @@ def import_data(input, schema, curation_tables, force):
         schema: Nanobot schema folder path.
         curation_tables: TDT curation tables folder path.
         force: Forcefully drops and recreates tables.
+        preserve: Preserve existing annotations.
     """
     global last_accession_id, accession_ids
     last_accession_id = 0
@@ -84,6 +86,9 @@ def import_data(input, schema, curation_tables, force):
                 new_files.append(user_data_ct_path)
         else:
             raise Exception("Couldn't find the config data files (with yaml or yml extension) in folder: " + input)
+    if preserve:
+        print("Preserving existing annotations.")
+        preserve_existing_annotations(std_data, curation_tables)
 
     project_config = retrieve_project_config(Path(input).parent.absolute())
     std_tables = serialize_to_tables(std_data, user_file_name, input, project_config)
@@ -104,6 +109,36 @@ def import_data(input, schema, curation_tables, force):
 
     project_folder = os.path.dirname(os.path.abspath(input))
     add_new_files_to_git(project_folder, new_files)
+
+
+def preserve_existing_annotations(cas_obj, curation_tables_folder):
+    """
+    Copies existing annotations to the new ingested data.
+    Parameters:
+        cas_obj: cas python object instance
+        curation_tables_folder: curation tables folder path
+    """
+    columns_to_preserve = ["cell_ontology_term_id", "cell_ontology_term", "rationale", "rationale_dois"]
+
+    existing_annotations_table = os.path.join(curation_tables_folder, "annotation.tsv")
+    if os.path.isfile(existing_annotations_table):
+        headers, data = read_csv_to_dict(existing_annotations_table, delimiter="\t", id_column_name="cell_label")
+        new_annotations = dict()
+        for annotation in cas_obj.annotations:
+            cell_label = annotation.cell_label
+            new_annotations[cell_label] = annotation
+
+        for cell_label in data:
+            records = data[cell_label]
+            for column in columns_to_preserve:
+                if records.get(column):
+                    if cell_label in new_annotations:
+                        if column not in asdict(new_annotations[cell_label]):  # don't overwrite existing values
+                            new_annotations[cell_label][column] = records[column]
+                    else:
+                        print("Couldn't transferred the '{}' column of the '{}'.".format(column, cell_label))
+    else:
+        print("Existing annotations couldn't be found in the folder to copy: " + curation_tables_folder)
 
 
 def add_new_files_to_git(project_folder, new_files):
