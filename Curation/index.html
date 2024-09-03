@@ -114,24 +114,23 @@
 <ol>
 <li>Pull the latest TDT docker image via following the steps defined in the project <a href="https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/taxonomy-development-tools">GitHub Container Registry</a>: <code>docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest</code></li>
 <li>Follow <a href="../config/#configure-seeding-a-new-taxonomy-from-an-existing-informal-taxonomy">instructions here</a> to prepare your ingest config file</li>
-<li>Save config file and informal spreadsheet taxonomy (as tsv) into your project's <code>input_data</code> folder.  (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/AIT115_annotation_sheet.tsv">AIT115_annotation_sheet.tsv</a>) and configuration file (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/ingestion_config.yaml">test_config.yaml</a>)  </li>
-<li>In the project root folder, run following command to ingest your data files:</li>
+<li>Save config file and informal spreadsheet taxonomy (as tsv) into your project's <code>input_data</code> folder.  (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/AIT115_annotation_sheet.tsv">AIT115_annotation_sheet.tsv</a>) and configuration file (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/ingestion_config.yaml">test_config.yaml</a>)</li>
 </ol>
-<pre><code>bash ./run.sh make load_data
-</code></pre>
+<p>Note: Please ensure that file names do not include spaces, as they can cause issues when using the command line.</p>
 <blockquote>
-<p>For Windows: 
-<code>run.bat make load_data</code>
-5. Launch TDT:</p>
+<p><code>run.bat make load_data</code>
+4. Launch TDT:</p>
 </blockquote>
 <pre><code>bash ./run.sh make serve
 </code></pre>
 <blockquote>
 <p>For Windows: 
 <code>run.bat make serve</code>
-This command will print a set of logs including a log like <code>nanobot::serve: listening on 0.0.0.0:3000</code>. This means your web editor is ready, and you can start editing your data.
-6.  You can start browsing web taxonomy editor from: <a href="http://localhost:3000/table">http://localhost:3000/table</a></p>
+This command will print a set of logs including a log like <code>nanobot::serve: listening on 0.0.0.0:3000</code>. This means your web editor is ready, and you can start editing your data.</p>
 </blockquote>
+<ol>
+<li>You can start browsing web taxonomy editor from: <a href="http://localhost:3000/table">http://localhost:3000/table</a></li>
+</ol>
 <h3 id="problems">Problems?</h3>
 <p>There are three frequently encountered problems at this stage:</p>
 <ol>

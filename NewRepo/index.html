@@ -82,6 +82,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#4-push-to-git-hosting-website">4. Push to Git hosting website</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-review-your-project-on-github">5. Review Your Project on GitHub</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#additional">Additional</a>
     </li>
     </ul>
@@ -158,6 +160,9 @@ instructions here.</p>
 <p>Using the predefined <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/CCN20230601_project_config.yaml">CCN20230601_project_config.yaml</a> file:</p>
 <pre><code>./seed-via-docker.sh -C CCN20230601_project_config.yaml
 </code></pre>
+<p>Note: If you get a permission error while running the runner script (such as <code>zsh: permission denied: ./seed-via-docker.sh</code>), please give execution permissions to the script and retry the command:</p>
+<pre><code>chmod +x seed-via-docker.sh
+</code></pre>
 <h3 id="windows">Windows</h3>
 <p>Using the predefined <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/CCN20230601_project_config.yaml">CCN20230601_project_config.yaml</a> config file:</p>
 <pre><code>seed-via-docker.bat -C CCN20230601_project_config.yaml
@@ -210,6 +215,10 @@ git branch -M main
 git push -u origin main
 </code></pre>
 <p>Note: you can now mv <code>target/human_m1</code> to anywhere you like in your home directory. Or you can do a fresh checkout from github.</p>
+<h2 id="5-review-your-project-on-github">5. Review Your Project on GitHub</h2>
+<p>Your new project repository is now hosted on GitHub. You can view your newly created repository from the previous step (such as https://github.com/hkir-dev/human_m1) on GitHub.</p>
+<p>If the repository does not meet your expectations, you can delete it from the GitHub settings and begin the process anew.</p>
+<p>If you are satisfied with the setup, you may proceed to <a href="../Curation/">load your data</a> into the project.</p>
 <h2 id="additional">Additional</h2>
 <p>You will want to also:</p>
 <ul>
