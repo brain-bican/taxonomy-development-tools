@@ -35,6 +35,12 @@ Using the predefined [CCN20230601_project_config.yaml](https://github.com/brain-
 
     ./seed-via-docker.sh -C CCN20230601_project_config.yaml
 
+Note: If you get a permission error while running the runner script (such as `zsh: permission denied: ./seed-via-docker.sh`), please give execution permissions to the script and retry the command:
+
+```
+chmod +x seed-via-docker.sh
+```
+
 ### Windows
 
 Using the predefined [CCN20230601_project_config.yaml](https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/CCN20230601_project_config.yaml) config file:
