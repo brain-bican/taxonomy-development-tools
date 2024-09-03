@@ -117,8 +117,14 @@
 <li>Save config file and informal spreadsheet taxonomy (as tsv) into your project's <code>input_data</code> folder.  (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/AIT115_annotation_sheet.tsv">AIT115_annotation_sheet.tsv</a>) and configuration file (ex. <a href="https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/ingestion_config.yaml">test_config.yaml</a>)</li>
 </ol>
 <p>Note: Please ensure that file names do not include spaces, as they can cause issues when using the command line.</p>
+<ol>
+<li>In the project root folder, run following command to ingest your data files:</li>
+</ol>
+<pre><code>bash ./run.sh make load_data
+</code></pre>
 <blockquote>
-<p><code>run.bat make load_data</code></p>
+<p>For Windows: 
+<code>run.bat make load_data</code></p>
 </blockquote>
 <ol>
 <li>Launch TDT:</li>
