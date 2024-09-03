@@ -9,6 +9,7 @@
 > ```
 > run.bat make load_data
 > ```
+
 4. Launch TDT:
 ```
 bash ./run.sh make serve
