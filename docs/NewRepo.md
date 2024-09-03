@@ -114,6 +114,14 @@ git push -u origin main
 
 Note: you can now mv `target/human_m1` to anywhere you like in your home directory. Or you can do a fresh checkout from github.
 
+## 5. Review Your Project on GitHub
+
+Your new project repository is now hosted on GitHub. You can view your newly created repository from the previous step (such as https://github.com/hkir-dev/human_m1) on GitHub.
+
+If the repository does not meet your expectations, you can delete it from the GitHub settings and begin the process anew.
+
+If you are satisfied with the setup, you may proceed to [load your data](Curation.md) into the project.
+
 ## Additional
 
 You will want to also:
