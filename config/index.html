@@ -137,6 +137,7 @@ creators:
 <li><code>citation</code>: DOI of associated paper (where the taxonomy is for a published dataset)</li>
 <li><code>creators</code>: ORCIDs or all other authors should be included here</li>
 <li><code>datasets_folder</code>: (Optional) <em>This property is only support in linux/macOS systems.</em> The folder where the AnnData files are stored. If not provided, the datasets will be stored in the default location (<code>$USER_HOME/tdt_datasets</code>). Please note that using a network drive will slow down the AnnData related actions such as <code>Export &gt; To CAS</code> and <code>Export &gt; To AnnData</code>.</li>
+<li><code>custom_purl</code>: (Optional) A custom purl for the taxonomy to be used on GitHub Pages documentation. If not provided, a purl will be generated based on the <code>github_org</code> and <code>repo</code> fields.</li>
 </ul>
 <h2 id="configure-seeding-a-new-taxonomy-from-an-existing-informal-taxonomy">Configure seeding a new taxonomy from an existing informal taxonomy.</h2>
 <p>TDT supports seeding of new taxonomies from existing informal taxonomy spreadsheets. The entire content of these spreadsheets is preserved and editable within the TDT annotation table. A simple configuration file supports mapping of relevant content into the  content in  Cell Annotation Schema (CAS) Taxonomy standard.</p>

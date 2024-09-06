@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Generating Taxonomy Github Pages - Taxonomy Development Tools (TDT)</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Generating Taxonomy Github Pages";
+        var mkdocs_page_input_path = "Gh_Pages.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Taxonomy Development Tools (TDT)
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Getting started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../QuickStart/">Quick Start Guide</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Intro_to_TDT/">Introduction to TDT</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build/">Install Requirements</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NewRepo/">Create a New Repo</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Curation/">Start Curating Taxonomies</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../UserInterface/">User Interface</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How-to guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">Configuring a new project</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Update/">Update to a newer TDT version</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Review/">Reviewing annotations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../UpdateAnnotations/">Programmatically update annotations</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Taxonomy Development Tools (TDT)</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Generating Taxonomy Github Pages</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/main/docs/Gh_Pages.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="generating-taxonomy-github-pages">Generating Taxonomy Github Pages</h1>
+<p><em>This feature is supported on TDT versions &gt;= 1.0.7. Please consider upgrading your project through following the <a href="Upgrade.md">upgrade guide</a></em></p>
+<p>The Taxonomy Development Tools (TDT) provides a feature to generate a GitHub Pages site for your taxonomy. This feature allows you to create a user-friendly interface for your taxonomy, making it easier for users to explore and understand the data. </p>
+<p>These pages also works in synergy with the <a href="https://purl.brain-bican.org/">PURL</a> system, allowing you to create a permanent URL for your taxonomy and cell sets.</p>
+<p>To generate the GitHub Pages for your taxonomy, follow these steps:</p>
+<p>1- In the TDT UI run Actions &gt; Generate &gt; Github Pages</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/docs_menu.png" alt="Documentation generation action." width="300"/>
+</p>
+
+<p>This operation will generate documentation on your project root directory under the <code>docs</code> folder and push them to the GitHub.</p>
+<p>2- (This step only needed once, at the first publishing of the GH pages) Navigate to your GitHub repository and go to the <code>Settings</code> tab.</p>
+<p>On the left panel select <code>Pages</code> and under the <code>Code and Automation</code> section. Then select the <code>gh-pages</code> branch in the <code>Branch</code> section and <code>Save</code>.</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/docs_config.png" alt="GH Pages configuration" width="500"/>
+</p>
+
+<p>Then please wait for a few minutes for the GitHub Pages to be generated. In the background a GitHub action is preparing that branch for you. Then your taxonomy will be available at <code>https://brain-bican.github.io/&lt;your_repository_name&gt;/</code>.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>If you cannot see the <code>gh_pages</code> branch to select at step 2, you may need to wait a few minutes for the GitHub Pages to be generated. In the background a GitHub action is preparing that branch for you.</p>
+<p>If the branch is still not visible, please navigate to the <code>Actions</code> tab in your repository and check the status of the <code>Publish mkdocs documentation</code> action. If it is still running, please wait for it to complete (depending on the size of your taxonomy it may take up to 30 minutes). If the action is failed please <a href="https://github.com/brain-bican/taxonomy-development-tools/issues/new?assignees=&amp;labels=bug&amp;projects=&amp;template=bug_report.md&amp;title=">report an issue</a> on the TDT repository. Please add the failed steps logs to the issue for the swift resolution.</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/brain-bican/taxonomy-development-tools/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
