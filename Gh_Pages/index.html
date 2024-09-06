@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Generating Taxonomy Github Pages - Taxonomy Development Tools (TDT)</title>
+    <title>Generate GH Pages - Taxonomy Development Tools (TDT)</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Generating Taxonomy Github Pages";
+        var mkdocs_page_name = "Generate GH Pages";
         var mkdocs_page_input_path = "Gh_Pages.md";
         var mkdocs_page_url = null;
       </script>
@@ -68,7 +68,7 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">How-to guides</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../config/">Configuring a new project</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../Update/">Update to a newer TDT version</a>
@@ -76,6 +76,12 @@
                   <li class="toctree-l1"><a class="reference internal" href="../Review/">Reviewing annotations</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../UpdateAnnotations/">Programmatically update annotations</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Generate GH Pages</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+    </li>
+    </ul>
                   </li>
               </ul>
       </div>
@@ -92,7 +98,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Generating Taxonomy Github Pages</li>
+          <li class="breadcrumb-item">How-to guides</li>
+      <li class="breadcrumb-item active">Generate GH Pages</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/brain-bican/taxonomy-development-tools/edit/main/docs/Gh_Pages.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -116,7 +123,7 @@
 <p>2- (This step only needed once, at the first publishing of the GH pages) Navigate to your GitHub repository and go to the <code>Settings</code> tab.</p>
 <p>On the left panel select <code>Pages</code> and under the <code>Code and Automation</code> section. Then select the <code>gh-pages</code> branch in the <code>Branch</code> section and <code>Save</code>.</p>
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/docs_config.png" alt="GH Pages configuration" width="500"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/docs_config.png" alt="GH Pages configuration" width="700"/>
 </p>
 
 <p>Then please wait for a few minutes for the GitHub Pages to be generated. In the background a GitHub action is preparing that branch for you. Then your taxonomy will be available at <code>https://brain-bican.github.io/&lt;your_repository_name&gt;/</code>.</p>
@@ -126,6 +133,9 @@
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../UpdateAnnotations/" class="btn btn-neutral float-left" title="Programmatically update annotations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
 
   <hr/>
 
@@ -150,6 +160,8 @@
           <a href="https://github.com/brain-bican/taxonomy-development-tools/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
         </span>
     
+    
+      <span><a href="../UpdateAnnotations/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
   </span>
