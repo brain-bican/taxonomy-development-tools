@@ -1,0 +1,34 @@
+name: Publish mkdocs documentation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    name: Publish mkdocs documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v3
+
+      - name: Configure Git Credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+            python-version: 3.x
+
+      - run: pip install mkdocs-material mkdocs-include-dir-to-nav mkdocs-nav-weight==0.2.0
+
+      - run: mkdocs gh-deploy --force

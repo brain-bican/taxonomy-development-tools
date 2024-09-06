@@ -2,39 +2,30 @@
 
 $$TAXONOMY_DESCRIPTION$$
 
-Curate your taxonomy in 3 simple steps:
+## Stable release versions
 
-1. [Get Taxonomy Development Tools](#get-taxonomy-development-tools)  
-1. [Load your data](#load-your-data)  
-1. [Browse](#browse)  
+The latest version of the taxonomy can always be found at:
 
-## Get Taxonomy Development Tools 
+https://purl.brain-bican.org/taxonomy/$$TAXONOMY_ID$$/$$TAXONOMY_ID$$.json
 
-Pull the latest TDT docker image via following the steps defined in the project [GitHub Container Registry](https://github.com/brain-bican/taxonomy-development-tools/pkgs/container/taxonomy-development-tools). 
+You can view the taxonomy details in the online documentation by visiting [https://purl.brain-bican.org/taxonomy/$$TAXONOMY_ID$$](https://purl.brain-bican.org/taxonomy/$$TAXONOMY_ID$$)
 
-```
-docker pull ghcr.io/brain-bican/taxonomy-development-tools:latest
-```
+## Curate taxonomy
 
-## Load your data
+Set up and manage your taxonomy in just two easy steps:
 
-Place your data (ex. [AIT115_annotation_sheet.tsv](https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/AIT115_annotation_sheet.tsv)) and configuration file (ex. [ingestion_config.yaml](https://github.com/brain-bican/taxonomy-development-tools/tree/main/examples/nhp_basal_ganglia/ingestion_config.yaml)) into your project's `input_data` folder.  
+1. [Explore Your Taxonomy](#explore-taxonomy)
+1. [Load Your Data](#load-your-data)
 
-Run following command in your project root folder to ingest your data files:
 
-```
-bash ./run.sh make load_data
-```
+###  Explore Taxonomy
 
-## Browse
+First, clone this repository. Then, execute `bash ./run.sh make serve`  in the root directory of the project to launch the online data editor. Start browsing your data at [http://localhost:3000/annotation](http://localhost:3000/annotation).
 
-Run following command in your project root folder to run the online data editor:
-```
-bash ./run.sh make serve
-```
+For complete instructions, check out the [quick start quide](https://brain-bican.github.io/taxonomy-development-tools/QuickStart/)
 
-This command will print a set of logs including a log like `nanobot::serve: listening on 0.0.0.0:3000`. This means your web editor is ready, and you can start editing your data.
+###  Load your data
 
-You can start browsing web taxonomy editor from: [http://localhost:3000/table](http://localhost:3000/table)
+To upload your data into the editor, please refer to the [curation guide](https://brain-bican.github.io/taxonomy-development-tools/Curation/)
 
-_For further details see [Taxonomy Development Tools Documentation](https://brain-bican.github.io/taxonomy-development-tools/)_
+_This repository is powered by the Taxonomy Development Tools. For more information, see the [Taxonomy Development Tools Documentation](https://brain-bican.github.io/taxonomy-development-tools/)_

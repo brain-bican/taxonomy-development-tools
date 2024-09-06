@@ -1,0 +1,44 @@
+site_name: $$TAXONOMY_NAME$$
+repo_url: https://github.com/$$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$
+repo_name: $$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$
+docs_dir: docs
+
+nav:
+  - Taxonomy: index.md
+  - Cell Sets: cell_sets
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  favicon: assets/logo.webp
+  logo: assets/logo.webp
+
+plugins:
+  - search
+  - include_dir_to_nav
+  - mkdocs-nav-weight:
+      section_renamed: false
+      index_weight: -10
+      warning: true
+      reverse: false
+      headless_included: true

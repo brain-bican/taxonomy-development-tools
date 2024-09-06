@@ -5,6 +5,8 @@ RUN mkdir $WORKSPACE
 RUN mkdir $WORKSPACE/dendR
 RUN mkdir $WORKSPACE/scripts
 RUN mkdir $WORKSPACE/resources
+RUN mkdir $WORKSPACE/resources/assets
+RUN mkdir $WORKSPACE/resources/github_actions
 
 ENV DEBIAN_FRONTEND=noninteractive
 # for cellxgene-census
@@ -56,6 +58,7 @@ ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD Makefile $WORKSPACE
 ADD resources/repo_README.md $WORKSPACE/resources
 ADD resources/repo_PURL_config.yml $WORKSPACE/resources
+ADD resources/repo_mkdocs.yml $WORKSPACE/resources
 ADD requirements.txt $WORKSPACE
 ADD tdt/tdt.py $WORKSPACE
 ADD tdt/api/tdt_api.py $WORKSPACE
@@ -74,6 +77,8 @@ ADD scripts/configurations.py $WORKSPACE/scripts
 ADD scripts/export.py $WORKSPACE/scripts
 ADD scripts/upgrade.py $WORKSPACE/scripts
 ADD scripts/.gitignore $WORKSPACE/scripts
+ADD resources/assets/logo.webp $WORKSPACE/resources/assets
+ADD resources/github_actions/publish-docs.yml $WORKSPACE/resources/github_actions
 
 RUN python3 -m pip install  -r $WORKSPACE/requirements.txt
 
@@ -87,8 +92,8 @@ RUN python3 -m pip install numpy==1.26.4
 RUN python3 -m pip install marshmallow==3.21.1
 RUN python3 -m pip install python-dateutil==2.9.0
 RUN python3 -m pip install cap-anndata==0.2.1
-RUN python3 -m pip install --no-deps cas-tools==1.0.7
-RUN python3 -m pip install --no-deps tdta==0.1.0.dev17
+RUN python3 -m pip install --no-deps cas-tools==1.0.8
+RUN python3 -m pip install --no-deps tdta==0.1.0.dev24
 
 #RUN Rscript $WORKSPACE/dendR/install_packages.R
 
@@ -129,8 +134,9 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/g
 RUN apt-get update &&  \
     apt-get install -y aha \
     sqlite3 \
-    python3-psycopg2 \
-    gh
+    python3-psycopg2
+
+RUN apt-get install gh --allow-unauthenticated
 
 # restore WORKDIR
 WORKDIR /tools

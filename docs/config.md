@@ -31,6 +31,7 @@ creators:
 * `citation`: DOI of associated paper (where the taxonomy is for a published dataset)
 * `creators`: ORCIDs or all other authors should be included here
 * `datasets_folder`: (Optional) _This property is only support in linux/macOS systems._ The folder where the AnnData files are stored. If not provided, the datasets will be stored in the default location (`$USER_HOME/tdt_datasets`). Please note that using a network drive will slow down the AnnData related actions such as `Export > To CAS` and `Export > To AnnData`.
+* `custom_purl`: (Optional) A custom purl for the taxonomy to be used on GitHub Pages documentation. If not provided, a purl will be generated based on the `github_org` and `repo` fields.
 
 ## Configure seeding a new taxonomy from an existing informal taxonomy.
 
