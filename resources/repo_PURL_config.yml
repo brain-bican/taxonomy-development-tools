@@ -1,12 +1,11 @@
 # PURL configuration for https://purl.brain-bican.org/taxonomy/$$TAXONOMY_ID$$
-
 idspace: $$TAXONOMY_ID$$
 base_url: /taxonomy/$$TAXONOMY_ID$$
 
 products:
 - $$TAXONOMY_ID$$.json: https://raw.githubusercontent.com/$$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$/main/$$TAXONOMY_ID$$.json
 
-base_redirect: https://github.com/$$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$
+base_redirect: https://brain-bican.github.io/$$PROJECT_REPO$$
 
 entries:
 
@@ -20,3 +19,11 @@ entries:
   tests:
     - from: /releases/2023-09-24/
       to: https://raw.githubusercontent.com/$$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$/v2023-09-24/
+
+# This config should be the last item since it will catch all remaining paths
+# https://purl.brain-bican.org/taxonomy/$$TAXONOMY_ID$$/accession_id
+- regex: ^/taxonomy/$$TAXONOMY_ID$$/(.*)$
+  replacement: https://brain-bican.github.io/$$PROJECT_REPO$$/cell_sets/$1
+  tests:
+  - from: /$$TAXONOMY_ID$$/$$TAXONOMY_ID$$_1
+    to: https://brain-bican.github.io/$$PROJECT_REPO$$/cell_sets/$$TAXONOMY_ID$$_1

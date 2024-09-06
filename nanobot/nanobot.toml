@@ -63,6 +63,16 @@ commands = [
   ["tdta", "anndata", "-db", "./build/nanobot.db", "-j", "./$$TAXONOMY_ID$$.json", "-o", "/tdt_datasets/$$TAXONOMY_ID$$.h5ad", "-c", "/tdt_datasets"]
 ]
 
+[actions.generate]
+label = "Generate"
+commands = []
+
+[actions.sub_generate_docs]
+label = "Github Pages"
+commands = [
+  ["tdta", "docs", "-db", "./build/nanobot.db", "-o", "./docs"]
+]
+
 [actions.github]
 label = "Version Control"
 commands = []

@@ -232,6 +232,9 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_ontodev_tables(outdir, project, tgts)
     create_ontodev_static_files(outdir, tgts)
     create_gitignore(outdir, tgts)
+    create_mkdocs(outdir, project, tgts)
+    create_docs_folder(outdir, tgts)
+    create_github_actions(outdir, tgts)
 
     for tgt in tgts:
         logging.info("  File: {}".format(tgt))
@@ -419,6 +422,36 @@ def create_gitignore(outdir, tgts):
     gitignore_target = "{}/.gitignore".format(outdir)
     tgts.append(gitignore_target)
     copy(gitignore_source, gitignore_target)
+
+
+def create_mkdocs(outdir, project, tgts):
+    nanobot_source = WORKSPACE + "/resources/repo_mkdocs.yml"
+    with open(nanobot_source, "r") as f:
+        content = f.read()
+    content = content.replace("$$TAXONOMY_NAME$$", project.title)
+    content = content.replace("$$PROJECT_GITHUB_ORG$$", project.github_org)
+    content = content.replace("$$PROJECT_REPO$$", project.repo)
+    mkdocs_file = "{}/mkdocs.yml".format(outdir)
+    with open(mkdocs_file, "w") as f:
+        f.write(content)
+    tgts.append(mkdocs_file)
+
+
+def create_docs_folder(outdir, tgts):
+    os.makedirs(outdir + "/docs", exist_ok=True)
+    os.makedirs(outdir + "/docs/assets", exist_ok=True)
+    logo_source = WORKSPACE + "/resources/assets/logo.webp"
+    logo_target = "{}/docs/assets/logo.webp".format(outdir)
+    tgts.append(logo_target)
+    copy(logo_source, logo_target)
+
+
+def create_github_actions(outdir, project, tgts):
+    os.makedirs(outdir + "/.github/workflows", exist_ok=True)
+    action_source = WORKSPACE + "/resources/github_actions/publish-docs.yml"
+    action_target = "{}/.github/workflows/publish-docs.yml".format(outdir)
+    tgts.append(action_target)
+    copy(action_source, action_target)
 
 
 def create_folder(outdir, folder_name,  tgts, title=None, description=None):

@@ -14,7 +14,7 @@ mkdocs
 # installed from Dockerfile
 # cas-tools==1.0.7
 # tdta==0.1.0.dev5
-cell-annotation-schema==0.2b0
+cell-annotation-schema==1.0.0
 pandas
 pyarrow
 flask

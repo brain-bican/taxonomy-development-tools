@@ -539,11 +539,13 @@ $(document).ready(function(){
     // generate at string per accession and store in all_ats
     for (var row_index in at_data) {
       var row = at_data[row_index];
-      source_taxonomy = row["source_taxonomy"].split("/").at(-1).split(".")[0];
-      transferred_cell_label = row["transferred_cell_label"];
-      ats = all_ats[row["target_node_accession"]] || [];
-      ats.push(source_taxonomy + ": " + transferred_cell_label);
-      all_ats[row["target_node_accession"]] = ats;
+      if (row["source_taxonomy"]) {
+        source_taxonomy = row["source_taxonomy"].split("/").at(-1).split(".")[0];
+        transferred_cell_label = row["transferred_cell_label"];
+        ats = all_ats[row["target_node_accession"]] || [];
+        ats.push(source_taxonomy + ": " + transferred_cell_label);
+        all_ats[row["target_node_accession"]] = ats;
+      }
     }
     $.each(all_ats, (key, val) => {
       var at_cell = $("a[name='at_" + key + "']");
