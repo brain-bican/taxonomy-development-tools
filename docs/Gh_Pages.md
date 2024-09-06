@@ -21,7 +21,7 @@ This operation will generate documentation on your project root directory under 
 On the left panel select `Pages` and under the `Code and Automation` section. Then select the `gh-pages` branch in the `Branch` section and `Save`.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/docs_config.png" alt="GH Pages configuration" width="500"/>
+    <img src="https://raw.githubusercontent.com/brain-bican/taxonomy-development-tools/main/docs/images/screenshots/docs_config.png" alt="GH Pages configuration" width="700"/>
 </p>
 
 Then please wait for a few minutes for the GitHub Pages to be generated. In the background a GitHub action is preparing that branch for you. Then your taxonomy will be available at `https://brain-bican.github.io/<your_repository_name>/`.

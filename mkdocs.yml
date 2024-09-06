@@ -16,5 +16,6 @@ nav:
     - Update to a newer TDT version: Update.md
     - Reviewing annotations: Review.md
     - Programmatically update annotations: UpdateAnnotations.md
+    - Generate GH Pages: Gh_Pages.md
 repo_url: https://github.com/brain-bican/taxonomy-development-tools/
 edit_uri: edit/main/docs/
