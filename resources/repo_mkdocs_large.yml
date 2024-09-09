@@ -1,0 +1,21 @@
+site_name: '$$TAXONOMY_NAME$$'
+repo_url: https://github.com/$$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$
+repo_name: $$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$
+docs_dir: docs
+
+nav:
+  - Taxonomy: index.md
+  - Cell Sets: cell_sets
+
+theme:
+  name: bootstrap4
+
+plugins:
+  - search
+  - include_dir_to_nav
+  - mkdocs-nav-weight:
+      section_renamed: false
+      index_weight: -10
+      warning: true
+      reverse: false
+      headless_included: true

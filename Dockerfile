@@ -59,6 +59,7 @@ ADD Makefile $WORKSPACE
 ADD resources/repo_README.md $WORKSPACE/resources
 ADD resources/repo_PURL_config.yml $WORKSPACE/resources
 ADD resources/repo_mkdocs.yml $WORKSPACE/resources
+ADD resources/repo_mkdocs_large.yml $WORKSPACE/resources
 ADD requirements.txt $WORKSPACE
 ADD tdt/tdt.py $WORKSPACE
 ADD tdt/api/tdt_api.py $WORKSPACE
@@ -93,7 +94,7 @@ RUN python3 -m pip install marshmallow==3.21.1
 RUN python3 -m pip install python-dateutil==2.9.0
 RUN python3 -m pip install cap-anndata==0.2.1
 RUN python3 -m pip install --no-deps cas-tools==1.0.8
-RUN python3 -m pip install --no-deps tdta==0.1.0.dev24
+RUN python3 -m pip install --no-deps tdta==0.1.0.dev25
 
 #RUN Rscript $WORKSPACE/dendR/install_packages.R
 

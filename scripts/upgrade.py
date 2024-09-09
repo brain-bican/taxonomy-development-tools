@@ -1,6 +1,7 @@
 import os
 import click
 import logging
+import subprocess
 
 from pathlib import Path
 from ruamel.yaml import YAML
@@ -43,6 +44,10 @@ def upgrade(root_folder, workspace):
     create_mkdocs(outdir, project, tgts)
     create_docs_folder(outdir, tgts)
     create_github_actions(outdir, tgts)
+
+    runcmd("cd {dir} && git add {files}".
+           format(dir=outdir,
+                  files=" ".join([t.replace(outdir, ".", 1) for t in tgts])))
     print("Upgrade completed successfully.")
 
 
@@ -213,6 +218,17 @@ def retrieve_configs(root_folder_path, *properties):
                     except Exception as e:
                         raise Exception("Yaml read failed:" + f + " " + str(e))
     return values
+
+
+def runcmd(cmd):
+    logging.info("RUNNING: {}".format(cmd))
+    p = subprocess.Popen([cmd], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, universal_newlines=True)
+    (out, err) = p.communicate()
+    logging.info('OUT: {}'.format(out))
+    if err:
+        logging.error(err)
+    if p.returncode != 0:
+        raise Exception('Failed: {}'.format(cmd))
 
 
 if __name__ == '__main__':

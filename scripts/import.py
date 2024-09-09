@@ -53,7 +53,7 @@ def import_data(input, schema, curation_tables, force, preserve):
     user_data_path = None
     user_config_path = None
     user_cas_path = None
-    unzip_files_in_folder(input)
+    unzipped_files = unzip_files_in_folder(input)
     for filename in os.listdir(input):
         f = os.path.join(input, filename)
         if os.path.isfile(f):
@@ -108,6 +108,9 @@ def import_data(input, schema, curation_tables, force, preserve):
         new_files.append(os.path.join(schema, "table.tsv"))
         new_files.append(os.path.join(schema, "column.tsv"))
 
+    # delete unzipped files
+    for file_path in unzipped_files:
+        os.remove(file_path)
     project_folder = os.path.dirname(os.path.abspath(input))
     add_new_files_to_git(project_folder, new_files)
 
@@ -144,12 +147,15 @@ def preserve_existing_annotations(cas_obj, curation_tables_folder):
 
 def unzip_files_in_folder(folder_path):
     files_in_folder = os.listdir(folder_path)
+    unzipped_files = []
     for file_name in files_in_folder:
         if file_name.endswith('.zip'):
             zip_path = os.path.join(folder_path, file_name)
             with zipfile.ZipFile(zip_path, 'r') as zip_ref:
                 zip_ref.extractall(folder_path)
+            unzipped_files.append(zip_path)
             print(f"Extracted '{zip_path}'.")
+    return unzipped_files
 
 
 def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema, delete_source=False, force=False):

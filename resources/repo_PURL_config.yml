@@ -23,7 +23,7 @@ entries:
 # This config should be the last item since it will catch all remaining paths
 # https://purl.brain-bican.org/taxonomy/$$TAXONOMY_ID$$/accession_id
 - regex: ^/taxonomy/$$TAXONOMY_ID$$/(.*)$
-  replacement: https://brain-bican.github.io/$$PROJECT_REPO$$/cell_sets/$1
+  replacement: https://$$PROJECT_GITHUB_ORG$$.github.io/$$PROJECT_REPO$$/cell_sets/$1
   tests:
   - from: /$$TAXONOMY_ID$$/$$TAXONOMY_ID$$_1
-    to: https://brain-bican.github.io/$$PROJECT_REPO$$/cell_sets/$$TAXONOMY_ID$$_1
+    to: https://$$PROJECT_GITHUB_ORG$$.github.io/$$PROJECT_REPO$$/cell_sets/$$TAXONOMY_ID$$_1
