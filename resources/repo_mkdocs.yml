@@ -1,4 +1,4 @@
-site_name: $$TAXONOMY_NAME$$
+site_name: '$$TAXONOMY_NAME$$'
 repo_url: https://github.com/$$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$
 repo_name: $$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$
 docs_dir: docs

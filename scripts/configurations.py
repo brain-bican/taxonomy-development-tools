@@ -44,6 +44,8 @@ def configure_git(root_folder):
     else:
         print("WARN: The project has not been pushed to GitHub yet, resulting in incomplete GitHub authentication.")
 
+    runcmd("git config http.postBuffer 524288000")
+
     purl_folder = os.path.join(Path(root_folder).absolute(), "purl")
     print(purl_folder)
     gh_login(purl_folder)

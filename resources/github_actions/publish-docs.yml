@@ -29,6 +29,6 @@ jobs:
         with:
             python-version: 3.x
 
-      - run: pip install mkdocs-material mkdocs-include-dir-to-nav mkdocs-nav-weight==0.2.0
+      - run: pip install mkdocs-material mkdocs-include-dir-to-nav mkdocs-nav-weight==0.2.0 mkdocs-theme-bootstrap4
 
       - run: mkdocs gh-deploy --force
