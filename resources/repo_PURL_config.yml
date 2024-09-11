@@ -5,7 +5,7 @@ base_url: /taxonomy/$$TAXONOMY_ID$$
 products:
 - $$TAXONOMY_ID$$.json: https://raw.githubusercontent.com/$$PROJECT_GITHUB_ORG$$/$$PROJECT_REPO$$/main/$$TAXONOMY_ID$$.json
 
-base_redirect: https://brain-bican.github.io/$$PROJECT_REPO$$
+base_redirect: https://$$PROJECT_GITHUB_ORG$$.github.io/$$PROJECT_REPO$$
 
 entries:
 
