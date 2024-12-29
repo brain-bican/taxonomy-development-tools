@@ -11,7 +11,7 @@
 <div style="margin-top: 15px; margin-bottom: 15px;" class="container-fluid">
     <h2 style="display:inline-block;">Taxonomy View</h2>
 
-    <a class="float-end btn btn-outline-primary" href="/{{ table_name }}">Table View</a>
+    <a id="tableViewLink" class="float-end btn btn-outline-primary" href="#">Table View</a>
 </div>
 
 
@@ -35,6 +35,13 @@
 {% block body_end %}
 <script src="{{ page.root }}assets/bstreeview.js"></script>
 <script>
+  document.addEventListener("DOMContentLoaded", function() {
+      // set table view link
+      var tableViewLink = document.getElementById("tableViewLink");
+      var currentUrl = new URL(window.location.href);
+      var baseUrl = currentUrl.origin + currentUrl.pathname.split('?')[0];
+      tableViewLink.href = baseUrl;
+  });
   var $sourceTree = null;
   var table_data = null;
   table_json_url = String(window.location.href).split("?")[0] + ".json?limit=100000&shape=value_rows";
