@@ -1,4 +1,4 @@
-datatype	parent	transform	condition	structure	description	SQL type	HTML type
+datatype	parent	transform	condition	structure	description	sql_type	HTML type
 CURIE	nonspace		match(/\w+:\w+/)		a Compact URI		
 IRI	nonspace		exclude(/\s/)		an Internationalized Resource Identifier		
 OBI_ID	CURIE		match(/OBI:\S+/)	"concat(prefix, "":"", suffix)"	an OBI ID		

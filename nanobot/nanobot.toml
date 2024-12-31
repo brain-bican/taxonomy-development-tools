@@ -17,36 +17,6 @@ path = "src/assets/"
 [templates]
 path = "src/resources/"
 
-[actions.file]
-label = "File"
-commands = []
-
-[actions.sub_file_save]
-label = "Save"
-inputs = [
-    { name = "message", label = "Save comment" }
-]
-commands = [
-  ["make", "save"],
-  ["tdta", "merge", "-p", "./", "-m", "{message}"],
-  ["git", "push"],
-  ["make", "init"]
-]
-
-[actions.sub_file_publish]
-label = "Publish"
-inputs = [
-  { name = "tag", label = "Release Tag", default = "v{today}" },
-]
-commands = [
-  ["make", "save"],
-  ["tdta", "merge", "-p", "./", "-m", "{message}"],
-  ["git", "push"],
-  ["gh", "release", "create", "{tag}"],
-  ["tdta", "purl-publish", "-i", "./", "-t", "AIT117", "-u", "'{username}'"],
-  ["make", "init"]
-]
-
 [actions.export]
 label = "Export"
 commands = []
@@ -77,89 +47,18 @@ commands = [
 label = "Version Control"
 commands = []
 
-[actions.sub_github_status]
-label = "Status"
-commands = [
-  ["git", "-c", "color.ui=always", "status"],
-]
-
-[actions.sub_github_diff]
-label = "Diff"
-commands = [
-  ["git", "-c", "color.ui=always", "diff"],
-]
-
-[actions.sub_github_fetch]
-label = "Fetch"
-commands = [
-  ["git", "fetch"],
-]
-
-[actions.sub_github_pull]
-label = "Pull"
-commands = [
-  ["git", "pull"],
-]
-
-[actions.sub_github_branch]
-label = "Branch"
-inputs = [
-  { name = "branch_name", label = "Branch Name", default = "{username}-{today}", validate = "\\w+" }
-]
-commands = [
-  ["git", "checkout", "main"],
-  ["git", "pull"],
-  ["git", "checkout", "-b", "{branch_name}"],
-  ["git", "push", "--set-upstream", "origin", "{branch_name}"],
-]
-
-[actions.sub_github_commit]
-label = "Commit"
-inputs = [
-    { name = "message", label = "Commit Message" }
-]
-commands = [
-  ["git", "-c", "color.ui=always", "status"],
-  ["git", "commit", "-a", "--message", "'{message}'"],
-]
-
-[actions.sub_github_commitandpush]
-label = "Commit and Push"
-inputs = [
-    { name = "message", label = "Commit Message" }
-]
-commands = [
-  ["git", "-c", "color.ui=always", "status"],
-  ["git", "commit", "-a", "--message", "'{message}'"],
-  ["git", "push"],
-]
-
-[actions.sub_github_push]
-label = "Push"
-commands = [
-  ["git", "push"],
-]
-
-[actions.sub_github_pr]
-label = "Pull Request"
-inputs = [
-  { name = "title", label = "Title" },
-  { name = "body", label = "Body" },
-]
-commands = [
-  ["gh", "pr", "create", "--title", "'{title}'", "--body", "'{body}'"],
-]
-
 [actions.sub_github_release]
 label = "Release"
 inputs = [
   { name = "tag", label = "Release Tag", default = "v{today}" },
 ]
 commands = [
-  ["git", "checkout", "main"],
-  ["git", "pull"],
-  ["git", "-c", "color.ui=always", "status"],
+  ["make", "save"],
+  ["tdta", "merge", "-p", "./", "-m", "{message}"],
+  ["git", "push"],
   ["gh", "release", "create", "{tag}"],
+  ["tdta", "purl-publish", "-i", "./", "-t", "$$TAXONOMY_ID$$", "-u", "'{username}'"],
+  ["make", "init"]
 ]
 
 [actions.sub_github_purl]

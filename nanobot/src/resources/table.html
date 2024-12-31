@@ -279,7 +279,9 @@
 <table class="table table-sm">
   <thead>
     <tr>
+      {% if "row_number" in row[0] %}
       <th />
+      {% endif %}
       <!-- extend-start -->
       {% if table.table == "annotation" %}
       <!-- review icon column -->
@@ -300,13 +302,13 @@
           {% endif %}
         </th>
       {% endfor %}
-        <!-- extend-start -->
-        {% if table.table == "annotation" %}
-        <th>
-          <a class="" role="button" style="text-decoration:none">Transferred Annotations</a>
-        </th>
-        {% endif %}
-        <!-- extend-end -->
+      <!-- extend-start -->
+      {% if table.table == "annotation" %}
+      <th>
+        <a class="" role="button" style="text-decoration:none">Transferred Annotations</a>
+      </th>
+      {% endif %}
+      <!-- extend-end -->
     </tr>
   </thead>
   <tbody>
@@ -452,9 +454,7 @@
           {% endif %}
         </ul>
       </td>
-      {# extend-start #}
       {% endif %}
-      {# extend-end #}
       {% endfor %}
       <!-- extend-start -->
       {% if table.table == "annotation" %}

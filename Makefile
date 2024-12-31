@@ -12,8 +12,7 @@ build/:
 
 build/nanobot: | build/
 	# upgrade /nanobot/src/resources as well
-	#curl -L -o $@ "https://github.com/hkir-dev/nanobot.rs/releases/download/v2024-02-05-tdt/nanobot-x86_64-unknown-linux-musl"
-	curl -L -o $@ "https:/github.com/ontodev/nanobot.rs/releases/download/v2024-03-21/nanobot-v20240321-x86_64-linux"
+	curl -L -o $@ "https://github.com/hkir-dev/nanobot.rs/releases/download/v2024-12-28/nanobot-v20241228-x86_64-linux"
 	chmod +x $@
 
 .PHONY: build_nomenclature_tables

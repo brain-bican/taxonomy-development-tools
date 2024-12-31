@@ -190,25 +190,27 @@ def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_fol
         column_tsv_path = os.path.join(schema_folder, "column.tsv")
         with open(column_tsv_path, 'a') as fd:
             for index, header in enumerate(user_headers):
+                # label = header.replace("_", " ").strip()
+                label = ""
                 if header == "cell_set_accession":
                     fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.replace("_", " ").strip() + "\t\ttext\tprimary\t" + get_column_description(cas_schema, user_table_name, header))
+                             label + "\t\ttext\tprimary\t" + get_column_description(cas_schema, user_table_name, header))
                 elif index == 0 and "cell_set_accession" not in user_headers and user_table_name != "review":
                     fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
                              header.strip() + "\t\ttext\tprimary\t" + get_column_description(cas_schema, user_table_name, "cell_set_accession"))
                 elif header == "cell_ontology_term_id":
                     fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.replace("_", " ").strip() + "\tempty\tautocomplete_cl\t\t" + get_column_description(cas_schema, user_table_name, header))
+                             label + "\tempty\tautocomplete_cl\t\t" + get_column_description(cas_schema, user_table_name, header))
                 elif header == "cell_ontology_term":
                     fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.replace("_", " ").strip() + "\tempty\tontology_label\t\t" + get_column_description(cas_schema, user_table_name, header))
+                             label + "\tempty\tontology_label\t\t" + get_column_description(cas_schema, user_table_name, header))
                 elif header == "labelset" and user_table_name == "annotation":
                     fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.replace("_", " ").strip() + "\tempty\ttext\t" + "from(labelset.name)"
+                             label + "\tempty\ttext\t" + "from(labelset.name)"
                              + "\t" + get_column_description(cas_schema, user_table_name, header))
                 else:
                     fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.replace("_", " ").strip() + "\tempty\ttext\t\t" + get_column_description(cas_schema, user_table_name, header))
+                             label + "\tempty\ttext\t\t" + get_column_description(cas_schema, user_table_name, header))
     else:
         print("Table already exists in the schema: {}. Skipping...".format(Path(user_data_path).name))
         user_data_ct_path = None

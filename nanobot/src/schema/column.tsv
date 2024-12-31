@@ -17,5 +17,5 @@ datatype	condition		empty	datatype_condition
 datatype	description		empty	text		a description of this datatype
 datatype	transform		empty	text		data type transformation
 datatype	structure		empty	text		data type structure
-datatype	SQL type		empty	sql_type		the SQLite type for representing this data
+datatype	sql_type		empty	sql_type		the SQLite type for representing this data
 datatype	HTML type		empty	html_type		the HTML type for viewing and editing this data
