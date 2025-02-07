@@ -31,16 +31,14 @@ def cli():
 
 @cli.command()
 @click.option('-i', '--input', type=click.Path(exists=True), help='Data folder path.')
-@click.option('-s', '--schema', type=click.Path(exists=True), help='Nanobot schema folder path.')
 @click.option('-ct', '--curation_tables', type=click.Path(exists=True), help='TDT curation tables folder path.')
 @click.option('-f', '--force', is_flag=True, default=False, help="Forcefully drops and recreates tables.")
 @click.option('-p', '--preserve', is_flag=True, default=False, help='Preserve existing annotations.')
-def import_data(input, schema, curation_tables, force, preserve):
+def import_data(input, curation_tables, force, preserve):
     """
     Imports user data to the system
     Parameters:
         input (str): Path to the input data folder
-        schema: Nanobot schema folder path.
         curation_tables: TDT curation tables folder path.
         force: Forcefully drops and recreates tables.
         preserve: Preserve existing annotations.
@@ -95,7 +93,7 @@ def import_data(input, schema, curation_tables, force, preserve):
 
     cas_schema = read_cas_schema()
     for table_path in std_tables:
-        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables, cas_schema, True, force)
+        user_data_ct_path = add_user_table_to_nanobot(table_path, curation_tables, cas_schema, True, force)
         if user_data_ct_path:
             new_files.append(user_data_ct_path)
 
@@ -151,7 +149,7 @@ def unzip_files_in_folder(folder_path):
     return unzipped_files
 
 
-def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema, delete_source=False, force=False):
+def add_user_table_to_nanobot(user_data_path, curation_tables_folder, cas_schema, delete_source=False, force=False):
     """
     Adds user data to the relatable. Adds user table to the curation tables folder.
     """

@@ -127,4 +127,4 @@ clean:
 .PHONY: upgrade
 upgrade: clean
 	python3 $(UPGRADE) upgrade --root_folder ./ --workspace $(WORKSPACE)
-	python3 $(IMPORT) import-data --input input_data/ --schema src/schema/ --curation_tables curation_tables/
+	python3 $(IMPORT) import-data --input input_data/ --curation_tables curation_tables/
