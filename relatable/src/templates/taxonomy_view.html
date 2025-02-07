@@ -1,0 +1,718 @@
+<style>
+/*
+ @preserve
+ bstreeview.css
+ Version: 1.2.0
+ Authors: Sami CHNITER <sami.chniter@gmail.com>
+ Copyright 2020
+ License: Apache License 2.0
+ Project: https://github.com/chniter/bstreeview
+*/
+.bstreeview {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+
+    padding: 0;
+    overflow: hidden;
+}
+
+.bstreeview .list-group {
+    margin-bottom: 0;
+}
+
+.bstreeview .list-group-item {
+    border-radius: 0;
+    border-width: 0px 0 0 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    cursor: pointer;
+    color: #428bca;
+}
+
+.bstreeview .search-result {
+    color: #D9534F;
+}
+
+.bstreeview .list-group-item:hover {
+    background-color:#dee2e6;
+}
+
+.bstreeview > .list-group-item:first-child {
+    border-top-width: 0;
+}
+
+.bstreeview .state-icon {
+    margin-right: 8px;
+    width: 12px;
+    text-align: center;
+}
+.bstreeview .item-icon {
+    margin-right: 5px;
+}
+/* stles.css */
+.form-group.required .col-form-label:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 8px;
+}
+#sourceAccessionIdDiv .tt-menu {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#targetAccessionIdDiv .tt-menu {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#sourceNameDiv .tt-menu {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#targetNameDiv .tt-menu {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Typeahead */
+.tt-query, /* UPDATE: newer versions use tt-input instead of tt-query */
+.tt-hint {
+    width: 396px;
+    height: 30px;
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+.tt-query { /* UPDATE: newer versions use tt-input instead of tt-query */
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.tt-hint {
+    color: #999;
+}
+.tt-menu { /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
+    width: 422px;
+    margin-top: 12px;
+    padding: 8px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    max-height: 200px;
+    overflow-y: auto;
+}
+.tt-suggestion {
+    padding: 3px 10px;
+    font-size: 15px;
+    line-height: 10px;
+}
+.tt-suggestion.tt-is-under-cursor { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+    color: #fff;
+    background-color: #0097cf;
+
+}
+.tt-suggestion p {
+    margin: 0;
+}
+</style>
+
+<div class="modal fade" id="taxonomyModal" tabindex="-1" aria-labelledby="taxonomyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 85vw; max-height: 90vh;">
+        <div class="modal-content" style="height: 87.5vh;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="taxonomyModalLabel">Taxonomy View</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row mb-2" style="margin-top: 1px;">
+                <label  style="margin-left: 10px; width:12%;">Cellset Name  :</label>
+                <div id="cellsetSearchDiv"  class="col-5">
+                    <input id="cellsetName" name="cellsetName" class="typeahead col-6" style="width:300px;margin-left:10px; border-radius: .375rem; border: 1px solid #ced4da;" type="text" value="" placeholder="Search"/>
+                </div>
+            </div>
+            <div class="row">
+              <div id="source-treeview" class="col-8" style="width: 60%; overflow-y:auto; height: 450px; border: 1px solid #ccc ;"></div>
+              <div class="col-4" style="padding-left: 10px; ">
+                <h3 id="info-box-title" class="row" style="padding-left: 10px; "></h3>
+                <div id="info-box" class="row" style="padding-left: 20px; font-size: 0.87rem;overflow-y:auto;height: 420px;"></div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js">
+</script>
+
+<script>
+/*! @preserve
+ * bstreeview.js
+ * Version: 1.2.1
+ * Authors: Sami CHNITER <sami.chniter@gmail.com>
+ * Copyright 2020
+ * License: Apache License 2.0
+ *
+ * Project: https://github.com/jonmiles/bootstrap-treeview (bootstrap 3)
+ *        : https://jonmiles.github.io/bootstrap-treeview/
+ * Project: https://github.com/chniter/bstreeview (bootstrap 4)
+ * Project: https://github.com/nhmvienna/bs5treeview (bootstrap 5)  (TDT uses this version)
+ */
+ ; (function ($, window, document, undefined) {
+    "use strict";
+    /**
+     * Default bstreeview  options.
+     */
+    var pluginName = "bstreeview",
+        defaults = {
+            expandIcon: 'fa fa-angle-down fa-fw',
+            collapseIcon: 'fa fa-angle-right fa-fw',
+            expandClass: 'show',
+            indent: 1.25,
+            parentsMarginLeft: '1.25rem',
+            openNodeLinkOnNewTab: true
+
+        };
+    /**
+     * bstreeview HTML templates.
+     */
+    var templates = {
+        treeview: '<div class="bstreeview"></div>',
+        treeviewItem: '<div role="treeitem" class="list-group-item" data-bs-toggle="collapse"></div>',
+        treeviewGroupItem: '<div role="group" class="list-group collapse" id="itemid"></div>',
+        treeviewItemStateIcon: '<i class="state-icon"></i>',
+        treeviewItemIcon: '<i class="item-icon"></i>'
+    };
+    /**
+     * BsTreeview Plugin constructor.
+     * @param {*} element
+     * @param {*} options
+     */
+    function bstreeView(element, options) {
+        this.element = element;
+        this.itemIdPrefix = element.id + "-item-";
+        this.settings = $.extend({}, defaults, options);
+        this.init();
+    }
+    /**
+     * Avoid plugin conflict.
+     */
+    $.extend(bstreeView.prototype, {
+        /**
+         * bstreeview intialize.
+         */
+        init: function () {
+            this.tree = [];
+            this.nodes = [];
+            // Retrieve bstreeview Json Data.
+            if (this.settings.data) {
+                if (this.settings.data.isPrototypeOf(String)) {
+                    this.settings.data = $.parseJSON(this.settings.data);
+                }
+                this.tree = $.extend(true, [], this.settings.data);
+                delete this.settings.data;
+            }
+            // Set main bstreeview class to element.
+            $(this.element).addClass('bstreeview');
+
+            this.initData({ nodes: this.tree });
+            var _this = this;
+
+            this.build($(this.element), this.tree, 0);
+            // Update angle icon on collapse
+            $(this.element).on('click', '.list-group-item', function (e) {
+                $('.state-icon', this)
+                    .toggleClass(_this.settings.expandIcon)
+                    .toggleClass(_this.settings.collapseIcon);
+                // navigate to href if present
+                if (e.target.hasAttribute('href')) {
+                    if (_this.settings.openNodeLinkOnNewTab) {
+                        window.open(e.target.getAttribute('href'), '_blank');
+                    }
+                    else {
+                        window.location = e.target.getAttribute('href');
+                    }
+                }
+                else
+                {
+                    // Toggle the data-bs-target. Issue with Bootstrap toggle and dynamic code
+                    $($(this).attr("data-bs-target")).collapse('toggle');
+                }
+            });
+        },
+        /**
+         * Initialize treeview Data.
+         * @param {*} node
+         */
+        initData: function (node) {
+            if (!node.nodes) return;
+            var parent = node;
+            var _this = this;
+            $.each(node.nodes, function checkStates(index, node) {
+
+                node.nodeId = _this.nodes.length;
+                node.parentId = parent.nodeId;
+
+                node.state = node.state || {};
+
+                _this.nodes.push(node);
+
+                if (node.nodes) {
+                    _this.initData(node);
+                }
+            });
+        },
+        /**
+         * Build treeview.
+         * @param {*} parentElement
+         * @param {*} nodes
+         * @param {*} depth
+         */
+        build: function (parentElement, nodes, depth) {
+            var _this = this;
+            // Calculate item padding.
+            var leftPadding = _this.settings.parentsMarginLeft;
+
+            if (depth > 0) {
+                leftPadding = (_this.settings.indent + depth * _this.settings.indent).toString() + "rem;";
+            }
+            depth += 1;
+            // Add each node and sub-nodes.
+            $.each(nodes, function addNodes(id, node) {
+                // Main node element.
+                var treeItem = $(templates.treeviewItem)
+                    .attr('data-bs-target', "#" + _this.itemIdPrefix + node.nodeId)
+                    .attr('style', 'padding-left:' + leftPadding)
+                    .attr('aria-level', depth);
+                // Set Expand and Collapse icones.
+                if (node.nodes) {
+                    var treeItemStateIcon = $(templates.treeviewItemStateIcon)
+                        .addClass((node.expanded)?_this.settings.expandIcon:_this.settings.collapseIcon);
+                    treeItem.append(treeItemStateIcon);
+                }
+
+                // highlight searched node
+                if (node.searchResult) {
+                    treeItem.addClass('search-result');
+                    treeItem.focus();
+                }
+
+                // set node icon if exist.
+                if (node.icon) {
+                    var treeItemIcon = $(templates.treeviewItemIcon)
+                        .addClass(node.icon);
+                    treeItem.append(treeItemIcon);
+                }
+                // Set node Text.
+                treeItem.append(node.text);
+                // Reset node href if present
+                if (node.href) {
+                    treeItem.attr('href', node.href);
+                }
+                // Add class to node if present
+                if (node.class) {
+                    treeItem.addClass(node.class);
+                }
+                // Add custom id to node if present
+                if (node.id) {
+                    treeItem.attr('id', node.id);
+                }
+                // Attach node to parent.
+                parentElement.append(treeItem);
+                // Build child nodes.
+                if (node.nodes) {
+                    // Node group item.
+                    var treeGroup = $(templates.treeviewGroupItem)
+                        .attr('id', _this.itemIdPrefix + node.nodeId);
+                    parentElement.append(treeGroup);
+                    _this.build(treeGroup, node.nodes, depth);
+                    if (node.expanded) {
+                        treeGroup.addClass(_this.settings.expandClass);
+                    }
+                }
+            });
+        },
+
+        search: function (pattern) {
+            this.clearSearch();
+
+            // pattern is accession id now
+            var results = this.findNodes(pattern, 'gi', 'text');
+            // Add searchResult property to all matching nodes
+            // This will be used to apply custom styles
+            // and when identifying result to be cleared
+            $.each(results, function (index, node) {
+                node.searchResult = true;
+            });
+            this.revealNode(results);
+
+			return results;
+        },
+
+        clearSearch : function (options) {
+            var results = $.each(this.findNodes('true', 'g', 'searchResult'), function (index, node) {
+                node.searchResult = false;
+                node.expanded = false;
+            });
+        },
+
+        findNodes: function (pattern, modifier, attribute) {
+            modifier = modifier || 'g';
+            attribute = attribute || 'text';
+
+            var _this = this;
+            return $.grep(this.nodes, function (node) {
+                var val = _this.getNodeValue(node, attribute);
+                if (typeof val === 'string') {
+                    //return val.match(new RegExp(pattern, modifier));
+                    return val == pattern;
+                }
+            });
+        },
+
+        identifyNode : function (identifier) {
+            return ((typeof identifier) === 'number') ?
+                            this.nodes[identifier] :
+                            identifier;
+        },
+
+        getNodeValue: function (obj, attr) {
+            var index = attr.indexOf('.');
+            if (index > 0) {
+                var _obj = obj[attr.substring(0, index)];
+                var _attr = attr.substring(index + 1, attr.length);
+                return this.getNodeValue(_obj, _attr);
+            }
+            else {
+                if (obj.hasOwnProperty(attr)) {
+                    return obj[attr].toString();
+                }
+                else {
+                    return undefined;
+                }
+            }
+        },
+
+        revealNode : function (identifiers, options) {
+            this.forEachIdentifier(identifiers, options, $.proxy(function (node, options) {
+                var parentNode = this.getParent(node);
+                while (parentNode) {
+                    this.setExpandedState(parentNode, true, options);
+                    parentNode = this.getParent(parentNode);
+                };
+            }, this));
+
+            this.render();
+        },
+
+        forEachIdentifier : function (identifiers, options, callback) {
+            options = {};
+
+            if (!(identifiers instanceof Array)) {
+                identifiers = [identifiers];
+            }
+
+            $.each(identifiers, $.proxy(function (index, identifier) {
+                callback(this.identifyNode(identifier), options);
+            }, this));
+            },
+
+            getParent : function (identifier) {
+                var node = this.identifyNode(identifier);
+                return this.nodes[node.parentId];
+            },
+
+            identifyNode : function (identifier) {
+                return ((typeof identifier) === 'number') ?
+                                this.nodes[identifier] :
+                                identifier;
+        },
+
+        setExpandedState : function (node, state, options) {
+            //if (state === node.state.expanded) return;
+            if (state === node.expanded) return;
+
+            if (state && node.nodes) {
+
+                // Expand a node
+                //node.state.expanded = true;
+                node.expanded = true;
+            }
+            else if (!state) {
+
+                // Collapse a node
+                //node.state.expanded = false;
+                node.expanded = false;
+
+                // Collapse child nodes
+                if (node.nodes && !options.ignoreChildren) {
+                    $.each(node.nodes, $.proxy(function (index, node) {
+                        this.setExpandedState(node, false, options);
+                    }, this));
+                }
+            }
+        },
+
+        render : function () {
+//            if (!this.initialized) {
+//
+//                // Setup first time only components
+//                this.$element.addClass(pluginName);
+//                this.$wrapper = $(this.template.list);
+//
+//                this.injectStyle();
+//
+//                this.initialized = true;
+//            }
+
+            //this.$element.empty().append(this.$wrapper.empty());
+            $(this.element).empty();
+            // Build tree
+            this.build($(this.element), this.tree, 0);
+        }
+
+    });
+
+    // A really lightweight plugin wrapper around the constructor,
+    // preventing against multiple instantiations
+    $.fn[pluginName] = function (options) {
+        return this.each(function () {
+            //if (!$.data(this, "plugin_" + pluginName)) {
+                $.data(this, "plugin_" +
+                    pluginName, new bstreeView(this, options));
+            //}
+        });
+    };
+})(jQuery, window, document);
+</script>
+
+<script>
+    var $sourceTree = null;
+    var table_data = null;
+    table_json_url = String(window.location.href).split("?")[0].split("#")[0] + ".json?limit=100000";
+    labelset_json_url = String(window.location.href).split("/annotation")[0] + "/labelset.json?limit=100000";
+    var api_results = {}; // final object containing consolidated api result
+    $.when(
+        $.getJSON(table_json_url, function (data) {
+          api_results["annotations"] = data["result"]["rows"];
+        }),
+  
+        $.getJSON(labelset_json_url, function (labelset_response) {
+          labelset_data = labelset_response["result"]["rows"]
+          var labelset_ranks = [];
+          for (index in labelset_data) {
+            labelset = labelset_data[index]["cells"];
+            if (labelset.rank && labelset.rank.value) {
+              labelset_ranks[labelset.name.value] = parseInt(labelset.rank.value);
+            } else {
+              labelset_ranks[labelset.name.value] = null;
+            }
+          }
+          api_results["labelsets"] = labelset_ranks;
+        })
+    ).done(function() {
+      data = api_results["annotations"]
+      labelset_ranks = api_results["labelsets"]
+      console.log("labelset_ranks", labelset_ranks);
+      for (index in data) {
+        // Unpack data_item.cells.x.value to new_data_item.x
+        let data_item = data[index];
+        let new_data_item = {};
+        for (let key in data_item.cells) {
+            if (data_item.cells.hasOwnProperty(key)) {
+                new_data_item[key] = data_item.cells[key].value;
+            }
+        }
+        data[index] = new_data_item;
+      }
+      // clone a global variable before sorting
+      table_data = data.slice()
+  
+      // filter whose labelset rank is none (non-hierarchical labelsets such as neurotransmitter)
+      data = data.filter(x => labelset_ranks[x.labelset] !== null);
+      // sort highest rank first but ordered by accession_id if same rank
+      data.sort((a, b) => (labelset_ranks[a.labelset] > labelset_ranks[b.labelset]) ? -1 : (labelset_ranks[a.labelset] === labelset_ranks[b.labelset]) ? ((parseInt(a.cell_set_accession.split("_")[-1]) > parseInt(b.cell_set_accession.split("_"))[-1]) ? 1 : -1) : 1 );
+      // data.sort((a, b) => (parseInt(a.cell_set_accession.split("_")[-1]) > parseInt(b.cell_set_accession.split("_"))[-1]) ? 1 : -1 );
+      
+      // populate ranks
+      for (index in data) {
+        data[index]["rank"] = labelset_ranks[data[index]["labelset"]];
+      }
+
+      var root_node = {"expanded":true, "id":"All Cells", "text": "All Cells","nodes": []};
+      parents = {"All Cells": root_node};
+      for(let i = 0; i < data.length; i++){
+        record = data[i]
+        record_node = {};
+        if (record["rank"] == 0) {
+          record_node = {"id":record["cell_set_accession"], "text": record["cell_label"] + " [" + record["cell_set_accession"] +"]"};
+        } else {
+          record_node = {"id":record["cell_set_accession"], "text": record["cell_label"] + " [" + record["cell_set_accession"] +"]", "nodes": []};
+          parents[record["cell_set_accession"]] = record_node;
+        }
+        parent_cell_set_accession = record["parent_cell_set_accession"];
+        if (parent_cell_set_accession == null || parent_cell_set_accession == "") {
+          parent_cell_set_accession = "All Cells";
+        }
+        // console.log(parent_cell_set_accession);
+        parents[parent_cell_set_accession]["nodes"].push(record_node);
+      }
+  
+    //   console.log("Setting up source-treeview", root_node);
+      $sourceTree = $('#source-treeview').bstreeview({
+        data: [root_node],
+        color: "#428bca",
+        levels: 5,
+        showBorder: false
+      });
+  
+      $('#source-treeview').bind('mousewheel', function (e) {
+        $(this).scrollTop($(this).scrollTop() - e.originalEvent.wheelDeltaY);
+        return false;
+      });
+  
+      register_treeview_clicks(data);
+  
+      // cellset search autocomplete
+      configure_autocomplete("cellsetName", data);
+    }); // end api call
+  
+    function register_treeview_clicks(data) {
+        $('#source-treeview').find('div').click(function (event) {
+        event.stopPropagation();
+        if (event.target.id) {
+          selected_id = event.target.id;
+          // console.log("Handler for `click` called: " + selected_id);
+          display_in_info_box(data.find(x => x.cell_set_accession === selected_id));
+          // remove search highlight
+          let x = document.getElementsByClassName("search-result");
+          if(x.length > 0) { x[0].classList.remove("search-result"); }
+        }
+      });
+    }
+  
+    function configure_autocomplete(inputName, records) {
+      my_obj_tokenizer = getObjTokenizer();
+      // constructs the suggestion engine
+      var typeaheadBH = new Bloodhound({
+        // datumTokenizer: Bloodhound.tokenizers.obj.nonword(['cell_label', 'cell_set_accession']),
+        datumTokenizer: my_obj_tokenizer(['cell_label', 'cell_set_accession']),
+        queryTokenizer: Bloodhound.tokenizers.nonword,
+        local: records
+      });
+      typeaheadBH.initialize();
+  
+      $("*[name='" + inputName + "']").first().typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 1
+      },
+      {
+        name: 'autocomplete',
+        source: typeaheadBH,
+        limit: 10,
+        display: function(selection){
+            return selection['cell_label'];
+        },
+        templates: {
+          suggestion: function(data) {
+              return '<p>' + data.cell_label + ' [' + data.cell_set_accession + '] </p>';
+          }
+        }
+      });
+  
+      $("*[name='" + inputName + "']").first().on('typeahead:selected', function(evt, item) {
+        $("*[name='" + inputName + "']").first()[0].value = item['cell_set_accession'];
+        if ($sourceTree !== null) {
+          display_in_info_box(item);
+          treeview_focus_node(item, $sourceTree, 'source-treeview');
+        }
+      });
+    }// end configure_autocomplete
+  
+    // custom tokenizer that tokenizes with underscore char as well
+    function getObjTokenizer() {
+      return function setKey(keys) {
+        keys = Array.isArray(keys) ? keys : [].slice.call(arguments, 0);
+  
+        return function tokenize(o) {
+          var tokens = [];
+  
+          keys.forEach(function(k) {
+            tokens = tokens.concat(custom_nonword_tokenizer(String(o[k])));
+          });
+  
+          return tokens;
+        };
+      };
+    }
+  
+    function custom_nonword_tokenizer(str) {
+      str = String(str);
+      return str ? str.split(/[^a-zA-Z0-9]+/) : [];
+    }
+  
+    // search node in the treeview and focus
+    function treeview_focus_node(node, treeview, treeview_id) {
+      if (treeview !== null) {
+          var tree_label = "";
+          if (node.cell_label !== null) {
+            // be careful about spaces here
+            tree_label = node.cell_label + ' [' + node.cell_set_accession + ']';
+          } else {
+            tree_label = node.cell_set_accession;
+          }
+          treeview.data("plugin_bstreeview").search( tree_label );
+          // $('#source-treeview').scrollTop($('#source-treeview')[0].scrollHeight);
+          $('#' + treeview_id).scrollTop($('.search-result')[0].offsetTop);
+          // don't know why but event needs to be re-registered
+          register_treeview_clicks(table_data)
+      }
+    }
+  
+    function display_in_info_box(node) {
+      var info = "";
+      info += "<p></p>";
+      link = "{{site.root}}/table/{{table.name}}?offset=" + (table_data.findIndex(x => x.cell_set_accession === node.cell_set_accession) + 1);
+      info += "<a href=\"" + link + "\" > Browse in table </a>";
+      info += "<p></p>";
+      $.each(node, function(i, n){
+        if ( !["review", "rank"].includes(i)) {
+            info += "<div><b>" + i + ":</b>   " + n + "</div>\n";
+        }
+      });
+      $('#info-box-title').text(node.cell_label);
+      $('#info-box').html(info);
+    }
+  </script>
+
+<script>
+    // dynamically set the height of the treeview and info-box
+    $(document).ready(function() {
+        $('#taxonomyModal').on('shown.bs.modal', function () {
+            var modalHeight = $('#taxonomyModal .modal-content').height();
+            var treeviewHeight = modalHeight * 0.75;
+            $('#source-treeview').css('height', treeviewHeight + 'px');
+            $('#info-box').css('height', (treeviewHeight - 30) + 'px');
+        });
+    });
+</script>

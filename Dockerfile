@@ -103,28 +103,19 @@ RUN python3 -m pip install --no-deps tdta==0.1.0.dev25
 
 WORKDIR $WORKSPACE
 
-### NANOBOT reources
-RUN mkdir $WORKSPACE/nanobot
-ADD nanobot/nanobot.toml $WORKSPACE/nanobot
-RUN mkdir $WORKSPACE/nanobot/src
-RUN mkdir $WORKSPACE/nanobot/src/schema
-ADD nanobot/src/schema/column.tsv $WORKSPACE/nanobot/src/schema
-ADD nanobot/src/schema/datatype.tsv $WORKSPACE/nanobot/src/schema
-ADD nanobot/src/schema/table.tsv $WORKSPACE/nanobot/src/schema
-RUN mkdir $WORKSPACE/nanobot/src/assets
-ADD nanobot/src/assets/bstreeview.css $WORKSPACE/nanobot/src/assets
-ADD nanobot/src/assets/bstreeview.js $WORKSPACE/nanobot/src/assets
-ADD nanobot/src/assets/ols-autocomplete.css $WORKSPACE/nanobot/src/assets
-ADD nanobot/src/assets/ols-autocomplete.js $WORKSPACE/nanobot/src/assets
-ADD nanobot/src/assets/styles.css $WORKSPACE/nanobot/src/assets
-RUN mkdir $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/cross_taxonomy.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/ols_form.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/taxonomy_view.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/table.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/page.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/review.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/edit_annotation_transfer.html $WORKSPACE/nanobot/src/resources
+### Relatable reources
+RUN mkdir $WORKSPACE/relatable
+ADD relatable/nanobot.toml $WORKSPACE/relatable
+RUN mkdir $WORKSPACE/relatable/src
+RUN mkdir $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/cell_menu.html $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/column_menu.html $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/page.html $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/row_menu.html $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/table.html $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/taxonomy_view.html $WORKSPACE/relatable/src/templates
+RUN mkdir $WORKSPACE/relatable/bin
+ADD relatable/bin/rltbl $WORKSPACE/relatable/bin
 
 # GH cli on linux is old (2.4.0), get the latest
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg

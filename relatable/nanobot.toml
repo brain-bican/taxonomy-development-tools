@@ -1,0 +1,68 @@
+[nanobot]
+config_version = 1
+results_per_page = 5000
+
+[logging]
+level = "DEBUG"
+
+[database]
+connection = "build/nanobot.db"
+
+[valve]
+path = "src/schema/table.tsv"
+
+[assets]
+path = "src/assets/"
+
+[templates]
+path = "src/resources/"
+
+[actions.export]
+label = "Export"
+commands = []
+
+[actions.sub_export_cas_save]
+label = "To CAS"
+commands = [
+  ["tdta", "export", "-db", "./build/nanobot.db", "-o", "./$$TAXONOMY_ID$$.json", "-c", "/tdt_datasets"]
+]
+
+[actions.sub_export_export_anndata]
+label = "To AnnData"
+commands = [
+  ["tdta", "anndata", "-db", "./build/nanobot.db", "-j", "./$$TAXONOMY_ID$$.json", "-o", "/tdt_datasets/$$TAXONOMY_ID$$.h5ad", "-c", "/tdt_datasets"]
+]
+
+[actions.generate]
+label = "Generate"
+commands = []
+
+[actions.sub_generate_docs]
+label = "Github Pages"
+commands = [
+  ["tdta", "docs", "-db", "./build/nanobot.db", "-o", "./docs"]
+]
+
+[actions.github]
+label = "Version Control"
+commands = []
+
+[actions.sub_github_release]
+label = "Release"
+inputs = [
+  { name = "tag", label = "Release Tag", default = "v{today}" },
+]
+commands = [
+  ["make", "save"],
+  ["tdta", "merge", "-p", "./", "-m", "{message}"],
+  ["git", "push"],
+  ["gh", "release", "create", "{tag}"],
+  ["tdta", "purl-publish", "-i", "./", "-t", "$$TAXONOMY_ID$$", "-u", "'{username}'"],
+  ["make", "init"]
+]
+
+[actions.sub_github_purl]
+label = "Publish PURL"
+commands = [
+  ["tdta", "purl-publish", "-i", "./", "-t", "$$TAXONOMY_ID$$", "-u", "'{username}'"]
+]
