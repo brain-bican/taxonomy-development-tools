@@ -84,7 +84,7 @@ ADD resources/github_actions/publish-docs.yml $WORKSPACE/resources/github_action
 RUN python3 -m pip install  -r $WORKSPACE/requirements.txt
 
 # install cas-tools and its dependencies seperately to avoid cellxgene-census installation issues
-RUN python3 -m pip install anndata==0.10.3
+RUN python3 -m pip install anndata==0.10.5
 RUN python3 -m pip install ruamel.yaml==0.18.6
 RUN python3 -m pip install jsonschema==4.4.0
 RUN python3 -m pip install ordered-set==4.1.0
@@ -92,8 +92,8 @@ RUN python3 -m pip install deepmerge==1.1.0
 RUN python3 -m pip install numpy==1.26.4
 RUN python3 -m pip install marshmallow==3.21.1
 RUN python3 -m pip install python-dateutil==2.9.0
-RUN python3 -m pip install cap-anndata==0.2.1
-RUN python3 -m pip install --no-deps cas-tools==1.0.11
+RUN python3 -m pip install cap-anndata==0.3.0
+RUN python3 -m pip install --no-deps cas-tools==1.1.5
 RUN python3 -m pip install --no-deps tdta==0.1.0.dev25
 
 #RUN Rscript $WORKSPACE/dendR/install_packages.R

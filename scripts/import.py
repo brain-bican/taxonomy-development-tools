@@ -79,7 +79,7 @@ def import_data(input, curation_tables, force, preserve):
 
         if user_config_path:
             user_file_name = os.path.splitext(os.path.basename(user_data_path))[0]
-            std_data = ingest_user_data(user_data_path, user_config_path)
+            std_data = ingest_user_data(user_data_path, user_config_path, True)
         else:
             raise Exception("Couldn't find the config data files (with yaml or yml extension) in folder: " + input)
     if preserve:
