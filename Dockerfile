@@ -14,26 +14,26 @@ ENV VCPKG_FORCE_SYSTEM_BINARIES=1
 
 RUN apt-get update &&  \
     apt-get install -y --no-install-recommends \
-    build-essential  \
+#    build-essential  \
     git \
-    openjdk-11-jdk-headless \
+#    openjdk-11-jdk-headless \
     python3-pip  \
     python3-dev  \
     python3-virtualenv \
     make \
     curl  \
     wget  \
-    libcurl4-openssl-dev  \
-    openssl \
+#    libcurl4-openssl-dev  \
+#    openssl \
 #    r-base  \
 #    leiningen \
 #    gpg \
     pkg-config \
     zip \
     unzip \
-    tar \
-    ninja-build \
-    supervisor
+    tar
+#    ninja-build \
+#    supervisor
 
 # setup supervisord
 RUN mkdir -p /var/log/supervisor

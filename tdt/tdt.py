@@ -219,9 +219,8 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_folder(outdir, "purl", tgts, "PURL Configuration", "BICAN Permanent URLs sample configuration file. "
                                                               "Please make a pull request to place this file in [BICAN PURLs taxonomy configuration folder]"
                                                               "(https://github.com/hkir-dev/purl.brain-bican.org/tree/main/config/taxonomy) via TDT 'Publish PURL' action.")
-    create_folder(outdir, "src/assets", tgts)
-    create_folder(outdir, "src/resources", tgts)
     create_folder(outdir, "src/schema", tgts)
+    create_folder(outdir, "src/templates", tgts)
 
     create_purl_config(outdir, project, tgts)
     create_nanobot_toml(outdir, project, tgts)
@@ -304,12 +303,13 @@ def create_ontodev_static_files(outdir, tgts):
 
 
 def create_rltb_binary(outdir, tgts):
+    create_folder(outdir, "bin", tgts)
     file_target = "{}/bin/rltbl".format(outdir)
     tgts.append(file_target)
     copy(WORKSPACE + "/relatable/bin/rltbl", file_target)
 
 def create_nanobot_toml(outdir, project, tgts):
-    nanobot_source = WORKSPACE + "/nanobot/nanobot.toml"
+    nanobot_source = WORKSPACE + "/relatable/nanobot.toml"
     with open(nanobot_source, "r") as f:
         content = f.read()
     content = content.replace("$$TAXONOMY_ID$$", project.id)
@@ -404,7 +404,7 @@ def create_docs_folder(outdir, tgts):
     copy(logo_source, logo_target)
 
 
-def create_github_actions(outdir, project, tgts):
+def create_github_actions(outdir, tgts):
     os.makedirs(outdir + "/.github/workflows", exist_ok=True)
     action_source = WORKSPACE + "/resources/github_actions/publish-docs.yml"
     action_target = "{}/.github/workflows/publish-docs.yml".format(outdir)
