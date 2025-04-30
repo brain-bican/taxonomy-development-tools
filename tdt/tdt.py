@@ -219,9 +219,8 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_folder(outdir, "purl", tgts, "PURL Configuration", "BICAN Permanent URLs sample configuration file. "
                                                               "Please make a pull request to place this file in [BICAN PURLs taxonomy configuration folder]"
                                                               "(https://github.com/hkir-dev/purl.brain-bican.org/tree/main/config/taxonomy) via TDT 'Publish PURL' action.")
-    create_folder(outdir, "src/assets", tgts)
-    create_folder(outdir, "src/resources", tgts)
     create_folder(outdir, "src/schema", tgts)
+    create_folder(outdir, "src/templates", tgts)
 
     create_purl_config(outdir, project, tgts)
     create_nanobot_toml(outdir, project, tgts)
@@ -229,8 +228,9 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
     create_output_file(outdir, project, tgts)
     create_run_script(outdir, tgts)
     create_makefile(outdir, tgts)
-    create_ontodev_tables(outdir, project, tgts)
+    # create_ontodev_tables(outdir, project, tgts)
     create_ontodev_static_files(outdir, tgts)
+    create_rltb_binary(outdir, tgts)
     create_gitignore(outdir, tgts)
     create_mkdocs(outdir, project, tgts)
     create_docs_folder(outdir, tgts)
@@ -276,82 +276,40 @@ def seed(config, clean, outdir, title, user, verbose, repo, skipgit, gitname, gi
         print("Repository files have been successfully copied, but no git commands have been run.")
 
 
-def create_ontodev_tables(outdir, project, tgts):
-    table_source = WORKSPACE + "/nanobot/src/schema/table.tsv"
-    with open(table_source, "r") as f:
-        content = f.read()
-    content = content.replace("{taxonomy_id}", project.id)
-    table_target = "{}/src/schema/table.tsv".format(outdir)
-    with open(table_target, "w") as f:
-        f.write(content)
-    tgts.append(table_target)
-
-    table_source = WORKSPACE + "/nanobot/src/schema/column.tsv"
-    with open(table_source, "r") as f:
-        content = f.read()
-    content = content.replace("{taxonomy_id}", project.id)
-    table_target = "{}/src/schema/column.tsv".format(outdir)
-    with open(table_target, "w") as f:
-        f.write(content)
-    tgts.append(table_target)
-
-    file_target = "{}/src/schema/datatype.tsv".format(outdir)
-    tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/schema/datatype.tsv", file_target)
-
-
 def create_ontodev_static_files(outdir, tgts):
-    file_target = "{}/src/assets/bstreeview.css".format(outdir)
+    file_target = "{}/src/templates/cell_menu.html".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/assets/bstreeview.css", file_target)
+    copy(WORKSPACE + "/relatable/src/templates/cell_menu.html", file_target)
 
-    file_target = "{}/src/assets/bstreeview.js".format(outdir)
+    file_target = "{}/src/templates/column_menu.html".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/assets/bstreeview.js", file_target)
+    copy(WORKSPACE + "/relatable/src/templates/column_menu.html", file_target)
 
-    file_target = "{}/src/assets/ols-autocomplete.css".format(outdir)
+    file_target = "{}/src/templates/page.html".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/assets/ols-autocomplete.css", file_target)
+    copy(WORKSPACE + "/relatable/src/templates/page.html", file_target)
 
-    file_target = "{}/src/assets/ols-autocomplete.js".format(outdir)
+    file_target = "{}/src/templates/row_menu.html".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/assets/ols-autocomplete.js", file_target)
+    copy(WORKSPACE + "/relatable/src/templates/row_menu.html", file_target)
 
-    file_target = "{}/src/assets/styles.css".format(outdir)
+    file_target = "{}/src/templates/table.html".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/assets/styles.css", file_target)
+    copy(WORKSPACE + "/relatable/src/templates/table.html", file_target)
 
-    file_target = "{}/src/resources/cross_taxonomy.html".format(outdir)
+    file_target = "{}/src/templates/taxonomy_view.html".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/resources/cross_taxonomy.html", file_target)
+    copy(WORKSPACE + "/relatable/src/templates/taxonomy_view.html", file_target)
 
-    file_target = "{}/src/resources/taxonomy_view.html".format(outdir)
+
+def create_rltb_binary(outdir, tgts):
+    create_folder(outdir, "bin", tgts)
+    file_target = "{}/bin/rltbl".format(outdir)
     tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/resources/taxonomy_view.html", file_target)
-
-    file_target = "{}/src/resources/ols_form.html".format(outdir)
-    tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/resources/ols_form.html", file_target)
-
-    file_target = "{}/src/resources/table.html".format(outdir)
-    tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/resources/table.html", file_target)
-
-    file_target = "{}/src/resources/page.html".format(outdir)
-    tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/resources/page.html", file_target)
-
-    file_target = "{}/src/resources/review.html".format(outdir)
-    tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/resources/review.html", file_target)
-
-    file_target = "{}/src/resources/edit_annotation_transfer.html".format(outdir)
-    tgts.append(file_target)
-    copy(WORKSPACE + "/nanobot/src/resources/edit_annotation_transfer.html", file_target)
-
+    copy(WORKSPACE + "/relatable/bin/rltbl", file_target)
 
 def create_nanobot_toml(outdir, project, tgts):
-    nanobot_source = WORKSPACE + "/nanobot/nanobot.toml"
+    nanobot_source = WORKSPACE + "/relatable/nanobot.toml"
     with open(nanobot_source, "r") as f:
         content = f.read()
     content = content.replace("$$TAXONOMY_ID$$", project.id)
@@ -446,7 +404,7 @@ def create_docs_folder(outdir, tgts):
     copy(logo_source, logo_target)
 
 
-def create_github_actions(outdir, project, tgts):
+def create_github_actions(outdir, tgts):
     os.makedirs(outdir + "/.github/workflows", exist_ok=True)
     action_source = WORKSPACE + "/resources/github_actions/publish-docs.yml"
     action_target = "{}/.github/workflows/publish-docs.yml".format(outdir)

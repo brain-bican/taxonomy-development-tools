@@ -1,0 +1,53 @@
+<ul class="dropdown-menu" style="display: inline-block; position: relative">
+  {% if table.name == "annotation" and column == "review" %}
+  {% if row.cells.review.text == "https://icons.getbootstrap.com/assets/icons/chat-heart.svg" %}
+  <li><a class="dropdown-item"
+      href="{{site.root}}/table/review?target_node_accession=eq.{{row.cells.cell_set_accession.value}}">
+      <i class="bi bi-arrow-right"></i>
+      Jump to review
+    </a>
+  </li>
+  {% else %}
+  <li><a class="dropdown-item" href="{{site.root}}/add-row/review">
+      <i class="bi bi-arrow-right"></i>
+      Add review
+    </a>
+  </li>
+  {% endif %}
+  {% endif %}
+  <li>
+    <a class="dropdown-item" href="{{site.root}}/table/{{table.name}}?{{column}}=eq.{{cell.text}}">
+      <i class="bi bi-funnel-fill"></i>
+      Filter for this value
+    </a>
+  </li>
+  <li>
+    <a class="dropdown-item" href="{{site.root}}/table/{{table.name}}?{{column}}=not_eq.{{cell.text}}">
+      <i class="bi bi-funnel"></i>
+      Excude this value
+    </a>
+  </li>
+  <li>
+    <hr class="dropdown-divider">
+  </li>
+  <li>
+    <a class="dropdown-item" href="{{site.root}}/add-row-before/{{table.name}}/{{row.id}}">
+      <i class="bi bi-plus"></i>
+      Insert 1 row above
+    </a>
+  </li>
+  <li>
+    <a class="dropdown-item" href="{{site.root}}/add-row-after/{{table.name}}/{{row.id}}">
+      <i class="bi bi-plus"></i>
+      Insert 1 row below
+    </a>
+  </li>
+  <li>
+    <a class="dropdown-item" href="{{site.root}}/delete-row/{{table.name}}/{{row.id}}">
+      <i class="bi bi-trash"></i>
+      Delete row
+    </a>
+  </li>
+  </li>
+  </li>
+</ul>

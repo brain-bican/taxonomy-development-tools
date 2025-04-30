@@ -5,23 +5,23 @@ pyyaml
 dataclasses-json
 dataclasses-jsonschema
 # ontodev requirements
-ontodev-cogs
-graphlib-backport
-openpyxl
+# ontodev-cogs
+# graphlib-backport
+# openpyxl
 # git+https://github.com/ontodev/axle.git
-urlp
+# urlp
 mkdocs
 # installed from Dockerfile
 # cas-tools==1.0.7
 # tdta==0.1.0.dev5
-cell-annotation-schema==1.0.0
+cell-annotation-schema==1.1.0
 pandas
-pyarrow
-flask
-flask-cors
+# pyarrow
+# flask
+# flask-cors
 # h5py 3.11 is not working
-h5py==3.10.0
+# h5py==3.10.0
 requests
-git+https://github.com/coderanger/supervisor-stdout.git
+# git+https://github.com/coderanger/supervisor-stdout.git
 ruamel.yaml
-flask_caching
+#flask_caching

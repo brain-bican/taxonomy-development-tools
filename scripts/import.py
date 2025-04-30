@@ -31,16 +31,14 @@ def cli():
 
 @cli.command()
 @click.option('-i', '--input', type=click.Path(exists=True), help='Data folder path.')
-@click.option('-s', '--schema', type=click.Path(exists=True), help='Nanobot schema folder path.')
 @click.option('-ct', '--curation_tables', type=click.Path(exists=True), help='TDT curation tables folder path.')
 @click.option('-f', '--force', is_flag=True, default=False, help="Forcefully drops and recreates tables.")
 @click.option('-p', '--preserve', is_flag=True, default=False, help='Preserve existing annotations.')
-def import_data(input, schema, curation_tables, force, preserve):
+def import_data(input, curation_tables, force, preserve):
     """
     Imports user data to the system
     Parameters:
         input (str): Path to the input data folder
-        schema: Nanobot schema folder path.
         curation_tables: TDT curation tables folder path.
         force: Forcefully drops and recreates tables.
         preserve: Preserve existing annotations.
@@ -65,7 +63,8 @@ def import_data(input, schema, curation_tables, force, preserve):
                 new_files.append(user_config_path)
             elif filename.endswith(".json"):
                 user_cas_path = f
-                new_files.append(user_cas_path)
+                if user_cas_path not in unzipped_files:
+                    new_files.append(user_cas_path)
 
     # provide either json or tsv + yaml
     if user_cas_path:
@@ -80,11 +79,7 @@ def import_data(input, schema, curation_tables, force, preserve):
 
         if user_config_path:
             user_file_name = os.path.splitext(os.path.basename(user_data_path))[0]
-            std_data = ingest_user_data(user_data_path, user_config_path)
-
-            user_data_ct_path = add_user_table_to_nanobot(user_data_path, schema, curation_tables, read_cas_schema(), False)
-            if user_data_ct_path:
-                new_files.append(user_data_ct_path)
+            std_data = ingest_user_data(user_data_path, user_config_path, True)
         else:
             raise Exception("Couldn't find the config data files (with yaml or yml extension) in folder: " + input)
     if preserve:
@@ -96,17 +91,11 @@ def import_data(input, schema, curation_tables, force, preserve):
     tdt_tables = generate_tdt_tables(std_data, input)
     std_tables.extend(tdt_tables)
 
-    if force:
-        clean_nanobot_tables(schema)
     cas_schema = read_cas_schema()
     for table_path in std_tables:
-        user_data_ct_path = add_user_table_to_nanobot(table_path, schema, curation_tables, cas_schema, True, force)
+        user_data_ct_path = add_user_table_to_nanobot(table_path, curation_tables, cas_schema, True, force)
         if user_data_ct_path:
             new_files.append(user_data_ct_path)
-
-    if new_files:
-        new_files.append(os.path.join(schema, "table.tsv"))
-        new_files.append(os.path.join(schema, "column.tsv"))
 
     # delete unzipped files
     for file_path in unzipped_files:
@@ -152,66 +141,21 @@ def unzip_files_in_folder(folder_path):
         if file_name.endswith('.zip'):
             zip_path = os.path.join(folder_path, file_name)
             with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+                extracted_files = zip_ref.namelist()
                 zip_ref.extractall(folder_path)
-            unzipped_files.append(zip_path)
+                for extracted_file in extracted_files:
+                    unzipped_files.append(os.path.join(folder_path, extracted_file))
             print(f"Extracted '{zip_path}'.")
     return unzipped_files
 
 
-def add_user_table_to_nanobot(user_data_path, schema_folder, curation_tables_folder, cas_schema, delete_source=False, force=False):
+def add_user_table_to_nanobot(user_data_path, curation_tables_folder, cas_schema, delete_source=False, force=False):
     """
-    Adds user data to the nanobot. Adds user table to the curation tables folder and updates the nanobot table schema.
+    Adds user data to the relatable. Adds user table to the curation tables folder.
     """
-    # update nanobot table.tsv
     user_data_ct_path = os.path.join(curation_tables_folder, Path(user_data_path).name)
     if os.path.isfile(user_data_ct_path) is False or os.path.getsize(user_data_ct_path) == 0 or force:
         user_data_ct_path = copy_file(user_data_path, curation_tables_folder)
-
-    user_table_name = os.path.splitext(os.path.basename(user_data_ct_path))[0]
-    table_tsv_path = os.path.join(schema_folder, "table.tsv")
-
-    if user_data_ct_path not in Path(table_tsv_path).read_text():
-        with open(table_tsv_path, 'a') as fd:
-            if user_table_name == "annotation":
-                # use custom edit_view for autocomplete
-                fd.write(('\n{table_name}\t{path}\t\tols_form\t').format(table_name=user_table_name, path=user_data_ct_path))
-            else:
-                fd.write(('\n{table_name}\t{path}\t\t\t').format(table_name=user_table_name, path=user_data_ct_path))
-
-        user_data_extension = os.path.splitext(user_data_ct_path)[1]
-        user_headers = []
-        user_data = dict()
-        if user_data_extension == ".tsv":
-            user_headers, user_data = read_tsv_to_dict(user_data_ct_path, generated_ids=True)
-        elif user_data_extension == ".csv":
-            user_headers, user_data = read_csv_to_dict(user_data_ct_path, generated_ids=True)
-
-        # update nanobot column.tsv
-        column_tsv_path = os.path.join(schema_folder, "column.tsv")
-        with open(column_tsv_path, 'a') as fd:
-            for index, header in enumerate(user_headers):
-                if header == "cell_set_accession":
-                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.replace("_", " ").strip() + "\t\ttext\tprimary\t" + get_column_description(cas_schema, user_table_name, header))
-                elif index == 0 and "cell_set_accession" not in user_headers and user_table_name != "review":
-                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.strip() + "\t\ttext\tprimary\t" + get_column_description(cas_schema, user_table_name, "cell_set_accession"))
-                elif header == "cell_ontology_term_id":
-                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.replace("_", " ").strip() + "\tempty\tautocomplete_cl\t\t" + get_column_description(cas_schema, user_table_name, header))
-                elif header == "cell_ontology_term":
-                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.replace("_", " ").strip() + "\tempty\tontology_label\t\t" + get_column_description(cas_schema, user_table_name, header))
-                elif header == "labelset" and user_table_name == "annotation":
-                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.replace("_", " ").strip() + "\tempty\ttext\t" + "from(labelset.name)"
-                             + "\t" + get_column_description(cas_schema, user_table_name, header))
-                else:
-                    fd.write("\n" + user_table_name + "\t" + normalize_column_name(header) + "\t" +
-                             header.replace("_", " ").strip() + "\tempty\ttext\t\t" + get_column_description(cas_schema, user_table_name, header))
-    else:
-        print("Table already exists in the schema: {}. Skipping...".format(Path(user_data_path).name))
-        user_data_ct_path = None
 
     if delete_source:
         os.remove(user_data_path)
@@ -432,25 +376,6 @@ def read_cas_schema():
     schema_file = (resources.files(schemas) / "BICAN_schema.json")
     with schema_file.open("rt") as f:
         return json.loads(f.read())
-
-
-def clean_nanobot_tables(schema_folder):
-    """
-    Cleans nanobot tables by reloading default tables from the Docker image.
-    Parameters:
-        schema_folder: Nanobot schema folder path.
-    """
-    table_source = WORKSPACE + "/nanobot/src/schema/table.tsv"
-    with open(table_source, "r") as f:
-        content = f.read()
-    with open(os.path.join(schema_folder, "table.tsv"), "w") as f:
-        f.write(content)
-
-    table_source = WORKSPACE + "/nanobot/src/schema/column.tsv"
-    with open(table_source, "r") as f:
-        content = f.read()
-    with open(os.path.join(schema_folder, "column.tsv"), "w") as f:
-        f.write(content)
 
 
 def runcmd(cmd):

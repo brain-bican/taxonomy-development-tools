@@ -14,26 +14,26 @@ ENV VCPKG_FORCE_SYSTEM_BINARIES=1
 
 RUN apt-get update &&  \
     apt-get install -y --no-install-recommends \
-    build-essential  \
+#    build-essential  \
     git \
-    openjdk-11-jdk-headless \
+#    openjdk-11-jdk-headless \
     python3-pip  \
     python3-dev  \
     python3-virtualenv \
     make \
     curl  \
     wget  \
-    libcurl4-openssl-dev  \
-    openssl \
+#    libcurl4-openssl-dev  \
+#    openssl \
 #    r-base  \
 #    leiningen \
 #    gpg \
     pkg-config \
     zip \
     unzip \
-    tar \
-    ninja-build \
-    supervisor
+    tar
+#    ninja-build \
+#    supervisor
 
 # setup supervisord
 RUN mkdir -p /var/log/supervisor
@@ -84,7 +84,7 @@ ADD resources/github_actions/publish-docs.yml $WORKSPACE/resources/github_action
 RUN python3 -m pip install  -r $WORKSPACE/requirements.txt
 
 # install cas-tools and its dependencies seperately to avoid cellxgene-census installation issues
-RUN python3 -m pip install anndata==0.10.3
+RUN python3 -m pip install anndata==0.10.5
 RUN python3 -m pip install ruamel.yaml==0.18.6
 RUN python3 -m pip install jsonschema==4.4.0
 RUN python3 -m pip install ordered-set==4.1.0
@@ -92,8 +92,8 @@ RUN python3 -m pip install deepmerge==1.1.0
 RUN python3 -m pip install numpy==1.26.4
 RUN python3 -m pip install marshmallow==3.21.1
 RUN python3 -m pip install python-dateutil==2.9.0
-RUN python3 -m pip install cap-anndata==0.2.1
-RUN python3 -m pip install --no-deps cas-tools==1.0.11
+RUN python3 -m pip install cap-anndata==0.3.0
+RUN python3 -m pip install --no-deps cas-tools==1.1.5
 RUN python3 -m pip install --no-deps tdta==0.1.0.dev25
 
 #RUN Rscript $WORKSPACE/dendR/install_packages.R
@@ -103,28 +103,19 @@ RUN python3 -m pip install --no-deps tdta==0.1.0.dev25
 
 WORKDIR $WORKSPACE
 
-### NANOBOT reources
-RUN mkdir $WORKSPACE/nanobot
-ADD nanobot/nanobot.toml $WORKSPACE/nanobot
-RUN mkdir $WORKSPACE/nanobot/src
-RUN mkdir $WORKSPACE/nanobot/src/schema
-ADD nanobot/src/schema/column.tsv $WORKSPACE/nanobot/src/schema
-ADD nanobot/src/schema/datatype.tsv $WORKSPACE/nanobot/src/schema
-ADD nanobot/src/schema/table.tsv $WORKSPACE/nanobot/src/schema
-RUN mkdir $WORKSPACE/nanobot/src/assets
-ADD nanobot/src/assets/bstreeview.css $WORKSPACE/nanobot/src/assets
-ADD nanobot/src/assets/bstreeview.js $WORKSPACE/nanobot/src/assets
-ADD nanobot/src/assets/ols-autocomplete.css $WORKSPACE/nanobot/src/assets
-ADD nanobot/src/assets/ols-autocomplete.js $WORKSPACE/nanobot/src/assets
-ADD nanobot/src/assets/styles.css $WORKSPACE/nanobot/src/assets
-RUN mkdir $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/cross_taxonomy.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/ols_form.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/taxonomy_view.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/table.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/page.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/review.html $WORKSPACE/nanobot/src/resources
-ADD nanobot/src/resources/edit_annotation_transfer.html $WORKSPACE/nanobot/src/resources
+### Relatable reources
+RUN mkdir $WORKSPACE/relatable
+ADD relatable/nanobot.toml $WORKSPACE/relatable
+RUN mkdir $WORKSPACE/relatable/src
+RUN mkdir $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/cell_menu.html $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/column_menu.html $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/page.html $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/row_menu.html $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/table.html $WORKSPACE/relatable/src/templates
+ADD relatable/src/templates/taxonomy_view.html $WORKSPACE/relatable/src/templates
+RUN mkdir $WORKSPACE/relatable/bin
+ADD relatable/bin/rltbl $WORKSPACE/relatable/bin
 
 # GH cli on linux is old (2.4.0), get the latest
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
