@@ -94,7 +94,7 @@ RUN python3 -m pip install marshmallow==3.21.1
 RUN python3 -m pip install python-dateutil==2.9.0
 RUN python3 -m pip install cap-anndata==0.3.0
 RUN python3 -m pip install --no-deps cas-tools==1.1.5
-RUN python3 -m pip install --no-deps tdta==0.1.0.dev25
+RUN python3 -m pip install --no-deps tdta==0.1.4
 
 #RUN Rscript $WORKSPACE/dendR/install_packages.R
 

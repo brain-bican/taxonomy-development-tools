@@ -15,18 +15,6 @@ bash ./run.sh make load_data
 > run.bat make load_data
 > ```
 
-5. Launch TDT:
-```
-bash ./run.sh make serve
-```
-> For Windows: 
-> ```
-> run.bat make serve
-> ```
-This command will print a set of logs including a log like `nanobot::serve: listening on 0.0.0.0:3000`. This means your web editor is ready, and you can start editing your data.
-
-6.  You can start browsing web taxonomy editor from: [http://localhost:3000/table](http://localhost:3000/table)
-
 ### Problems?
 
 There are three frequently encountered problems at this stage:
